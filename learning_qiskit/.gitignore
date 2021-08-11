@@ -1,0 +1,4 @@
+secure/
+*.swp
+*.pyc
+.ipynb_checkpoints/*
