@@ -1,0 +1,5 @@
+-
+  ros1_package_name: 'my_msgs'
+  ros1_message_name: 'CustomString'
+  ros2_package_name: 'my_msgs'
+  ros2_message_name: 'MyCustomString'

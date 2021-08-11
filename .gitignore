@@ -4,3 +4,4 @@
 */build/
 secure/
 */.ipynb_checkpoints/*
+*/.vscode/*

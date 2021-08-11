@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>my_robot_bringup</name>
+  <version>0.0.0</version>
+  <description>The my_robot_bringup package</description>
+  <maintainer email="ed@todo.todo">ed</maintainer>
+  <license>TODO</license>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>ros1_app_py</exec_depend>
+  <exec_depend>ros1_app_cpp</exec_depend>
+
+  <export>
+
+  </export>
+</package>
