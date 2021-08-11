@@ -1,0 +1,14 @@
+{
+	"version": 3,
+	"file": "styles.css",
+	"sources": [
+		"styles.scss",
+		"_sass/main.scss"
+	],
+	"sourcesContent": [
+		"@import \"main\";\n",
+		".current {\n    color: red;\n}\n\n.heading {\n    color: blue;\n}\n\n#shiva\n{\n  width: 100px;\n\theight: 100px;\n\tbackground: red;\n\t-moz-border-radius: 50px;\n\t-webkit-border-radius: 50px;\n\tborder-radius: 50px;\n  float:left;\n  margin:5px;\n}\n.count\n{\n  line-height: 100px;\n  color:white;\n  margin-left:30px;\n  font-size:25px;\n}\n#talkbubble {\n   width: 120px;\n   height: 80px;\n   background: red;\n   position: relative;\n   -moz-border-radius:    10px;\n   -webkit-border-radius: 10px;\n   border-radius:         10px;\n  float:left;\n  margin:20px;\n}\n#talkbubble:before {\n   content:\"\";\n   position: absolute;\n   right: 100%;\n   top: 26px;\n   width: 0;\n   height: 0;\n   border-top: 13px solid transparent;\n   border-right: 26px solid red;\n   border-bottom: 13px solid transparent;\n}\n\n.linker\n{\n  font-size : 20px;\n  font-color: black;\n}\n"
+	],
+	"names": [],
+	"mappings": "ACAA,AAAA,QAAQ,CAAC,EACL,KAAK,EAAE,GAAG,GACb;;AAED,AAAA,QAAQ,CAAC,EACL,KAAK,EAAE,IAAI,GACd;;AAED,AAAA,MAAM,CACN,EACE,KAAK,EAAE,KAAK,EACb,MAAM,EAAE,KAAK,EACb,UAAU,EAAE,GAAG,EACf,kBAAkB,EAAE,IAAI,EACxB,qBAAqB,EAAE,IAAI,EAC3B,aAAa,EAAE,IAAI,EAClB,KAAK,EAAC,IAAI,EACV,MAAM,EAAC,GAAG,GACX;;AACD,AAAA,MAAM,CACN,EACE,WAAW,EAAE,KAAK,EAClB,KAAK,EAAC,KAAK,EACX,WAAW,EAAC,IAAI,EAChB,SAAS,EAAC,IAAI,GACf;;AACD,AAAA,WAAW,CAAC,EACT,KAAK,EAAE,KAAK,EACZ,MAAM,EAAE,IAAI,EACZ,UAAU,EAAE,GAAG,EACf,QAAQ,EAAE,QAAQ,EAClB,kBAAkB,EAAK,IAAI,EAC3B,qBAAqB,EAAE,IAAI,EAC3B,aAAa,EAAU,IAAI,EAC5B,KAAK,EAAC,IAAI,EACV,MAAM,EAAC,IAAI,GACZ;;AACD,AAAA,WAAW,CAAC,MAAM,CAAC,EAChB,OAAO,EAAC,EAAE,EACV,QAAQ,EAAE,QAAQ,EAClB,KAAK,EAAE,IAAI,EACX,GAAG,EAAE,IAAI,EACT,KAAK,EAAE,CAAC,EACR,MAAM,EAAE,CAAC,EACT,UAAU,EAAE,sBAAsB,EAClC,YAAY,EAAE,cAAc,EAC5B,aAAa,EAAE,sBAAsB,GACvC;;AAED,AAAA,OAAO,CACP,EACE,SAAS,EAAG,IAAI,EAChB,UAAU,EAAE,KAAK,GAClB"
+}
