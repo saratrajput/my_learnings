@@ -30,7 +30,7 @@ class SelfAttention(nn.Module):
         keys = self.keys(keys)
         queries = self.queries(queries)
 
-        energy = torch.einsum("nqhd,nkhd-->nhqk", [queries, keys])
+        energy = torch.einsum("nqhd,nkhd->nhqk", [queries, keys])
         # queries shape: (N, query_len, heads, heads_dim)
         # keys shape: (N, key_len, heads, heads_dim)
         # energy shape: (N, heads, query_len, key_len)
@@ -42,7 +42,7 @@ class SelfAttention(nn.Module):
         attention = torch.softmax(energy / (self.embed_size ** (1/2)), dim=3)
 
         out = torch.einsum(
-            "nhql,nlhd-->nqhd", [attention, values]).reshape(N, query_len, self.heads*self.head_dim)
+            "nhql,nlhd->nqhd", [attention, values]).reshape(N, query_len, self.heads*self.head_dim)
         # attention shape: (N, heads, query_len, key_len)
         # values shape: (N, value_len, heads, heads_dim)
         # after einsum (N, query_len, heads, head_dim) then flatten last two dimensions
@@ -111,7 +111,7 @@ class Encoder(nn.Module):
 
     def forward(self, x, mask):
         N, seq_length = x.shape
-        positions = torch.arrange(0, seq_length).expand(N, seq_length).to(self.device)
+        positions = torch.arange(0, seq_length).expand(N, seq_length).to(self.device)
 
         out = self.dropout(self.word_embedding(x) + self.position_embedding(positions))
 
@@ -237,8 +237,8 @@ class Transformer(nn.Module):
 
 
 if __name__ == '__main__':
-    # device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    device = torch.device("cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    # device = torch.device("cpu")
 
     x = torch.tensor([[1, 5, 6, 4, 3, 9, 5, 2, 0], [1, 8, 7, 3, 4, 5, 6, 7, 2]]).to(device)
     trg = torch.tensor([[1, 7, 4, 3, 5, 9, 2, 0], [1, 5, 6, 2, 4, 7, 6, 2]]).to(device)
