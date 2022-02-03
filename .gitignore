@@ -3,5 +3,5 @@
 *.o
 */build/
 secure/
-*/.ipynb_checkpoints/*
+**/.ipynb_checkpoints/*
 */.vscode/*
