@@ -53,10 +53,7 @@ rustup install nightly
 rustup default nightly
 
 cargo expand
-
-
-
-
+```
  
 ---
 **NOTES:**
@@ -100,3 +97,20 @@ We have to deallocate the memory manually the memory which we have allocated in 
 * Basic Data Types
 * Standard Library
 * Memory Ownership
+
+## Ownership
+### Ownership Rules
+- Each value in Rust is owned by a variable.
+- When the owner goes out of scope, the value will be deallocated.
+- There can only be ONE owner at a time.
+
+## Debugging
+* Executable files are stored in **target/debug/**.
+```
+./mars_calc
+```
+
+* Debugger
+```
+gdb mars_calc
+```
