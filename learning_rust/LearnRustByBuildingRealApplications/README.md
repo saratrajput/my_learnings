@@ -114,3 +114,8 @@ We have to deallocate the memory manually the memory which we have allocated in 
 ```
 gdb mars_calc
 ```
+
+## HTTP/1.1
+* L7 Protocol
+* Sent over TCP
+* Message based
