@@ -1,1 +1,0 @@
-/Users/sp/repos/my_learnings/learning_rust/LearnRustByBuildingRealApplications/example/target/debug/example: /Users/sp/repos/my_learnings/learning_rust/LearnRustByBuildingRealApplications/example/src/main.rs
