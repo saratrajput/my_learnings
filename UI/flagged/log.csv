@@ -1,3 +1,2 @@
-name,Output,timestamp
-adfdadfdf,Hello...adfdadfdf!!,2022-01-26 17:28:18.560273
-adfdadfdf,Hello...adfdadfdf!!,2022-01-26 17:28:19.575730
+name,Height in Meters,Weight in Kg,feeling,Output 1,Output 2,Output 3,flag,timestamp
+1littlecoder,1,50,True,Hello 1littlecoder. Your BMI is 50.0,Bad,Happy,no,2022-01-28 13:16:43.791548
