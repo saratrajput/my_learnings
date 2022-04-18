@@ -1,4 +1,8 @@
+"""
+This script helps to grab the screen and return an RGB image.
 
+# Done by Frannecklp
+"""
 import cv2
 import numpy as np
 import pyautogui
@@ -6,6 +10,8 @@ import win32api
 import win32con
 import win32gui
 import win32ui
+
+
 def grab_screen(region=None):
     hwin = win32gui.GetDesktopWindow()
 
