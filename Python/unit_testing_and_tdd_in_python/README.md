@@ -100,3 +100,77 @@ pytest -v -s test_file_setup_and_teardown.py
 
 ### Verifying Exceptions
 * In some cases 
+
+## Unit Test Isolation with Dummies, Fakes, Stubs, Spies, and Mocks
+
+### What are Test Doubles?
+* Almost all code depends (i.e. collaborates) with other parts of the system.
+* Those other parts of the system are not always easy to replicate in the unit test environment or would make tests slow if used directly.
+* Test doubles are objects that are used in unit tests as replacements to the real production system collaborators.
+
+### Types of Test Doubles
+* Dummy - Objects that can be passed around as necessary but do not have any type of test implementation and should never be used.
+* Fake - These object generally have a simplified functional implementation of a particular interface that is adequate for testing but not for production.
+* Stub - These objects provide implementations with canned answers that are suitable for the test.
+* Spies - These objects provide implementations that record the values that were passed in so they can be used by the test.
+* Mocks - These objects are pre-programmed to expect specific calls and parameters and can throw exceptions when necessary.
+
+### Mock Frameworks
+* Most mock frameworks provide easy ways for automatically creating any of these types of test doubles at runtime.
+* They provide a fast means for creating mocking expectations for your tests.
+* They can be much more efficient than implementing custom mock object of your own creation.
+* Creating mock objects by hand can be tedious and error prone.
+
+### unittest.mock
+* Python Mocking Framework.
+* Built-in to Python version 3.3 and newer.
+* Needs to be installed for older versions of Python with the command "pip install mock".
+
+### unittest.mock - Mock Class
+* unittest.mock provides the Mock class which can be used as a fake, stub, spy, or true mock for all your tests.
+* The Mock class has many initialization parameters for controlling its behaviour.
+* Once it has been called a Mock object has many built-in functions for verifying how it was used.
+
+Example
+```
+def test_Foo():
+    bar = Mock()
+    functionThatUsesBar(bar)
+    bar.assert_called_once()
+```
+
+### Mock - Initialization
+* Mock provides many initialization parameters which can be used to control the mock objects behaviour.
+* The 'spec' parameter specifies the interface that Mock object is implementing.
+* The 'side_effect' parameters specifies a function that should be called when the mock is called.
+* The 'return_value' parameter specifies the return value when the Mock is called.
+
+Example
+```
+def test_Foo():
+    bar = Mock(spec=SpecClass)
+    bar2 = Mock(side_effect=barFunc)
+    bar3 = Mock(return_value=1)
+```
+
+### Mock - Verification
+* Mock provides many built-in functions for verifying how it was used such as the following asserts:
+    * assert_called - Assert the mock was called.
+    * assert_called_once - Assert the mock was called once.
+    * assert_called_with - Assert the last call to the mock was with the specified parameters.
+    * assert_called_once_with - Assert the mock was called once with the specified parameters.
+    * assert_any_call - Assert the mock was ever called with the specified parameters.
+    * assert_not_called - Assert the mock was not called.
+
+### Mock - Additional Verification
+* Mock provides these additional built-in attributes for verification:
+    * assert_has_calls - Assert the mock was called with the list of calls.
+    * called - A boolean value including if the mock was every called.
+    * call_count - An integer value representing the number of times the mock object was called.
+    * call_args - The arguments the mock was last called with.
+    * call_args_list - A list containing the arguments that were used for each call to the mock.
+
+### unittest.mock - MagicMock Class
+* unittest.mock also provides the MagicMock class.
+* MagicMock is derived from Mock and provides a default implementation of many of the default "magic" methods defined for objects in Python (i.e. ```__str__```).
+* The 
