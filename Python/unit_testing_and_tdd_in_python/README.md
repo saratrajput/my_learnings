@@ -92,14 +92,66 @@ pytest -v -s test_file_setup_and_teardown.py
 * Pytest allows the use of the built in python assert statement for performing verifications in a unit test.
 * Comparison on all of the python data types can be performed using the standard comparison operators: <, >, <=, >=, ==, and !=
 * Pytest expands on the message returned from assert failures to provide more context in the test results.
+```
+def test_IntAssert():
+    assert 1 == 1
+
+def test_StrAssert():
+    assert "str" == "str"
+
+def test_floatAssert():
+    assert 1.0 == 1.0
+
+def test_arrayAssert():
+    assert[1, 2, 3] == [1, 2, 3]
+
+def test_dictAssert():
+    assert{"1":1} == {"1":1}
+```
 
 ### Comparing Floating Point Values
 * Validating floating point values can sometimes be difficult as internally the value is a binary fractions (i.e. 1/3 is internally 0.333333...)
 * Because of this some floating point comparisons that would be expected to pass fail.
 * The pytest "approx" function can be used to verify that two floating point values are "approximately" equivalent to each other with a default tolerance of 1e-6.
 
+```
+# Failing test
+def test_BadFloatCompare():
+    assert(0.1 + 0.2) == 0.3
+
+# Passing test
+def test_GoodFloatCompare():
+    val = 0.1 + 0.2
+    assert val == approx(0.3)
+```
+
 ### Verifying Exceptions
-* In some cases 
+* In some cases we want to verify that a function throws an exception under certain conditions.
+* Pytest provides the "raises" helper to perform this verification using the "with" keyword.
+* If the specified exception is not raised in the code block specified after the "raises" line then the test fails.
+
+```
+def test_Exception():
+    with raises(ValueError):
+        raise ValueError
+```
+
+### PyTest Command Line Arguments
+
+#### Specifying What Tests Should Run
+* By default PyTest will automatically discover and run all tests in all properly named modules from the current working directory and sub-directories.
+* There are several command line arguments for controlling which discovered tests actually are executed.
+    * moduleName - Simply specify the module name to run only the tests in that module.
+    * DirectoryName/ - Runs any tests found in the specified directory.
+    * -k "expression" - Matches tests found that match the evaluatable expression in the string. The string values can include module, class and function names (i.e. "TestClass and TestFunction").
+    * -m "expression" - Matches tests found that have a "pytest.mark" decorator that matches the specified expression.
+
+#### Additional Useful Command Line Arguments
+* -v: Report in verbose mode.
+* -q: Run in quiet mode (can be helpful when running hundreds or thousands of tests at once).
+* -s: Don't capture console output(show pring statements on the console).
+* --ignore: Ignore the specified path when discovering tests.
+* --maxfail: Stop after the specified number of failures.
 
 ## Unit Test Isolation with Dummies, Fakes, Stubs, Spies, and Mocks
 
@@ -173,4 +225,90 @@ def test_Foo():
 ### unittest.mock - MagicMock Class
 * unittest.mock also provides the MagicMock class.
 * MagicMock is derived from Mock and provides a default implementation of many of the default "magic" methods defined for objects in Python (i.e. ```__str__```).
-* The 
+* The following magic methods are not implemented by default in MagicMock: ```__getattr__, __setattr__, __init__, __new__, __prepare__, __instantcheck__, __subclasscheck__```, and ```__del__```.
+* I will used MagicMock in all of the examples and I use it by default in practice as it can simplify test setup.
+
+### PyTest Monkeypatch Test Fixture
+* PyTest provides the monkeypatch test fixture to allow a test to dynamically replace:
+    * module and class attributes.
+    * Dictionary entries.
+    * Environment variables.
+
+```
+def callIt():
+    print("Hello world.")
+
+def test_patch(monkeypatch):
+    monkeypatch(callIt, Mock())
+    callIt()
+    callIt.assert_called_once()
+```
+
+## TDD Best Practices
+
+### Always Do the Next Simplest Test Case
+* Doing the next simplest test case allows you to gradually increase the complexity of your code.
+* If you jump into the complex test cases too quickly you will find yourself stuck writing a lot of functionality all at once.
+* Beyond just slowing you down, this can also lead to bad design decisions.
+
+### Use Descriptive Test Names
+* Code is read 1000 times more than it's written. Make it clear and readable!
+* Unit tests are the best documentation for how your code works. Make them easy to understand.
+* Test suites should name the class or function under test and the test names should describe the functionality being tested.
+
+### Keep Test Fast
+* One of the biggest benefits of TDD is the fast feedback on how your changes have affected things.
+* This goes away if your unit tests take more than a few seconds to build and run.
+* To help your test stay fast try to:
+    * Keep console output to a minimum. This slows things down and can clutter up the testing framework output.
+    * Mock out any slow collaborators with test doubles that are fast.
+
+### Use Code Coverage Tools
+* Once you have all your test cases covered and you think you're done run your unit test through a code coverage tool.
+* This can help you identify any test cases you may have missed (i.e. negative test cases).
+* You should have a goal of 100% code coverage in functions with real logic in them (i.e. not simple getters/setters).
+
+### Run Your Tests Multiple Times and In Random Order
+* Running your tests many times will help ensure that you don't have any flaky tests that fail intermittently.
+* Running your tests in random order ensures that your tests don't have any dependencies between each other.
+* Use the pytest-random-order plugin to randomize the order that the tests are executed pytest-repeat plugin to repeat one or more tests a specific number of times.
+
+### Use a Static Code Analysis Tool
+* Pylint is an excellent open source static code analyis tool that will find erros in your code that you may have missed in your testing.
+* Pylint can verify your python code meets your team's coding standard (or the PEP8 standard by default).
+* Pylint can also detect duplicated code and can generate UML diagrams from it's analyis of the code.
+
+### Test Behaviour Rather Than Implementation
+* When writing your tests try to test the behaviour rather than the implementation.
+* When your test is written to verify the behaviour rather than the implementation then the implementation can change without affecting your test.
+* This is not always possible as some implementations use collaborators that need to be mocked out.
+* In addition, some testing is specifically to verify that the implementation is calling and handling responses from collaborators correctly (i.e. database and network calls).
+
+### Testing Implementation Example
+```
+def addDays(theDate, days):
+    return theDate.timedelta(days=days)
+
+def test_addDaysImplementation(monkeypatch):
+    mock_delta = MagicMock(return_value=datetime.timedelta(days=1))
+    monkeypatch(datetime.timedelta, mock_delta)
+    addDays(datetime.datetime(2020, 1, 1), 1)
+    mock_delta.assert_called_once_with(days=1)
+```
+
+*Testing Behaviour Instead*
+
+```
+def addDays(theDate, days):
+    return theDate.timedelta(days=days)
+
+def test_addDaysImplementation(monkeypatch):
+    result = addDays(datetime.datetime(2020, 1, 1), 1)
+    assert result == datetime.datetime(2020, 1, 2)
+```
+
+## Recommended Readings
+* Kent Beck - Test Driven Development: By Example
+* Robert Martin - Clean Code: A Handbook of Agile Software Craftsmanship
+* Michael Feathers - Working Effectively with Legacy Code
+* Watch Robert Martin's "Clean Code" video series: https://cleancoders.com
