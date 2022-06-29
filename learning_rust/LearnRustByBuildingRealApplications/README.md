@@ -91,7 +91,6 @@ We have to deallocate the memory manually the memory which we have allocated in 
 
 ### Smart Pointers
 
-
 ## Building a Command Line Application
 * Functions
 * Basic Data Types
@@ -119,3 +118,21 @@ gdb mars_calc
 * L7 Protocol
 * Sent over TCP
 * Message based
+
+### Strings
+* Rust has two types of strings.
+    * String is a datatype stored on heap, and you have access to that location.
+    * &str is aslice type. That means it is just reference to an already present String somewhere in the heap.
+
+```
+// String
+let string = String::from("127.0.0.1:8080");
+let string_slice = &string[10..];  // Everything after the 10th byte.
+let string_borrow: &str = &string;
+let string_literal = "1234";
+
+dbg!(&string);
+dbg!(string_slice);
+dbg!(string_borrow);
+dbg!(string_literal);
+```
