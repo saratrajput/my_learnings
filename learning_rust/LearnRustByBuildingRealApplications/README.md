@@ -21,9 +21,14 @@ These are my notes from the Udemy course [Learn Rust by Building Real World Appl
 ```
 curl --proto '=https' --tlsv1.2 https://sh.rustup.rs -sSf | sh
 ```
+
 ---
-**NOTE TO SELF**
-You need to use **bash** when working with Rust. **Fish** is not setup yet.
+
+For fish shell, add the following line to ```~/.config/fish/config.fish``` file.
+```
+# Add path to RUST
+set PATH /home/sp/.cargo/bin $PATH
+```
 ---
 
 #### Setup Development Environment
