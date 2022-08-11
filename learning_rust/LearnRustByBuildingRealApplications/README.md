@@ -141,3 +141,33 @@ dbg!(string_slice);
 dbg!(string_borrow);
 dbg!(string_literal);
 ```
+
+### The Option Enum
+#### Null values
+* Most languages have the concept of ```null``` values.
+* Null represents the absence of a value.
+* Rust doesn't have null values.
+* Rust has a different way of representing the absence of a value.
+* It uses the ```Option Enum``` to achieve this.
+```
+pub enum Option<T>
+{
+    None,
+    Some(T),
+}
+```
+
+* So to declare an optional string, we can use:
+```
+query_string: Option<String>
+```
+
+### Organising Our Code into Modules
+* To encapsulate our code into modules, add the code inside a ```mod {}``` (module).
+* Add the ```pub``` keyword to the struct definition or function definitions to make them public. By default everything is private. 
+* Use the ```super``` keyword to refer to the parent module.
+* To define namespaces,
+```
+use server::Server;
+```
+* To separate the modules in different files, we don't need to use the ```mod {}``` definition.
