@@ -171,3 +171,91 @@ query_string: Option<String>
 use server::Server;
 ```
 * To separate the modules in different files, we don't need to use the ```mod {}``` definition.
+
+### Listening for TCP Connections
+
+* ```std::net```
+Networking primitives for TCP/UDP communication.
+
+* ```std::net::TcpListener```
+A TCP socket server, listening for connections.
+
+### The Result Enum
+Result Enum is in the core of error handling in Rust.
+
+Rust groups error in two categories:
+* Recoverable: 
+    * Eg: FileNotFound Error
+    * In most cases, you would not like your program to crash if the file does not exist.
+* Unrecoverable:
+    * Eg: Result of a bug, like trying to access after an array has ended.
+
+Most languages don't distinguish between these two kinds of errors and handles both the same way using ```Exceptions```.
+
+Rust does not have ```Exceptions```. It handles errors with the Result enum.
+
+```
+pub enum Result<T, E>
+{
+    /// Contains the success value
+    Ok(T),
+    /// Contains the error value
+    Err(E),
+}
+```
+
+```unwrap```
+When it is used, it looks at the **Result**, and if it is ```Ok```, it will return the value that is wrapped by ```Ok```.
+If it is ```No```, it will terminate the program and log the reason on the screen.
+
+* Command to simulate the port ```8080``` is occupied.
+```
+netcat -k -l 8080
+```
+
+### Loops
+* Rust has a simpler syntax for ```while```.
+
+```
+while true 
+{
+    <body of the loop>
+}
+``` 
+
+Rust:
+```
+loop
+{
+    <body of the loop>
+}
+```
+
+* To continue the rest of the code: ```continue;```.
+* To break out of the loop: ```break;```.
+
+* To break out of the outer loop from inside the inner loop, one can use **labels**.
+
+```
+'outer: loop
+{
+    loop
+    {
+        break 'outer;
+    }
+}
+```
+
+### Tuples
+* Useful for grouping together different types together which are immutable.
+
+### The Match Expression
+* Rust has a special control flow operator called match.
+* It allows you to compare a value against a series of patterns and then execute code based on which pattern matches.
+* When matching on ```enums```, the code will not compile unless we have covered all the possible variants.
+
+* You can use an ```_``` (underscore), for unwrapping unneeded variables.
+    * It can also be used as a pattern, where we don't want to match all patterns.
+    * Similar to **default** case in other languages.
+
+### Arrays
