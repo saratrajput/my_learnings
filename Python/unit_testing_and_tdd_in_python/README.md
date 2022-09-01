@@ -312,3 +312,17 @@ def test_addDaysImplementation(monkeypatch):
 * Robert Martin - Clean Code: A Handbook of Agile Software Craftsmanship
 * Michael Feathers - Working Effectively with Legacy Code
 * Watch Robert Martin's "Clean Code" video series: https://cleancoders.com
+
+## Appendix
+* Test for image processing algorithm to see if the same resulting output is produced
+every time: [link](https://github.com/danielgatis/rembg/blob/main/tests/test_remove.py)
+
+```
+pip install imagehash==4.2.1
+from imagehash import average_hash
+
+actual_hash = average_hash(Image.open(BytesIO(actual)))
+expected_hash = average_hash(Image.open(BytesIO(expected)))
+
+assert actual_hash == expected_hash
+```
