@@ -793,120 +793,199 @@ add_subdirectory() command reference to the upper level my_math directory while 
 refers to the lower level my_math directory. 
 ![Directory Structure](images/directory_structure.png)
 
-## Module 4
+## Module 4: Variables, Lists and Strings
 
 ### Normal Variables
-Hello, and welcome to the fourth module of this course.
+* Process script mode.
+   * No build files are generated. 
+```
+# Process script mode
+cmake -P
+```
 
-So far, we have been executing the cmake command to generate the build system files. In this module,
-
-we are going to use CMake in the script mode.
-
-Also, we are going to learn about variables, list and the strings in this module. To begin with,
-
-let us create another project called module4 with an empty CMakeLists.txt file.
-
-Now, we are ready to execute this CMakeLists.txt file using -P option. This option enables CMake to
-
-execute in the scripting mode.
-
-You can also see that using cmake --help command.
-
-With -P option, no build files are generated.
-
-Also, note that the name of the script could be anything that you want.
-
-For now, we will keep it as it is.
-
-We will edit the CMakeLists.txt file to print a text using message() command. 
+* [Message](https://cmake.org/cmake/help/latest/command/message.html) command.
 ```
 message (<mode-of-display> "the message")
+# Example
+message ("Hello World")
 ```
 
-Message() command expects an
+* Mode of display.
+   * STATUS: ```message (STATUS "Hello World")```
+   * DEBUG: ```message (DEBUG "Hello World")```
+   * WARNING: ```message (WARNING "Hello World")```
+   * FATAL ERROR: ```message (FATAL ERROR "Hello World")```
 
-optional �mode of display� and a �string message�. STATUS, DEBUG, WARNING and FATAL_ERROR are
+```
+cmake -P CMakeLists.txt
+```
+> ```project``` command is not scriptable.
 
-some of the modes of message display. 
-![Modes of Message Display](images/modes_of_message_display.png)
+* Create variable.
+```
+set(<variable_name> <variable_value>)
+```
+> All variables are of ```string``` type.
 
+* De-reference a variable with:
+```
+${variable_name}
+```
 
-You can check out the official website for more information.
+* Strings vs Lists
+   * ```set(Name "Bob Smith")``` --> String 'Name' = Bob Smith
+   * ```set(Name Bob Smith)``` --> List 'Name' = Bob;Smith
 
-In our first example,
+> A string is also a list with one single item.
 
-in the scripting mode, we will print a message
+### Quoted & Unquoted Arguments
 
-Hello world.
+| **Set Commands**        | **Value of VAR** | **message(${VAR})** | **message("${VAR}")** |
+|-------------------------|------------------|---------------------|-----------------------|
+| set(VAR aa bb cc)       |     aa;bb;cc     |        aabbcc       |        aa;bb;cc       |
+| set(VAR aa;bb;cc)       |     aa;bb;cc     |        aabbcc       |        aa;bb;cc       |
+| set(VAR "aa" "bb" "cc") |     aa;bb;cc     |        aabbcc       |        aa;bb;cc       |
+| set(VAR "aa bb cc")     |     aa bb cc     |       aa bb cc      |        aa bb cc       |
+| set(VAR "aa;bb;cc")     |     aa;bb;cc     |        aabbcc       |        aa;bb;cc       |
 
-Here, we are not going to specify any mode of display.
+### Manipulating Variables
 
-Also, we will specify the cmake_minimum_version().
+```
+set(NAME Alice)
+set(Alice Bob)
+set(NAME2AliceBob Charlie)
 
-By running the cmake command with -P option,
+message(NAME ${NAME} ${${NAME}})
+message(NAME2${NAME2}${${NAME2}})
+message("NAME2 ${NAME2} ${${NAME2}}")
+message(${NAME2${NAME2}${${NAME2}}})
 
-we can see that the message is printed. Note here that we need to specify the file name in the command.
+# Output
+NameAliceBob
+NameAliceBob
+Name Alice Bob
+Charlie
+```
 
-Therefore, you are free to choose any file name in the script mode. Note that, we will not use the project()
+### Lists and Strings
+#### **list()** command.
+```
+list(<subcommand> <name_of_list> ... ... ... <return_variable>)
+```
+   * ```APPEND```
+   * ```INSERT```
+   * ```FILTER```
+   * ```GET```
+   * ```JOIN```
 
-command here, because this command is not scriptable and cmake will give us an error if we use the
+```
+set(VAR a b c;d "e;f" 2.718 "Hello There")
+abcdef2.7Hello There
+```
 
-project() command.
+* Index starts from 0.
+* If index is negative, then it starts from behind.
 
-Now, just like any other programming language CMake also has variables.
+* Subcommands modifying the input list.
+   * ```APPEND```
+   * ```REMOVE_ITEM```
+   * ```REMOVE_AT```
+   * ```INSERT```
+   * ```REVERSE```
+   * ```REMOVE_DUPLICATES```
+   * ```SORT```
 
-Here, you can create any normal variable using set() command. One important thing to note here is that, all the variables
+|      **List Commands**      |         **Output**        |
+|:---------------------------:|:-------------------------:|
+|   list(APPEND VAR 1.6 XX)   | abcdef2.7Hello There1.6XX |
+|   list(REMOVE_AT VAR 2 -3)  |       abdef2.71.6XX       |
+| list(REMOVE_ITEM VAR a 2.7) |         bdef1.6XX         |
+|  list(INSERT VAR 2 XX 2.7)  |       bdXX2.7ef1.6XX      |
+| list(REMOVE_DUPLICATES VAR) |        bdXX2.7ef1.6       |
+|        list(SORT VAR)       |        1.62.7XXbdef       |
 
-in CMake are of string type. Once these variables are created, they can be dereferenced using variable
+* Other commands
 
-Names, enclosed between the curly braces and prepended with their dollar sign, like this.
+|        **List Commands**        |             **Output**             |
+|:-------------------------------:|:----------------------------------:|
+|     list(LENGTH VAR len_var)    |             len_var: 7             |
+|   list(GET VAR 2 5 6 sub_list)  |          sub_list: XX;e;f          |
+| list(SUBLIST VAR 2 3 sub_list2) |          sub_list2: XX;b;d         |
+|    list(JOIN VAR ++ str_list)   | str_list: 1.6++2.7++XX++b++d++e++f |
+|    list(FIND VAR XX find_var)   |             find_var: 2            |
 
-If you tried to dereference any variable which is not yet set, it will give you an empty string.
+> Find sub-command will return negative 1, if the specified element was not found.
 
-Let us see that using an example.
+#### **string()** command.
+* List of subcommands:
+   * ```FIND```
+   * ```REPLACE```
+   * ```PREPEND```
+   * ```APPEND```
+   * ```TOLOWER```
+   * ```TOUPPER```
+   * ```COMPARE```
 
-Firstly, I will set a �Name� variable to value �Bob� and �Height� variable to �190�.
+* To find and replace.
 
-Now, if we want to print a message, we can write
+```
+set(VAR "CMake for Cross-Platform C++ Projects")
 
-message Hello my name is dollar name
+string(FIND ${VAR} "for" find_var)
+message(${find_var})
+# Output: 5
 
-my height is dollar height centimeter and my age is dollar age years.
+string(REPLACE "Projects" "Project" replaced_var ${VAR})
+message(${replaced_var})
+# Output: CMake for Cross-Platform C++ Project.
+```
 
-Let us run this script with -P option.
+* To append and prepend.
 
-As you can see that, it is printing the correct name and height, but it prints nothing in place of age, because
+```
+#replaced_var=CMake for Cross-Platform C++ Project
 
-the age variable returned an empty string.
+string(PREPEND replaced_var "Master")
+message(${replaced_var})
+#Output: Master CMake for Cross-Platform C++ Project.
 
-Now, let us modify the CMakeLists.txt file such that the name variable contains 2 words
+string(APPEND replaced_var "Building")
+message(${replaced_var})
+#Output: Master CMake for Cross-Platform C++ Project Building.
+```
 
-Bob Smith with quotes and execute the script.
+* To convert string to lower or upper-case.
 
-We can see the expected results.
+```
+#replaced_var=CMake for Cross-Platform C++ Project.
 
-Now, again run the script by removing the quotes.
+string(TOLOWER ${replaced_var} lower_case_var)
+message(${lower_case_var})
+#Output:master cmake for cross-platform c++ project building.
 
-As you can see that the 2 outputs that we have got are different.
+string(TOUPPER ${lower_case_var} upper_case_var)
+message(${upper_case_var})
+#Output: MASTER CMAKE FOR CROSS-PLATFORM C++ PROJECT BUILDING.
+```
 
-Let us understand why we got the different outputs. When we wrote set name Bob Smith using quotes,
+* To compare strings.
 
-We created a string with a value.
+```
+#upper_case_var = MASTER CMAKE FOR CROSS-PLATFORM C++ PROJECT BUILDING
 
-BOB SMITH, but when we wrote set name Bob Smith without quotes, we created a list of two items Bob and Smith
+string(COMPAREE EQUAL ${upper_case_var} "MASTER CMAKE FOR CROSS-PLATFORM C++ PROJECT BUILDING" equality_check_var)
+message(${equality_check_var})
+#Output:1
+```
 
-A list in CMake is just a list of semicolon separated items.
+#### **file()** command.
+* List of subcommands:
+   * ```READ```
+   * ```WRITE```
+   * ```RENAME```
+   * ```REMOVE```
+   * ```COPY```
+   * ```DOWNLOAD```
+   * ```LOCK```
 
-So, in this case the value of naming variable is Bob;Smith.
-
-One thing to note here is that, a string is also a list with just one single item. Lists in CMake can
-
-be operated using list() command and the strings can be operated using string() command. More about these
-
-commands in the upcoming lectures of this module. Coming back to our example, when we are printing the
-
-name variable,
-
-we are getting a list output. Let us see some more examples of lists and strings in the next lecture.
-
-Thank you.
+## Module 5: Control Flow Commands, Functions, Macros, Scopes and Listfiles
