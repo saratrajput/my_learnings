@@ -989,3 +989,6 @@ message(${equality_check_var})
    * ```LOCK```
 
 ## Module 5: Control Flow Commands, Functions, Macros, Scopes and Listfiles
+
+## APPENDIX
+* [How to set up a CMakeLists.txt with add_subdirectories](https://github.com/sun1211/cmake_with_add_subdirectory).
