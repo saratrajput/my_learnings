@@ -61,5 +61,25 @@ admin.site.register(Product)
 #### Create Product Objects in the Python Shell
 
 ```
+# Go to root directory and launch shell
+cd src/
 python manage.py shell
+
+# Absolute imports
+from products.models import Product
+
+# List all objects
+Product.objects.all()
+
+# Create new object
+Product.objects.create(title='New Product 2', description='another one', price='19312', summary='sweet')
 ```
+
+### New Model Fields
+> To start over, delete all the files in the ```migrations``` folder and the ```db.sqlite3 file.```.
+
+* [Field-types docs](https://docs.djangoproject.com/en/4.1/ref/models/fields/#field-types).
+
+* ```CharField()```: max_length is **required**.
+
+### Change a Model
