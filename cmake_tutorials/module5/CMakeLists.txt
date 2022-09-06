@@ -1,0 +1,59 @@
+cmake_minimum_required(VERSION 3.0.0)
+
+set(VAR OFF)
+set (VAR2 VAR)
+
+# If-else
+if(${VAR2})
+    message("If block executed.")
+else()
+    message("Else block executed.")
+endif()
+
+# Unary tests
+set(Name Alice)
+
+# Unary tests DEFINED
+if(DEFINED Name)
+    message("Name: if block executed.")
+else()
+    message("Name: else block executed.")
+endif()
+
+if(DEFINED Age)
+    message("Age: if block executed.")
+else()
+    message("Age: else block executed.")
+endif()
+
+# Unary tests COMMAND
+if(COMMAND target_link_library)
+    message("target_link_library is a command.")
+else()
+    message("target_link_library is NOT a command.")
+endif()
+
+if(COMMAND target_link_libraries)
+    message("target_link_libraries is a command.")
+else()
+    message("target_link_libraries is NOT a command.")
+endif()
+
+# Unary tests EXISTS
+if(EXISTS /home/sp/dev_root/my_learnings/cmake_tutorials/module5/CMakeLists.txt)
+    message("Given file exists.")
+else()
+    message("File not found.")
+endif()
+
+# Binary tests
+set(Name1 Charlie)
+set(Name2 Charlies)
+
+if(Name1 STRLESS Name2)
+    message("${Name1} is less than ${Name2}.")
+elseif(Name1 STRGREATER Name2)
+    message("${Name1} is greater than ${Name2}.")
+elseif(Name1 STREQUAL Name2)
+    message("${Name1} is equal to ${Name2}.")
+endif()

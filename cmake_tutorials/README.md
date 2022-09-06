@@ -990,5 +990,96 @@ message(${equality_check_var})
 
 ## Module 5: Control Flow Commands, Functions, Macros, Scopes and Listfiles
 
+* Flow Control commands
+   * If-else
+   * Loop
+      * while
+      * foreach
+* Function command
+* Scopes
+* Macro command
+* Modules
+
+### If-Else Command
+
+```
+# If
+if(<condition>)
+   <command1>
+   <command2>
+endif()
+
+# Elseif
+if(<condition>)
+   <command>
+elseif(<condition>)
+   <command>
+else
+   <commands>
+endif()
+```
+
+* Constants
+   * 1, ON, YES, TRUE, Y, a non-zero number: ```TRUE```
+   * 0, OFF, NO, FALSE, N, IGNORE, NOTFOUND, the empty string, string ending with -NOTFOUND: ```FALSE```
+
+* Using constants with if()
+```
+if(YES)
+   <commands>
+endif()
+
+if(N)
+   <commands>
+endif()
+
+if(ON)
+   <commands>
+endif()
+
+if(OFF)
+   <commands>
+endif()
+```
+
+* Using variables with if()
+```
+# Constant
+if(YES)
+   <commands>
+endif()
+
+# Variable
+if(YE)
+   <commands>
+endif()
+```
+
+* if() conditions
+
+   * Unary tests.
+      * Used to check if something does exist or not.
+   * Binary tests: Used to check if two strings or variables are greater, lesser or equal to one another.
+   * Boolean operators.
+
+   * if() Conditions | Unary Tests
+      * DEFINED: If a variable is set or not set.
+      * COMMAND: If a command exists or not.
+      * EXISTS: If a file or directory exists or not.
+
+   * Binary tests.
+      * STRLESS
+      * STRGREATER
+      * STREQUAL
+
+   * Boolean operators.
+      * NOT: ```if(NOT DEFINED VAR)```
+      * OR: ```if(NOT(VAR STREQUAL "test" OR VAR2 STREQUAL "test2"))```
+      * AND: ```if(NOT(VAR STREQUAL "test" AND VAR2 STREQUAL "test2"))```
+
+### Loops
+* while
+* foreach
+
 ## APPENDIX
 * [How to set up a CMakeLists.txt with add_subdirectories](https://github.com/sun1211/cmake_with_add_subdirectory).
