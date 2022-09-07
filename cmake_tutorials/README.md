@@ -1079,7 +1079,74 @@ endif()
 
 ### Loops
 * while
+```
+while(<condition>)
+   <commands>
+endwhile()
+```
+
 * foreach
+```
+foreach(<loop_variable> <items>)
+   <commands>
+endforeach()
+```
+
+   * Variant 1
+
+      ```
+      foreach(Name Alice Bob Charlie)
+      foreach(Name Alice;Bob;Charlie)
+      ```
+   * Variant 2
+      
+      ```
+      foreach(x RANGE 10)  # x: 0~10
+      foreach(x RANGE 10 20)  # x: 10~20
+      foreach(x RANGE 10 20 3)  # x: 10~20 with step-size 3
+      ```
+      * Start and Stop values are inclusive.
+      * Start, Stop and Step values should be non-negative integers.
+
+   * Variant 3: Iterating over multiple lists.
+
+      ```
+      foreach(x IN LISTS <list1> <list2> <list3>)
+      ```
+
+### Functions
+
+```
+function(<function_name> <function_args>)
+   <commands>
+endfunction()
+```
+
+* De-referencing arguments.
+
+```
+# Method 1
+function(print_detail name_var)
+   message(${name_var})
+endfunction()
+
+set(Name Charlie)
+print_detail(Name)
+
+# Method 2
+function(print_detail name_var)
+   message(${${name_var}})
+endfunction()
+
+set(Name Charlie)
+print_detail(Name)
+```
+
+* Functions with same names.
+   * Cmake renames the first function by appending ```_```, so, if there are two functions with the same name, the first one defined can be accessed with ```_function_name```.
+   * If there are three functions with the same name, then the first one can longer be accessed.
+
+### Optional Arguments of Functions
 
 ## APPENDIX
 * [How to set up a CMakeLists.txt with add_subdirectories](https://github.com/sun1211/cmake_with_add_subdirectory).

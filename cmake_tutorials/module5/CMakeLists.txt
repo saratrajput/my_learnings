@@ -57,3 +57,53 @@ elseif(Name1 STRGREATER Name2)
 elseif(Name1 STREQUAL Name2)
     message("${Name1} is equal to ${Name2}.")
 endif()
+
+# While loop
+set (VAR a)
+# set (VAR ${VAR}a)
+# set (VAR ${VAR}a)
+# set (VAR ${VAR}a)
+# set (VAR ${VAR}a)
+# set (VAR ${VAR}a)
+# set (VAR ${VAR}a)
+# set (VAR ${VAR}a)
+# set (VAR ${VAR}a)
+while(NOT VAR STREQUAL "aaaaaaaaaa")
+    set(VAR ${VAR}a)
+    message(${VAR})
+endwhile()
+
+# Foreach loop
+## Variant 1
+foreach(Name Alice Bob Charlie)
+    message(${Name})
+endforeach()
+
+## Variant 2
+foreach(x RANGE 100 105)
+    message("Person_${x}")
+endforeach()
+
+## Variant 3
+set(VAR1 0;1)
+set(VAR2 2 3)
+set(VAR3 "4 5")
+
+foreach(x IN LISTS VAR1 VAR2 VAR3)
+    message("x = ${x}")
+endforeach()
+
+# Function
+function(print_detail name_var)
+    message("1. My name is ${${name_var}}.")
+endfunction()
+
+function(print_detail name_var)
+    message("2. My name is ${${name_var}}.")
+endfunction()
+
+set(Name Charlie)
+# print_detail(${Name})
+print_detail(Name)
+
+_print_detail(Name)
