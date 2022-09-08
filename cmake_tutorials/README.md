@@ -1147,6 +1147,55 @@ print_detail(Name)
    * If there are three functions with the same name, then the first one can longer be accessed.
 
 ### Optional Arguments of Functions
+Types of arguments:
+* Named arguments: If these arguments are not passed into the function call, then an error will occur. Also called mandatory arguments.
+
+* Optional arguments: Makes use of a special variable ```ARGV1```.
+
+| Special Variables |                  Description                 |
+|:-----------------:|:--------------------------------------------:|
+|        ARGC       | Total counts of arguments (named + optional) |
+|        ARGV       |   List of all arguments (named + optional)   |
+|        ARGN       |          List of optional arguments          |
+|       ARGV0       |                First argument                |
+|       ARGV1       |                Second argument               |
+|       ARGV2       |                Third argument                |
+
+
+### Scopes
+Whenever a function is called in CMake, a new scope is created in the current scope. The variables created or modified inside the function scope are not accessible outside the function scope.
+
+```
+set(Name Charlie)
+set(Age 45)
+
+function(print_detail var)
+   message("My ${var} is ${${var}}")
+endfunction()
+
+print_detail(Name)  # New scope
+print_detail(Age)  # Another new scope
+```
+
+* ```PARENT_SCOPE```: We can use this optional argument to modify the variable in parent scope inside the function scope, without modifying the variable in the function scope itself.
+```set(Name Bob PARENT_SCOPE)```
+
+* Modifying List & Strings, inside a function scope also limits the changes to the variables inside the function scope.
+```
+function(modify _list list_var)
+   list(APPEND ${list_var} aa xx)
+endfunction()
+
+function(modify _string string_var)
+   list(APPEND ${string_var} aa xx)
+endfunction()
+```
+
+* ```add_subdirectory(<dir1> <dir2> <dir3> ...)```
+Also introduces a new scope which is called a **directory scope**.
+```
+
+### Macros
 
 ## APPENDIX
 * [How to set up a CMakeLists.txt with add_subdirectories](https://github.com/sun1211/cmake_with_add_subdirectory).

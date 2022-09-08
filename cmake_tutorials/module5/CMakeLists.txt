@@ -96,10 +96,35 @@ endforeach()
 # Function
 function(print_detail name_var)
     message("1. My name is ${${name_var}}.")
+
 endfunction()
 
 function(print_detail name_var)
     message("2. My name is ${${name_var}}.")
+
+    if(DEFINED ARGV1)
+        message("Hello, my name is ${ARGV1}.")
+    endif()
+
+    message("ARGC= ${ARGC}")
+    message("ARGV= ${ARGV}")
+    message("ARGN= ${ARGN}")
+
+    if(DEFINED ARGV0)
+        message("ARGV0= ${ARGV0}")
+    endif()
+
+    if(DEFINED ARGV1)
+        message("ARGV1= ${ARGV1}")
+    endif()
+
+    if(DEFINED ARGV2)
+        message("ARGV2= ${ARGV2}")
+    endif()
+
+    if(DEFINED ARGV3)
+        message("ARGV3= ${ARGV3}")
+    endif()
 endfunction()
 
 set(Name Charlie)
@@ -107,3 +132,21 @@ set(Name Charlie)
 print_detail(Name)
 
 _print_detail(Name)
+
+# Optional arguments
+print_detail(Name Bob)
+print_detail(Name)
+print_detail(Name Bob Alice)
+
+# Scopes
+set(Name Charlie)
+
+function(print_detail_scope name_var)
+    message("Inside function: Before modification: ${Name}.")
+    set(Name Bob PARENT_SCOPE)
+    message("Inside function: After modification: ${Name}.")
+endfunction()
+
+message("Outside function: before function call: ${Name}.")
+print_detail_scope(Name)
+message("Outside function: after function call: ${Name}.")
