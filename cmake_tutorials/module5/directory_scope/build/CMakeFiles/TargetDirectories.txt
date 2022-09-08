@@ -1,4 +1,0 @@
-/home/sp/dev_root/my_learnings/cmake_tutorials/module5/directory_scope/build/CMakeFiles/rebuild_cache.dir
-/home/sp/dev_root/my_learnings/cmake_tutorials/module5/directory_scope/build/CMakeFiles/edit_cache.dir
-/home/sp/dev_root/my_learnings/cmake_tutorials/module5/directory_scope/build/subfolder/CMakeFiles/rebuild_cache.dir
-/home/sp/dev_root/my_learnings/cmake_tutorials/module5/directory_scope/build/subfolder/CMakeFiles/edit_cache.dir
