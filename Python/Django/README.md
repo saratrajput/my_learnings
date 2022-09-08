@@ -83,3 +83,23 @@ Product.objects.create(title='New Product 2', description='another one', price='
 * ```CharField()```: max_length is **required**.
 
 ### Change a Model
+* ```blank```: How the field is rendered.
+* ```null```: Related to the database.
+
+### Default Homepage to Custom Homegage
+* Create a new app called **pages**.
+```
+python manage.py startapp pages
+```
+
+* Add it to ```settings.py```.
+```
+INSTALLED_APPS = [
+    ...,
+    "pages",
+]
+```
+
+* Create a new function with the HTTP text in ```pages/views.py```.
+
+* Import the view in the ```url.py```.
