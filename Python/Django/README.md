@@ -103,3 +103,11 @@ INSTALLED_APPS = [
 * Create a new function with the HTTP text in ```pages/views.py```.
 
 * Import the view in the ```url.py```.
+
+### URL Routing and Requests
+
+* In the ```views.py```, each of the functions ```home_view```, ```contact_view```, etc. has a ```request``` argument by default.
+
+### Django Templates
+
+* We can use render from ```django.shortcuts``` to return a ```.html``` file instead of a just returning some strings.
