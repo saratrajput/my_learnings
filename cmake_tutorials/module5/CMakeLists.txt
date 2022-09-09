@@ -150,3 +150,55 @@ endfunction()
 message("Outside function: before function call: ${Name}.")
 print_detail_scope(Name)
 message("Outside function: after function call: ${Name}.")
+
+# Macros
+macro(print_detail_macro name_var)
+    message("My name is ${name_var}.")
+
+    if(DEFINED name_var)
+        message("If block executed.")
+    endif()
+    # set(name_var abc)
+    # message("My name is ${name_var}.")
+endmacro()
+
+print_detail_macro(Charlie)
+
+set(Name CMake)
+
+macro(change_name1 temp_name)
+    if(DEFINED ${temp_name})
+        message("1: If block executed.")
+    endif()
+endmacro()
+
+macro(change_name2 temp_name)
+    if(DEFINED ${temp_name})
+        message("2: If block executed.")
+    endif()
+endmacro()
+
+change_name1(Name)
+change_name2(CMake)
+
+function(set_name temp_name)
+    set(Name ${temp_name} PARENT_SCOPE)
+endfunction()
+
+set_name(CMake)
+
+message(${Name})
+
+set(A B)
+set(B C)
+set(C D)
+set(D E)
+set(E F)
+set(F G)
+set(G H)
+
+function(print_char temp)
+    message(${${${temp}}})
+endfunction()
+
+print_char(${${${A}}})
