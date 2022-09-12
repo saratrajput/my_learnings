@@ -1295,5 +1295,79 @@ The modules are often used if we want to have reusable code in our project. Also
 
 ## Cache Variables
 
+### Setting a Cache Variable
+
+* Two types of global variables in CMake
+   * Persistent Cache Variables.
+   * Environment Variables.
+
+* We'll make use of the files from module3.
+All the variables in build/CMakeCache.txt are **cache** variables.
+
+#### Cache Variables
+   * Set by CMake, depending on the Development environment.
+   * Set by commands inside CMakeLists.txt.
+
+```
+set(A "123" CACHE STRING "This command sets variable A in persistent cache.)
+```
+   * The ```CACHE``` specifies that:
+      * the specified variable belongs to the **global** scope, and
+      * it has to be stored in the CMakeCache.txt file.
+   * ```STRING``` keyword is the variable type.
+   * And the rest is the summary of the variable.
+
+* Cache Variable Dereferencing
+
+```
+$CACHE{variable_name}
+```
+
+#### Environment Variables
+   * Global scope.
+   * Not stored in CMakeCache.txt.
+
+* Setting environment variables.
+
+```
+set(ENV <variable_name> <variable_value>)
+```
+
+* Dereferencing Environment Variables.
+
+```
+$ENV{variable_name}
+```
+
+### Modification of Cache Variables
+When installing a custom library, it is often required to change the cache variables so that the installation is done as per your requirements.
+
+* Steps followed when creating cache variables.
+   * Run CMake command for the first time.
+   * CMakeCache.txt created.
+   * If any new steps to modify or remove the cache variables are added in the CMakeLists.txt, they are rejected.
+
+* To modify the cache variables, there are three ways:
+   * Edit CMakeCache.txt file.
+   * Use ```FORCE``` keyword in the ```set``` command. (**NOT RECOMMENDED**)
+   * Use ```-D``` flag. (**RECOMMENDED**)
+
+      ```
+      cmake -DName=Charlie ..
+      ```
+
+   > If both ```FORCE``` and ```-D``` are used, the ```FORCE``` option has priority.
+
+### Cache Variables: CMAKE_VERSION, CMAKE_PROJECT_NAME, CMAKE_GENERATOR
+
+* [CMake Variables](https://cmake.org/cmake/help/latest/manual/cmake-variables.7.html).
+
+* List of available CMake cache variables.
+   * CMAKE_VERSION.
+   * CMAKE_MAJOR_VERSION.
+   * CMAKE_MINOR_VERSION.
+   * CMAKE_PATCH_VERSION.
+
+
 ## APPENDIX
 * [How to set up a CMakeLists.txt with add_subdirectories](https://github.com/sun1211/cmake_with_add_subdirectory).
