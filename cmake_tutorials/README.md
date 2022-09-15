@@ -1424,6 +1424,15 @@ install(FILES <file_name> DESTINATION <dir>)
 install(TARGETS <tgt_name> DESTINATION <dir>)
 ```
 
+**Arguments**:
+* Items to copy.
+* Destination for pasting the items.
+
+**Default location**
+```/usr/local```
+
+Can be checked by printing the ```CMAKE_INSTALL_PREFIX``` variable.
+
 #### find_package command
 
 To use a package developed by the community.
