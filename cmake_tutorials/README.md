@@ -1367,7 +1367,70 @@ When installing a custom library, it is often required to change the cache varia
    * CMAKE_MAJOR_VERSION.
    * CMAKE_MINOR_VERSION.
    * CMAKE_PATCH_VERSION.
+   * CMAKE_PROJECT_NAME: Always has the value of the top-level project name.
+   * PROJECT_NAME: Its value depends on the most recent project command call.
+   * CMAKE_GENERATOR:
+      * Tells CMake about the build system.
+      * We generally use the **make** build system. It can be verified from the ```CMakeCache.txt``` file.
+      * ```cmake --help``` can show the available build systems.
 
+      * To use ninja build system.
+
+      ```
+      # Install ninja-build system.
+      sudo apt install ninja-build
+
+      # Delete all the files in the build directory.
+      rm build/*
+
+      # Generate CMAKE_GENERATOR variable to ninja.
+      cmake -DCMAKE_GENERATOR=Ninja ..
+
+      # Generate executable.
+      ninja
+      ```
+
+      * Generator can also be changed using the ```-G``` flag.
+
+      ```
+      cmake -GNinja ..
+      ```
+
+## Installing and Exporting Package
+
+### Requirements for Installing/Exporting Package
+
+* Library: A part of a package.
+
+* Package: A package is a distribution unit, which contains a bunch of source files, header files and other supporting files.
+
+* Using a package: When we want to use a package, that is developed by the community, we:
+   * Download,
+   * Compile, and
+   * Install.
+      * Compiled Libraries / Executables.
+      * Header Files.
+      * Supporting Files.
+
+   * After installation, the above files are usually stored in ```/usr/local/``` in Linux.
+
+   * Finding the installed package.
+
+#### install command
+
+```
+install(FILES <file_name> DESTINATION <dir>)
+
+install(TARGETS <tgt_name> DESTINATION <dir>)
+```
+
+#### find_package command
+
+To use a package developed by the community.
+
+```
+find_package(<package_name>)
+```
 
 ## APPENDIX
 * [How to set up a CMakeLists.txt with add_subdirectories](https://github.com/sun1211/cmake_with_add_subdirectory).
