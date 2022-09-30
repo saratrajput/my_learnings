@@ -10,12 +10,15 @@ def home_view(request, *args, **kwargs):
 
 
 def contact_view(request, *args, **kwargs):
-    return HttpResponse("<h1>Contact Page</h1>")  # String of HTML code.
+    # return HttpResponse("<h1>Contact Page</h1>")  # String of HTML code.
+    return render(request, "contact.html", {})
 
 
 def about_view(request, *args, **kwargs):
-    return HttpResponse("<h1>About Page</h1>")  # String of HTML code.
+    # return HttpResponse("<h1>About Page</h1>")  # String of HTML code.
+    return render(request, "about.html", {})
 
 
 def social_view(request, *args, **kwargs):
-    return HttpResponse("<h1>Social Page</h1>")  # String of HTML code.
+    # return HttpResponse("<h1>Social Page</h1>")  # String of HTML code.
+    return render(request, "social.html", {})

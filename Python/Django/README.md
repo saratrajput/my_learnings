@@ -111,3 +111,27 @@ INSTALLED_APPS = [
 ### Django Templates
 
 * We can use render from ```django.shortcuts``` to return a ```.html``` file instead of a just returning some strings.
+
+```
+render(request, <template_name>, {context})
+```
+
+* In our root directory, create a directory named ```templates```.
+
+* Store ```home.html``` in this directory.
+
+* Add path to your ```templates``` directory in ```settings.py```.
+
+```
+TEMPLATES = [
+    {
+        ...,
+        "DIRS": [os.path.join(BASE_DIR, "templates")],
+        ...,
+    }
+]
+```
+
+### Django Templating Engine Basics
+
+* Create a ```base.html``` file.
