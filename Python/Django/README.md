@@ -135,3 +135,13 @@ TEMPLATES = [
 ### Django Templating Engine Basics
 
 * Create a ```base.html``` file.
+
+* Add content blocks that you would later replace in other files which inherit from ```base.html``` file.
+
+```
+{% block content %}
+replace me
+{% endblock %}
+```
+
+* Inherit from ```base.html``` in other html files with: ```{% extends 'base.html' %}```
