@@ -134,6 +134,8 @@ TEMPLATES = [
 
 ### Django Templating Engine Basics
 
+Inheritance allows us to remove redundant code.
+
 * Create a ```base.html``` file.
 
 * Add content blocks that you would later replace in other files which inherit from ```base.html``` file.
@@ -145,3 +147,15 @@ replace me
 ```
 
 * Inherit from ```base.html``` in other html files with: ```{% extends 'base.html' %}```
+
+### Include Template Tag
+
+We can do the same inheritance as above, but using the ```include``` tag.
+
+* Create a new html file called ```navbar.html```.
+
+* Include this in the ```base```.html file with the ```include``` tag.
+
+```
+{% include 'navbar.html' %}
+```
