@@ -2,6 +2,12 @@
 
 {% block content %}
 <h1>About</h1>
+
+<h3>{{ my_text|capfirst }}</h3>
+<h3>{{ my_text|capfirst|upper }}</h3>
+
+{{ my_html|safe }}
+
 <p>This is a template.</p>
 
 <p>

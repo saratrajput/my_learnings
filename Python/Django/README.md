@@ -210,3 +210,17 @@ Example:
     <li>{{ forloop.counter }} - {{ abc }}</li>
 {% endif %}
 ```
+
+### Template Tags and Filters
+[Docs.](https://docs.djangoproject.com/en/4.1/ref/templates/builtins/)
+
+Example tags:
+
+- To add: ```{{ abc|add:22}}```
+- Capitalize first letter: ```{{ my_text|capfirst }}```
+
+* Stacking the filters: ```{{ my_text|capfirst|upper }}```
+
+* Rendering as HTML: ```{{ my_html|safe }}```
+
+### Render Data from the Database with a Model
