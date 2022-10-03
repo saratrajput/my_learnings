@@ -185,3 +185,16 @@ And, to display these values, in about.html:
     {{ my_list }}
 </p>
 ```
+
+### For Loop in a Template
+
+In the "html" file.
+
+```
+    {% for my_sub_item in my_list %}
+    <li>{{ my_sub_item}}</li>
+    {% endfor %}  # You need to close the for loop once it's opened.
+```
+
+```{{forloop.counter}}``` can be used to see the iteration number.
+
