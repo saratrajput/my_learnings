@@ -198,3 +198,15 @@ In the "html" file.
 
 ```{{forloop.counter}}``` can be used to see the iteration number.
 
+### Using Conditions in a Template
+
+Example:
+```
+{% if abc == 312 %}
+    <li>{{ forloop.counter }} - {{ abc|add:22}}</li>
+{% elif abc == "Abc" %}
+    <li>This is not the network.</li>
+{% else %}
+    <li>{{ forloop.counter }} - {{ abc }}</li>
+{% endif %}
+```
