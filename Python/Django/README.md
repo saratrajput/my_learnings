@@ -159,3 +159,29 @@ We can do the same inheritance as above, but using the ```include``` tag.
 ```
 {% include 'navbar.html' %}
 ```
+
+### Rendering Context in a Template
+
+A context is a variable name -> variable value mapping that is passed to a template. Context processors let you specify a number of variables that get set in each context automatically - without you having to specify the variables in each render() call.
+
+In the ```render()``` function call, you can pass a dictionary whose keys can be called in the corresponding html page to display the values of that dictionary. For example, in the function for ```about.html``` rendering in ```views.py```.
+
+```
+def about_view(request, *args, **kwargs):
+    # return HttpResponse("<h1>About Page</h1>")  # String of HTML code.
+    my_context = {
+        "my_text": "This is about us.",
+        "my_number": 123,
+        "my_list": [133, 21343, 2343],
+    }
+    return render(request, "about.html", my_context)
+```
+
+And, to display these values, in about.html:
+
+```
+<p>
+    {{ my_text }}, {{ my_number }}
+    {{ my_list }}
+</p>
+```
