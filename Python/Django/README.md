@@ -134,4 +134,93 @@ TEMPLATES = [
 
 ### Django Templating Engine Basics
 
+Inheritance allows us to remove redundant code.
+
 * Create a ```base.html``` file.
+
+* Add content blocks that you would later replace in other files which inherit from ```base.html``` file.
+
+```
+{% block content %}
+replace me
+{% endblock %}
+```
+
+* Inherit from ```base.html``` in other html files with: ```{% extends 'base.html' %}```
+
+### Include Template Tag
+
+We can do the same inheritance as above, but using the ```include``` tag.
+
+* Create a new html file called ```navbar.html```.
+
+* Include this in the ```base```.html file with the ```include``` tag.
+
+```
+{% include 'navbar.html' %}
+```
+
+### Rendering Context in a Template
+
+A context is a variable name -> variable value mapping that is passed to a template. Context processors let you specify a number of variables that get set in each context automatically - without you having to specify the variables in each render() call.
+
+In the ```render()``` function call, you can pass a dictionary whose keys can be called in the corresponding html page to display the values of that dictionary. For example, in the function for ```about.html``` rendering in ```views.py```.
+
+```
+def about_view(request, *args, **kwargs):
+    # return HttpResponse("<h1>About Page</h1>")  # String of HTML code.
+    my_context = {
+        "my_text": "This is about us.",
+        "my_number": 123,
+        "my_list": [133, 21343, 2343],
+    }
+    return render(request, "about.html", my_context)
+```
+
+And, to display these values, in about.html:
+
+```
+<p>
+    {{ my_text }}, {{ my_number }}
+    {{ my_list }}
+</p>
+```
+
+### For Loop in a Template
+
+In the "html" file.
+
+```
+    {% for my_sub_item in my_list %}
+    <li>{{ my_sub_item}}</li>
+    {% endfor %}  # You need to close the for loop once it's opened.
+```
+
+```{{forloop.counter}}``` can be used to see the iteration number.
+
+### Using Conditions in a Template
+
+Example:
+```
+{% if abc == 312 %}
+    <li>{{ forloop.counter }} - {{ abc|add:22}}</li>
+{% elif abc == "Abc" %}
+    <li>This is not the network.</li>
+{% else %}
+    <li>{{ forloop.counter }} - {{ abc }}</li>
+{% endif %}
+```
+
+### Template Tags and Filters
+[Docs.](https://docs.djangoproject.com/en/4.1/ref/templates/builtins/)
+
+Example tags:
+
+- To add: ```{{ abc|add:22}}```
+- Capitalize first letter: ```{{ my_text|capfirst }}```
+
+* Stacking the filters: ```{{ my_text|capfirst|upper }}```
+
+* Rendering as HTML: ```{{ my_html|safe }}```
+
+### Render Data from the Database with a Model
