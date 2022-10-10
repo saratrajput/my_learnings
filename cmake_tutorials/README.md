@@ -1433,6 +1433,8 @@ install(TARGETS <tgt_name> DESTINATION <dir>)
 
 Can be checked by printing the ```CMAKE_INSTALL_PREFIX``` variable.
 
+### Exporting a Package
+
 #### find_package command
 
 To use a package developed by the community.
@@ -1440,6 +1442,15 @@ To use a package developed by the community.
 ```
 find_package(<package_name>)
 ```
+
+```find_package(ABC)``` -> ABC-config.cmake
+
+When a project uses the above command, it searches for ```ABC-config.cmake``` file inside it's ```/user/loca/lib/ABC``` directory.
+
+* Steps involved:
+   * Add targets to export group.
+   * Install the export group.
+   * Modify the target_include_directories() commands.
 
 ## APPENDIX
 * [How to set up a CMakeLists.txt with add_subdirectories](https://github.com/sun1211/cmake_with_add_subdirectory).
