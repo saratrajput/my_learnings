@@ -238,3 +238,6 @@ dir(obj)
 # Get title of the object.
 obj.title
 ```
+
+### How Django Templates Load with Apps
+
