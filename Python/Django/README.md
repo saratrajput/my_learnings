@@ -224,3 +224,17 @@ Example tags:
 * Rendering as HTML: ```{{ my_html|safe }}```
 
 ### Render Data from the Database with a Model
+
+```
+python manage.py shell
+
+from products.models import Product
+
+obj = Product.objects.get(id=1)
+
+# Get all the methods for that object.
+dir(obj)
+
+# Get title of the object.
+obj.title
+```
