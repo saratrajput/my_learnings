@@ -19,24 +19,26 @@ def _generate_parent(length, gene_set, get_fitness):
         sample_size = min(length - len(genes), len(gene_set))
         genes.extend(random.sample(gene_set, sample_size))
 
-    genes = "".join(genes)
+    # genes = "".join(genes)
     fitness = get_fitness(genes)
 
     return Chromosome(genes, fitness)
 
 
 def _mutate(parent, gene_set, get_fitness):
+    # child_genes = list(parent.genes)
+    child_genes = parent.genes[:]
     index = random.randrange(0, len(parent.genes))
-    child_genes = list(parent.genes)
 
     new_gene, alternate = random.sample(gene_set, 2)
 
     child_genes[index] = alternate if new_gene == child_genes[index] else new_gene
 
-    genes = "".join(child_genes)
-    fitness = get_fitness(genes)
+    # genes = "".join(child_genes)
+    # fitness = get_fitness(genes)
+    fitness = get_fitness(child_genes)
 
-    return Chromosome(genes, fitness)
+    return Chromosome(child_genes, fitness)
 
 
 def get_best(get_fitness, target_len, optimal_fitness, gene_set, display):
