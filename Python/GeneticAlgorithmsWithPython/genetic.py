@@ -1,6 +1,7 @@
 import random
 import statistics
 import time
+import sys
 
 
 class Chromosome:
@@ -63,11 +64,14 @@ class Benchmark:
     @staticmethod
     def run(function):
         timings = []
+        stdout = sys.stdout
         for i in range(100):
+            sys.stdout = None
             start_time = time.time()
             function()
             seconds = time.time() - start_time
 
+            sys.stdout = stdout
             timings.append(seconds)
             mean = statistics.mean(timings)
             print(
