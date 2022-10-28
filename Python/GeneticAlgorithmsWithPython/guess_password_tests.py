@@ -29,7 +29,7 @@ class GuessPasswordTests(unittest.TestCase):
         best = genetic.get_best(
             fn_get_fitness, len(target), optimal_fitness, self.gene_set, fn_display
         )
-        self.assertEqual(best.genes, target)
+        self.assertEqual("".join(best.genes), target)
 
     def test_Random(self):
         length = 150
@@ -38,13 +38,16 @@ class GuessPasswordTests(unittest.TestCase):
 
     def test_benchmark(self):
         genetic.Benchmark.run(self.test_For_I_am_fearfully_and_wonderfully_made)
-        # genetic.Benchmark.run(self.test_Random)
 
 
 # def display(genes, target, start_time):
 def display(candidate, start_time):
     time_diff = datetime.datetime.now() - start_time
-    print("{0}\t{1}\t{2}".format(candidate.genes, candidate.fitness, str(time_diff)))
+    print(
+        "{0}\t{1}\t{2}".format(
+            "".join(candidate.genes), candidate.fitness, str(time_diff)
+        )
+    )
 
 
 def get_fitness(genes, target):
