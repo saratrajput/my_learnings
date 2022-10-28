@@ -37,8 +37,8 @@ class GuessPasswordTests(unittest.TestCase):
         self.guess_password(target)
 
     def test_benchmark(self):
-        # genetic.Benchmark.run(self.test_For_I_am_fearfully_and_wonderfully_made)
-        genetic.Benchmark.run(self.test_Random)
+        genetic.Benchmark.run(self.test_For_I_am_fearfully_and_wonderfully_made)
+        # genetic.Benchmark.run(self.test_Random)
 
 
 # def display(genes, target, start_time):
