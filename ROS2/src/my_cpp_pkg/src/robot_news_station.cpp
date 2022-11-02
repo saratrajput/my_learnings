@@ -1,7 +1,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "example_interfaces/msg/string.hpp"
 
- 
+
 class RobotNewsStationNode : public rclcpp::Node
 {
 public:
@@ -16,7 +16,7 @@ public:
                                          std::bind(&RobotNewsStationNode::publishNews, this));
         RCLCPP_INFO(this->get_logger(), "Robot News Station has been started.");
     }
- 
+
 private:
     void publishNews()
     {
@@ -28,7 +28,7 @@ private:
     rclcpp::Publisher<example_interfaces::msg::String>::SharedPtr publisher_;
     rclcpp::TimerBase::SharedPtr timer_;
 };
- 
+
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);

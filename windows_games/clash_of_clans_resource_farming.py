@@ -13,7 +13,10 @@ import win32ui
 
 # Initialize logging
 log = logging.getLogger(__name__)
-logging.basicConfig(level=logging.DEBUG) # Add filename='example.log' for logging to file
+logging.basicConfig(
+    level=logging.DEBUG
+)  # Add filename='example.log' for logging to file
+
 
 def grab_screen(region=None):
     hwin = win32gui.GetDesktopWindow()

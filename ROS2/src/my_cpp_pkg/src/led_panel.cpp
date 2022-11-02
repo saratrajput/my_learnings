@@ -4,7 +4,7 @@
 
 using std::placeholders::_1;
 using std::placeholders::_2;
- 
+
 class LedPanelNode : public rclcpp::Node
 {
 public:
@@ -13,18 +13,18 @@ public:
         this->declare_parameter("led_states", std::vector<int64_t>{0, 0, 0});;
 
         led_states_ = this->get_parameter("led_states").as_integer_array();
-        led_states_publisher_ = 
+        led_states_publisher_ =
             this->create_publisher<my_robot_interfaces::msg::LedStateArray>("led_states", 10);
-        led_states_timer_ = 
+        led_states_timer_ =
             this->create_wall_timer(std::chrono::seconds(4),
                                     std::bind(&LedPanelNode::publishLedStates, this));
         set_led_service_ = this->create_service<my_robot_interfaces::srv::SetLed>(
                             "set_led",
                             std::bind(&LedPanelNode::callbackSetLed, this, _1, _2));
         RCLCPP_INFO(this->get_logger(), "Led panel node has started...");
-        
+
     }
- 
+
 private:
     void publishLedStates()
     {
@@ -62,7 +62,7 @@ private:
     rclcpp::Service<my_robot_interfaces::srv::SetLed>::SharedPtr set_led_service_;
 
 };
- 
+
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);

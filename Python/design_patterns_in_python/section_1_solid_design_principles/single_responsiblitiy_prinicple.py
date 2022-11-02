@@ -39,7 +39,7 @@ j.add_entry("I ate a bug.")
 print(f"Journal entries:\n{j}\n")
 
 p = PersistenceManager()
-file = r'c:\temp\journal.txt'
+file = r"c:\temp\journal.txt"
 p.save_to_file(j, file)
 
 # verify!

@@ -273,6 +273,6 @@
       <parent link="${prefix}base_link" />
       <child link="${prefix}base" />
     </joint>
-    
+
   </xacro:macro>
 </robot>

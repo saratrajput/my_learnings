@@ -32,10 +32,14 @@ class GUI(QMainWindow):  # Inherit from QMainWindow.
         grid_layout.addWidget(button_1, 0, 1)  # Row=0, Col=1
         grid_layout.addWidget(label_2, 1, 0)  # Row=1, Col=0
         grid_layout.addWidget(button_2, 1, 1)  # Row=1, Col=1
-        grid_layout.addWidget(label_span, 2, 0, 1, 3)  # Row=2, Col=0, rowspan=1, colspan=3
+        grid_layout.addWidget(
+            label_span, 2, 0, 1, 3
+        )  # Row=2, Col=0, rowspan=1, colspan=3
 
         # grid_layout.setAlignment(Qt.AlignBottom)  # Align grid to the bottom.
-        grid_layout.setAlignment(Qt.AlignTop | Qt.AlignLeft)  # Align grid to top and left.
+        grid_layout.setAlignment(
+            Qt.AlignTop | Qt.AlignLeft
+        )  # Align grid to top and left.
         grid_layout.setAlignment(label_1, Qt.AlignRight)  # Align label to the right.
         grid_layout.setAlignment(label_2, Qt.AlignRight)  # Align label to the right.
 
@@ -75,7 +79,7 @@ class GUI(QMainWindow):  # Inherit from QMainWindow.
     def positional_widget_layout(self):
         # Label w/out text, window is parent.
         # Default positio overlays menubar.
-        label_1 = QLabel("Our first label", self)  
+        label_1 = QLabel("Our first label", self)
         label_1.move(10, 20)  # Position label below menubar.
 
         print(self.menuBar().size())
@@ -91,28 +95,29 @@ class GUI(QMainWindow):  # Inherit from QMainWindow.
 
         button_1.move(label_1.width(), label_1.height())
         button_2.move(label_1.width(), label_1.height() * 2)
-        
 
     def add_menus_and_status(self):
-        self.statusBar().showMessage('Text in statusbar')
+        self.statusBar().showMessage("Text in statusbar")
 
         # File menu
         menubar = self.menuBar()  # Create a menu bar.
-        file_menu = menubar.addMenu('File')  # Add menu to menu bar.
-        new_action = QAction('New', self)  # Create an action.
+        file_menu = menubar.addMenu("File")  # Add menu to menu bar.
+        new_action = QAction("New", self)  # Create an action.
         file_menu.addAction(new_action)
-        new_action.setStatusTip('New File')  # Status bar updated.
+        new_action.setStatusTip("New File")  # Status bar updated.
 
         file_menu.addSeparator()  # Add a separator line between menu items.
 
-        exit_action = QAction('Exit', self)  # Create exit action.
-        exit_action.setStatusTip('Click to exit the application')
+        exit_action = QAction("Exit", self)  # Create exit action.
+        exit_action.setStatusTip("Click to exit the application")
         exit_action.triggered.connect(self.close)  # Close application when clicked.
-        exit_action.setShortcut('Ctrl+Q')  # Keyboard shortcut to close application. Main window has focus.
+        exit_action.setShortcut(
+            "Ctrl+Q"
+        )  # Keyboard shortcut to close application. Main window has focus.
         file_menu.addAction(exit_action)
 
         # Edit menu
-        edit_menu = menubar.addMenu('Edit')  # Add a second menu.
+        edit_menu = menubar.addMenu("Edit")  # Add a second menu.
 
 
 if __name__ == "__main__":

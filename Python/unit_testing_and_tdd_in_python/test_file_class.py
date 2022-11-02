@@ -30,4 +30,3 @@ class TestClass:
     def test2(self):
         print("Executing test2!")
         assert True
-

@@ -31,5 +31,3 @@ touch bazu.urdf
 
 # Install ROS Snippets extension for VS Code. Search for xml ros.
 ```
-
-

@@ -2,7 +2,7 @@ import gym
 import numpy as np
 import matplotlib.pyplot as plt
 
-env = gym.make('FrozenLake-v1')
+env = gym.make("FrozenLake-v1")
 
 n_games = 1000
 win_pct = []
@@ -19,7 +19,7 @@ for i in range(n_games):
         score += reward
     scores.append(score)
 
-    if i% 10 == 0:
+    if i % 10 == 0:
         average = np.mean(scores[-10:])
         win_pct.append(average)
 

@@ -3,8 +3,8 @@ import rclpy
 from functools import partial
 from rclpy.node import Node
 from my_robot_interfaces.srv import SetLed
- 
- 
+
+
 class BatteryNode(Node):
     def __init__(self):
         super().__init__("battery")
@@ -42,8 +42,9 @@ class BatteryNode(Node):
         request.state = state
 
         future = client.call_async(request)
-        future.add_done_callback(partial(self.callback_call_set_led,
-                                 led_number=led_number, state=state))
+        future.add_done_callback(
+            partial(self.callback_call_set_led, led_number=led_number, state=state)
+        )
 
     def callback_call_set_led(self, future, led_number, state):
         try:
@@ -51,15 +52,14 @@ class BatteryNode(Node):
             self.get_logger().info(str(response.success))
         except Exception as e:
             self.get_logger().error("Service call failed %r" % (e,))
- 
- 
+
+
 def main(args=None):
     rclpy.init(args=args)
     node = BatteryNode()
     rclpy.spin(node)
     rclpy.shutdown()
- 
- 
+
+
 if __name__ == "__main__":
     main()
-

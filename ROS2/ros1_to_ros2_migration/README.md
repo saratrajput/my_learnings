@@ -148,7 +148,7 @@ rosservice call /reset_counter "reset_value: 0"
 ```
 
 ### Install Colcon
-Follow steps in ... 
+Follow steps in ...
 
 
 ## Creating a Package
@@ -206,7 +206,7 @@ different from ROS1.
         'console_scripts': [
             #"name_of_the_executable = name_of_package.name_of_file:name_of_function_to_be_launched"
             "number_publisher = ros2_app_py.number_publisher:main",
-            
+
         ],
     },
 ```
@@ -242,7 +242,7 @@ ROS2 and ROS1 cpp package structure is quite similar.
 In ROS1 you need to have a NodeHandle and every ROS functionality will come from the node handle.
 You create a rclcpp Node object with a name. This node object will be stored in a shared pointer.
 
-To create shared pointer, we make use of std::make_shared 
+To create shared pointer, we make use of std::make_shared
 
 Similar to python, we create the node independently from rclcpp init and
 shutdown. So the node is directly linked to the executable.
@@ -274,7 +274,7 @@ In ROS2 you would initialize it like: ```auto msg = std_msgs::msg::Int64();```
 * In ROS1 you would talk about messages, services, etc., but in ROS2 there is a
   common term called interfaces.
 
-In ROS1 you would have to add two additional tags in your package.xml, one for 
+In ROS1 you would have to add two additional tags in your package.xml, one for
 message generation and for message runtime.
 ```
 <build_depend>message_generation</build_depend>
@@ -477,7 +477,7 @@ mkdir src
 git clone git@github.com:ros2/ros1_bridge.git
 ```
 
-* Checkout foxy branch in ros1_bridge 
+* Checkout foxy branch in ros1_bridge
 
 * Open another terminal; source ROS1 Noetic and catkin make the extracted test workspace.
 

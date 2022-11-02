@@ -1,7 +1,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "example_interfaces/srv/add_two_ints.hpp"
- 
- 
+
+
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);
@@ -11,7 +11,7 @@ int main(int argc, char **argv)
     //Create client directly from the create client method with service type and service
     //name. Service name should match exactly that from the server
     auto client = node->create_client<example_interfaces::srv::AddTwoInts>("add_two_ints");
-    
+
     // Wait for the service to be up
     while(!client->wait_for_service(std::chrono::seconds(1)))
     {

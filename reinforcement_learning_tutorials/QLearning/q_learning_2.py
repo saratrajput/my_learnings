@@ -1,7 +1,7 @@
-'''
+"""
 Agent doesn't need to know anything about the environment. This is only for
 your information. MountainCar env has 3 actions.
-'''
+"""
 import gym
 import numpy as np
 
@@ -23,35 +23,39 @@ SHOW_EVERY = 2000
 # discrete observation space size
 DISCRETE_OS_SIZE = [20] * len(env.observation_space.high)
 # Now we're gonna break our continous values in 20 chunks
-discrete_os_win_size = (env.observation_space.high - env.observation_space.low) / DISCRETE_OS_SIZE
+discrete_os_win_size = (
+    env.observation_space.high - env.observation_space.low
+) / DISCRETE_OS_SIZE
 
 print(discrete_os_win_size)
 
 # To add some random actions. For exploratory moves
 epsilon = 0.5
 START_EPSILON_DECAYING = 1
-END_EPSILON_DECAYING = EPISODES // 2 # Always divide out to an integer
+END_EPSILON_DECAYING = EPISODES // 2  # Always divide out to an integer
 epsilon_decay_value = epsilon / (END_EPSILON_DECAYING - START_EPSILON_DECAYING)
 
 # Initiliaze Q-table
-q_table = np.random.uniform(low=-2, high=0, size=(DISCRETE_OS_SIZE + [env.action_space.n]))
+q_table = np.random.uniform(
+    low=-2, high=0, size=(DISCRETE_OS_SIZE + [env.action_space.n])
+)
+
 
 def get_discrete_state(state):
-    '''
+    """
     Convert continous states of position and velocity to discrete states
-    '''
+    """
     discrete_state = (state - env.observation_space.low) / discrete_os_win_size
     return tuple(discrete_state.astype(np.int64))
 
 
-
 # Print the initial state
-#print(discrete_state)
+# print(discrete_state)
 # Print our q-values which are random right now
-#print(q_table[discrete_state])
+# print(q_table[discrete_state])
 # Print the index of the max q-value
-#print(np.argmax(q_table[discrete_state]))
-                                            
+# print(np.argmax(q_table[discrete_state]))
+
 
 # Iterate over episodes
 for episode in range(EPISODES):
@@ -67,7 +71,7 @@ for episode in range(EPISODES):
     while not done:
 
         ## Action depends on the max q value for the current discrete state
-        #action = np.argmax(q_table[discrete_state])
+        # action = np.argmax(q_table[discrete_state])
 
         # If-else block is for using the epsilon values to make use of epsilon values
         # for random actions, for exploratory moves
@@ -88,17 +92,17 @@ for episode in range(EPISODES):
             # max and not argmax because here we want the q-value rather than the arg-max
             max_future_q = np.max(q_table[new_discrete_state])
             # we get the q-value for that particular action
-            current_q = q_table[discrete_state + (action, )]
+            current_q = q_table[discrete_state + (action,)]
 
             # This is the Q-learning formula
-            new_q = (1 - LEARNING_RATE) * current_q + LEARNING_RATE * (reward + \
-                    DISCOUNT * max_future_q)
+            new_q = (1 - LEARNING_RATE) * current_q + LEARNING_RATE * (
+                reward + DISCOUNT * max_future_q
+            )
             # the way it back-propagates is dependent on the DISCOUNT and max_future_q
             # values.
 
-
             # Update our q-table with the new q-value
-            q_table[discrete_state + (action, )] = new_q
+            q_table[discrete_state + (action,)] = new_q
             # Pay attention that we're updating the discrete state after we took the step
             # of that discrete state
 

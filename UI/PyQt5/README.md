@@ -1,6 +1,6 @@
 # Python GUI Programming Recipes using PyQt5
 
-### Section 1: 
+### Section 1:
 
 * Install PyQt5
 ```
@@ -28,12 +28,12 @@ designer
 
 * Convert ```.ui``` file to ```.py``` file
 ```
-pyuic5 -o ./gui_4_gui_to_python_code.py ./gui_4_gui_to_python_code.ui 
+pyuic5 -o ./gui_4_gui_to_python_code.py ./gui_4_gui_to_python_code.ui
 ```
 
 * Make it executable
 ```
-pyuic5 -x -o ./gui_4_gui_to_python_code.py ./gui_4_gui_to_python_code.ui 
+pyuic5 -x -o ./gui_4_gui_to_python_code.py ./gui_4_gui_to_python_code.ui
 ```
 
 ### Section 3: Enhancing the Qt5 GUI Functionality

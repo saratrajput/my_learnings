@@ -15,8 +15,8 @@
 #     def addDiscount(self, item, nbrOfItems, price):
 #         pass
 
-class Checkout:
 
+class Checkout:
     class Discount:
         def __init__(self, nbrItems, price):
             self.nbrItems = nbrItems
@@ -65,10 +65,8 @@ class Checkout:
 
     def calculateItemDiscountedTotal(self, item, cnt, discount):
         total = 0
-        nbrOfDiscounts = cnt/discount.nbrItems
+        nbrOfDiscounts = cnt / discount.nbrItems
         total += nbrOfDiscounts * discount.price
         remaining = cnt % discount.nbrItems
         total += remaining * self.prices[item]
         return total
-
-

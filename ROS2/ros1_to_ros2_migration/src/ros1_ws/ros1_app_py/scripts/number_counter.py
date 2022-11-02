@@ -22,13 +22,12 @@ def callback_reset_counter(req):
     return False
 
 
-if __name__ == '__main__':
-    rospy.init_node('number_counter')
+if __name__ == "__main__":
+    rospy.init_node("number_counter")
 
     sub = rospy.Subscriber("number", Int64, callback_number)
 
-    reset_service = rospy.Service(
-        "reset_counter", ResetCounter, callback_reset_counter)
+    reset_service = rospy.Service("reset_counter", ResetCounter, callback_reset_counter)
 
     rospy.loginfo("Number counter has been started.")
 

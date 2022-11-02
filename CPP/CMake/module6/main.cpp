@@ -19,6 +19,6 @@ int main()
     print_result("Addition", result_add);
     print_result("Division", result_div);
     // std::cout << "Addition result:\t" << result_add << "\nDivision result:\t" << result_div << "\n";
-    
+
     return 0;
 }

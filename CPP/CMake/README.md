@@ -6,7 +6,7 @@ sudo apt install g++
 
 * You'll get the following error as the function definitions are not present in C++.
 ```
-g++ main.cpp -o calculator                                                           (base) 
+g++ main.cpp -o calculator                                                           (base)
 main.cpp: In function ‘int main()’:
 main.cpp:13:18: error: ‘addition’ was not declared in this scope
    13 |     result_add = addition(first_no, second_no);
@@ -26,7 +26,7 @@ void print_result(std::string, float);
 
 You'll get another error as the g++ command can't find the specified functions.
 ```
-g++ main.cpp -o calculator                                                       (base) 
+g++ main.cpp -o calculator                                                       (base)
 /usr/bin/ld: /tmp/ccjWHdjz.o: in function `main':
 main.cpp:(.text+0x78): undefined reference to `addition(float, float)'
 /usr/bin/ld: main.cpp:(.text+0x93): undefined reference to `division(float, float)'
@@ -46,7 +46,7 @@ g++ main.cpp addition.cpp division.cpp print_result.cpp -o calculator
 ### Need of Build Systems
 When we are compiling a project containing multiple C++ files, initially all the files are
 compile independent of each other.
-In our example the 4 C++ 
+In our example the 4 C++
 In our example the 4 C++ files were compiled to produce four different compiled binaries. When compiling
 
 'main.cpp',
@@ -114,7 +114,7 @@ is different from the project's source code and then the build system uses that 
 
 and link the source codes. In case of 'Make', the developer writes a 'Makefile' and runs that code using Make
 
-build system. 
+build system.
 
 Now, let us attempt to make the 'make' command. As we can see that the make tool is not installed in my system.
 
@@ -258,7 +258,7 @@ Now we will run the make command.
 And lastly, we will run �sudo make install�.
 After a successful installation,
 we can check the CMake version. As you can see that the CMake has been installed properly.
-Once we have the installation, we can move to the next lecture. 
+Once we have the installation, we can move to the next lecture.
 
 Note that, in this course, I have used
 CMake version 3.16 which I installed from the source. For you to follow along, any version
@@ -267,11 +267,11 @@ greater than 3 is fine.
 
 ### Build file generation
 We are going to see the basic setup required for using the CMake tool.
-When we are running the CMakecommand for the first time, it needs 2 information. 
-* The location of CMakeLists.txt file and 
+When we are running the CMakecommand for the first time, it needs 2 information.
+* The location of CMakeLists.txt file and
 * the directory location to store the build system files.
 
-The CMake tool finds the CMakeLists.txt file, processes the information written 
+The CMake tool finds the CMakeLists.txt file, processes the information written
 inside it to generate the build system files
 in the specified location. A common practice is to have the CMakeLists.txt file in the top level
 
@@ -482,7 +482,7 @@ targets in CMake. In the next lecture,
 we are going to have a look at different properties associated with their targets.
 
 ### Target's Properties and Dependencies
-When we are running add_library or add_executable command, we are defining our target with the specified name. Here, in this CMakeLists.txt file, we have 3 targets named my_math, my_print and calculator. 
+When we are running add_library or add_executable command, we are defining our target with the specified name. Here, in this CMakeLists.txt file, we have 3 targets named my_math, my_print and calculator.
 
 Every target in CMake has some properties and dependencies associated with it.
 
@@ -493,7 +493,7 @@ Target Properties:
 * VERSION
 * SOURCES
 
-You can visit the CMake website to know all the properties of a target. These properties are automatically set when we run the commands like target_link_libraries() or target_include_directories(). The properties can also be modified or retrieved using these commands. The targets can also have dependencies on one another. This means, if target B is a dependency of target A, then target A can only be built after target B is built successfully. Here, it is also possible that the target B is having its own dependency. Coming back to our CMakeLists.txt file, here in this command, we have a specified a target, followed by its dependencies for linking. In our project, the my_math and my_print are the dependencies of the calculator target. A target is also capable of propagating its properties in the dependency chain. For example, you might see the command target_link_libraries written with PUBLIC or INTERFACE keywords like this. 
+You can visit the CMake website to know all the properties of a target. These properties are automatically set when we run the commands like target_link_libraries() or target_include_directories(). The properties can also be modified or retrieved using these commands. The targets can also have dependencies on one another. This means, if target B is a dependency of target A, then target A can only be built after target B is built successfully. Here, it is also possible that the target B is having its own dependency. Coming back to our CMakeLists.txt file, here in this command, we have a specified a target, followed by its dependencies for linking. In our project, the my_math and my_print are the dependencies of the calculator target. A target is also capable of propagating its properties in the dependency chain. For example, you might see the command target_link_libraries written with PUBLIC or INTERFACE keywords like this.
 
 ```
 target_link_libraries(calculator INTERFACE my_math my_print)
@@ -517,13 +517,13 @@ In this lecture, we are going to answer some questions related to target. The fi
 ## Module 3
 
 ### Sub-directories
-In a large project with more than tens of libraries, it does not make sense to keep all the files inside the same folder. 
+In a large project with more than tens of libraries, it does not make sense to keep all the files inside the same folder.
 
-It is intuitive and a common practice to name this directory �Build�, since this directory contains the system files. Sometimes, people also use 2 separate folders called �debug� and �release� instead of �build� to have 2 separate set of build system files with varying compiler optimization levels. 
+It is intuitive and a common practice to name this directory �Build�, since this directory contains the system files. Sometimes, people also use 2 separate folders called �debug� and �release� instead of �build� to have 2 separate set of build system files with varying compiler optimization levels.
 
-For now, we will delete our previous folder and create a new build folder. 
+For now, we will delete our previous folder and create a new build folder.
 
-First thing you need to know that, the CMakeLists.txt file is the entry point of the CMake command. We can also say that the CMakeLists.txt file is the root of the build tree. The CMakeLists.txt file can only see the files which are inside its directory; which means, if I move addition.cpp inside the �temp� folder, the cmake command education will fail. One way of resolving this error is to provide the relative path of this addition.cpp file. In this case, CMake will find the addition.cpp file inside the temp folder; and then it will successfully generate the build system files. 
+First thing you need to know that, the CMakeLists.txt file is the entry point of the CMake command. We can also say that the CMakeLists.txt file is the root of the build tree. The CMakeLists.txt file can only see the files which are inside its directory; which means, if I move addition.cpp inside the �temp� folder, the cmake command education will fail. One way of resolving this error is to provide the relative path of this addition.cpp file. In this case, CMake will find the addition.cpp file inside the temp folder; and then it will successfully generate the build system files.
 
 But we are not here for such workarounds. We are here to learn the CMake way of using subdirectories. Let us restore our addition.cpp in the original folder and delete the previous build system files Now, we know that we want 2 libraries called my_math and my_print in our project. We will create 2 folders for these 2 libraries in the top-level directory of this project. Currently, the top layer directory of this project is Module 3. For now, I am naming these subdirectories my_math_dir and my_print_dir. And then we will move the respective files inside these subdirectories. Note that, I'm not moving the addition.h, division.h and print_result.h inside the subdirectories as of now. The next thing that we want to do is to add these newly created subdirectories to the build tree. We can do that by adding add_subdirectory command. By using this command, we are telling CMake to go inside these subdirectories and then find another CMakeLists.txt file in the subdirectories and thereafter run those one by one. If we run the cmake command at this time, it is going to fail because there are no CMakeLists.txt file inside these subdirectories. Let us go inside the my_math_dir and create a CMakeLists.txt file. This file from now on is responsible for managing the my_math library. We can move the add_library command from root level CMakeLists.txt to the subdirectory level CMakeLists.txt file. We will do the similar changes for my_print library. At the end of this step, the project directory structure looks like this. And the 3 CMakeLists.txt files look like this. Now, we can run the cmake and make commands. As we can see that, all the 3 targets of our project are built successfully. Coming back to the root level CMakeLists.txt file, in this line, the CMakeLists.txt file from my_math_dir will be executed and it will add My_math library. In this line, the CMakeLists.txt file from my_print_dir will be executed and the my_print library will be added. In this line, our executable will be added and finally the libraries will be linked against the executable.
 
@@ -556,7 +556,7 @@ Let us understand why. When we are calling a function inside our main function w
 
 the functions� arguments type and return type are the same during function call and function definition.
 
-If those are not the same, then the compatibility issues might arise. 
+If those are not the same, then the compatibility issues might arise.
 
 ![Compatiblity Issue](images/compatibility_issues.png)
 
@@ -680,15 +680,15 @@ main.cpp will not be able to find the include directory.
 
 Now, we are going to answer 2 questions to find out when to use PUBLIC, PRIVATE or INTERFACE keywords
 
-Referring to our calculator project, the first question is, �Is my_math going 
-to need this directory?�. And the answer is YES, because addition.cpp is including 
-addition.h. The next question is, �Are the targets dependent upon the my_math 
-target, going to need this include Directory?�. In our case, the calculator 
-depends upon my_math target and calculator also needs addition.h. So, the answer 
-of the second question is also YES. If both the answers are YES, then we use the 
-PUBLIC keyword. If the first answer is No, and the second answer is Yes, then we 
-use the INTERFACE keyword. And lastly, if the first answer is Yes and the second 
-is No, then we use the PRIVATE keyword. 
+Referring to our calculator project, the first question is, �Is my_math going
+to need this directory?�. And the answer is YES, because addition.cpp is including
+addition.h. The next question is, �Are the targets dependent upon the my_math
+target, going to need this include Directory?�. In our case, the calculator
+depends upon my_math target and calculator also needs addition.h. So, the answer
+of the second question is also YES. If both the answers are YES, then we use the
+PUBLIC keyword. If the first answer is No, and the second answer is Yes, then we
+use the INTERFACE keyword. And lastly, if the first answer is Yes and the second
+is No, then we use the PRIVATE keyword.
 
 ![Public Interface Private](images/public_private_interface.png)
 
@@ -713,7 +713,7 @@ if we change this keyword to PRIATE, then main.cpp cannot include addition.h.
 
 target_include_directories() is not the only command which requires PUBLIC, PRIVATE or INTERFACE scope.
 
-Here are some of the commands that you might come across very frequently, which requires the scopes. 
+Here are some of the commands that you might come across very frequently, which requires the scopes.
 
 ![Commands which need scopes](images/commands_which_need_scopes.png)
 This list
@@ -790,14 +790,14 @@ Also, we will change the top level CMakeLists.txt file of the project according 
 
 add_subdirectory() command reference to the upper level my_math directory while main.cpp or addition.cpp
 
-refers to the lower level my_math directory. 
+refers to the lower level my_math directory.
 ![Directory Structure](images/directory_structure.png)
 
 ## Module 4: Variables, Lists and Strings
 
 ### Normal Variables
 * Process script mode.
-   * No build files are generated. 
+   * No build files are generated.
 ```
 # Process script mode
 cmake -P
@@ -1099,7 +1099,7 @@ endforeach()
       foreach(Name Alice;Bob;Charlie)
       ```
    * Variant 2
-      
+
       ```
       foreach(x RANGE 10)  # x: 0~10
       foreach(x RANGE 10 20)  # x: 10~20

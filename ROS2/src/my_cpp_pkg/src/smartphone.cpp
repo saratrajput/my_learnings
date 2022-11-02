@@ -1,6 +1,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "example_interfaces/msg/string.hpp"
- 
+
 class SmartphoneNode : public rclcpp::Node // MODIFY NAME
 {
 public:
@@ -11,7 +11,7 @@ public:
                 std::bind(&SmartphoneNode::callbackRobotNews, this, std::placeholders::_1));
         RCLCPP_INFO(this->get_logger(), "Smartphone has been started.");
     }
- 
+
 private:
     void callbackRobotNews(const example_interfaces::msg::String::SharedPtr msg)
     {
@@ -20,7 +20,7 @@ private:
 
     rclcpp::Subscription<example_interfaces::msg::String>::SharedPtr subscriber_;
 };
- 
+
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);

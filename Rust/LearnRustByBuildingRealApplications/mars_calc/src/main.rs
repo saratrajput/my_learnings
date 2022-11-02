@@ -1,7 +1,7 @@
 use std::io;
 
 
-fn main() 
+fn main()
 {
     // println!("Hello, world!");
     // println!("Number: {}", 100);
@@ -11,12 +11,12 @@ fn main()
     // Make it mutable by appending mut to variable name
     // let mut mars_weight = calculate_weight_on_mars(100.0);
 
-    
+
     // Error: We can't have both mutable and immutable borrows
     // let mut s1 = &mut input;
     // let s2 = &input;
     // println!("{} {}", s1, s2);
-    
+
     // some_fn(&mut input); // This is not valid since once the function ends the value is destroyed
     // let mut s = input; // The variable input is no longer available after this
     // This is valid since the value is being copied

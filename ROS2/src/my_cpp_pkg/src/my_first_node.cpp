@@ -12,13 +12,13 @@ class MyNode: public rclcpp::Node
         }
 
     private:
-        
+
         void timerCallback()
         {
             counter_++;
             RCLCPP_INFO(this->get_logger(), "Hello %d", counter_);
         }
-        
+
         rclcpp::TimerBase::SharedPtr timer_;
         int counter_;
 

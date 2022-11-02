@@ -8,11 +8,14 @@ def set_table_items():
     ui.tableWidget.setItem(1, 1, QtWidgets.QTableWidgetItem("item 2"))
     ui.tableWidget.setItem(2, 2, QtWidgets.QTableWidgetItem("item 3"))
 
+
 def button_clicked():
     ui.pushButton.setText("Button was clicked!")
 
+
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
 

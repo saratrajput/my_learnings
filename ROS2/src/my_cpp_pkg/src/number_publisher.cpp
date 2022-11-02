@@ -1,6 +1,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "example_interfaces/msg/int64.hpp"
- 
+
 class NumberPublisherNode : public rclcpp::Node
 {
 public:
@@ -17,7 +17,7 @@ public:
                                          std::bind(&NumberPublisherNode::publishNumber, this));
         RCLCPP_INFO(this->get_logger(), "Number Publisher has started.");
     }
- 
+
 private:
     void publishNumber()
     {
@@ -29,7 +29,7 @@ private:
     rclcpp::Publisher<example_interfaces::msg::Int64>::SharedPtr publisher_;
     rclcpp::TimerBase::SharedPtr timer_;
 };
- 
+
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);

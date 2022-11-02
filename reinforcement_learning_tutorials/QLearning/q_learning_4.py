@@ -37,9 +37,11 @@ FOOD_N = 2
 ENEMY_N = 3
 
 # Colors are being defined in BGR
-d = {1: (255, 175, 0),  # lightish blue
-     2: (0, 255, 0),  # Food is green
-     3: (0, 0, 255)}  # Enemy is red
+d = {
+    1: (255, 175, 0),  # lightish blue
+    2: (0, 255, 0),  # Food is green
+    3: (0, 0, 255),
+}  # Enemy is red
 
 
 class Blob:
@@ -49,6 +51,7 @@ class Blob:
     The observation space is gonna be the relative position of the food, and the
     relative position of the enemy to the player.
     """
+
     def __init__(self):
         """
         There is a possibility that the player, enemy and food positions
@@ -118,8 +121,8 @@ class Blob:
 
         if self.x < 0:
             self.x = 0
-        elif self.x > SIZE-1:
-            self.x = SIZE-1
+        elif self.x > SIZE - 1:
+            self.x = SIZE - 1
 
         if self.y < 0:
             self.y = 0
@@ -133,12 +136,13 @@ if start_q_table is None:
     # Observation space is gonna be two coordinates. The first one is gonna be
     # delta to the food, so relative difference between player and food. And the
     # second one is with the enemy. So it's gonna be like (x1, y1) (x2, y2)
-    for x1 in range(-SIZE+1, SIZE):
+    for x1 in range(-SIZE + 1, SIZE):
         for y1 in range(-SIZE + 1, SIZE):
             for x2 in range(-SIZE + 1, SIZE):
                 for y2 in range(-SIZE + 1, SIZE):
-                    q_table[((x1, y1), (x2, y2))] = [np.random.uniform(-5, 0)
-                                                     for i in range(ACTION_SPACE)]
+                    q_table[((x1, y1), (x2, y2))] = [
+                        np.random.uniform(-5, 0) for i in range(ACTION_SPACE)
+                    ]
                     # Since our action space is now 8
 else:
     with open(start_q_table, "rb") as f:
@@ -160,7 +164,7 @@ for episode in range(HM_EPISODES):
 
     episode_reward = 0
     for i in range(200):  # how many steps we'd take
-        obs = (player-food, player-enemy)
+        obs = (player - food, player - enemy)
         if np.random.random() > epsilon:
             action = np.argmax(q_table[obs])  # Regular action
         else:
@@ -183,7 +187,7 @@ for episode in range(HM_EPISODES):
             reward = -MOVE_PENALTY
 
         # We need to make a new observation based on the movement
-        new_obs = (player-food, player-enemy)
+        new_obs = (player - food, player - enemy)
         max_future_q = np.max(q_table[new_obs])
         current_q = q_table[obs][action]
 
@@ -193,8 +197,9 @@ for episode in range(HM_EPISODES):
             new_q = -ENEMY_PENALTY
         else:
             # Q-formula
-            new_q = (1 - LEARNING_RATE) * current_q + LEARNING_RATE * \
-                    (reward + DISCOUNT * max_future_q)
+            new_q = (1 - LEARNING_RATE) * current_q + LEARNING_RATE * (
+                reward + DISCOUNT * max_future_q
+            )
 
         q_table[obs][action] = new_q
 
@@ -224,8 +229,9 @@ for episode in range(HM_EPISODES):
     epsilon *= EPS_DECAY
 
 # Create a moving average
-moving_avg = np.convolve(episode_rewards, np.ones((SHOW_EVERY,)) / SHOW_EVERY,
-                         mode="valid")
+moving_avg = np.convolve(
+    episode_rewards, np.ones((SHOW_EVERY,)) / SHOW_EVERY, mode="valid"
+)
 plt.plot([i for i in range(len(moving_avg))], moving_avg)
 plt.ylabel(f"reward {SHOW_EVERY}ma")
 plt.xlabel("episode #")

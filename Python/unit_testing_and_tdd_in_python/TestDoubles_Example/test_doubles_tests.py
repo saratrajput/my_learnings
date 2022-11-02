@@ -6,6 +6,7 @@ from line_reader import readFromFile
 # def test_canCallReadFromFile():
 #     readFromFile("blah")
 
+
 @pytest.fixture()
 def mock_open(monkeypatch):
     mock_file = MagicMock()
@@ -14,12 +15,14 @@ def mock_open(monkeypatch):
     monkeypatch.setattr("builtins.open", mock_open)
     return mock_open
 
+
 def test_returnsCorrectString(mock_open, monkeypatch):
     mock_exists = MagicMock(return_value=True)
     monkeypatch.setattr("os.path.exists", mock_exists)
     result = readFromFile("blah")
     mock_open.assert_called_once_with("blah", "r")
     assert result == "test line"
+
 
 def test_throwsExceptionWithBadFile(mock_open, monkeypatch):
     mock_exists = MagicMock(return_value=False)
