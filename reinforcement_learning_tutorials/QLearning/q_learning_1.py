@@ -1,7 +1,7 @@
-'''
+"""
 Agent doesn't need to know anything about the environment. This is only for
 your information. MountainCar env has 3 actions.
-'''
+"""
 import gym
 import numpy as np
 
@@ -11,31 +11,35 @@ env = gym.make("MountainCar-v0")
 env.reset()
 
 # Print the highest and the lowest possible values of states
-print(env.observation_space.high) # [0.6 0.07]
-print(env.observation_space.low) # [-1.2 -0.07]
+print(env.observation_space.high)  # [0.6 0.07]
+print(env.observation_space.low)  # [-1.2 -0.07]
 # Print number of actions in the env
-print(env.action_space.n) # 3
+print(env.action_space.n)  # 3
 
 
 # discrete observation space size
 # Usually we wouldn't hardcode this as this would change by environment
 DISCRETE_OS_SIZE = [20] * len(env.observation_space.high)
 # Now we're gonna break our continous values in 20 chunks
-discrete_os_win_size = (env.observation_space.high - env.observation_space.low) / DISCRETE_OS_SIZE
+discrete_os_win_size = (
+    env.observation_space.high - env.observation_space.low
+) / DISCRETE_OS_SIZE
 
 print(discrete_os_win_size)
 
 # Initiliaze Q-table
 # These two values you might change depending on the environment
-q_table = np.random.uniform(low=-2, high=0, size=(DISCRETE_OS_SIZE + [env.action_space.n]))
+q_table = np.random.uniform(
+    low=-2, high=0, size=(DISCRETE_OS_SIZE + [env.action_space.n])
+)
 # This will make a 20x20x3 table, so every combination of possible environment
 # observations x 3 actions that we could take. And inside of those cells, right
 # now we have random q values.
 print(q_table.shape)
 print(q_table)
-                                            
 
-'''
+
+"""
 done = False
 
 while not done:
@@ -57,4 +61,4 @@ while not done:
     env.render()
 
 env.close()
-'''
+"""

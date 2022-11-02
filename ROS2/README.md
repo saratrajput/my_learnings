@@ -177,7 +177,7 @@ Benefits:
 * Pure C library.
 * Uses DDS: Data distribution service
 * We don't use RCL directly, but the client libraries built on top of it like rclcpp for
-  Cpp nodes and rclpy for Python nodes. 
+  Cpp nodes and rclpy for Python nodes.
 
 
 ## Intro to ROS2 Tools
@@ -293,7 +293,7 @@ ros2 run turtlesim turtlesim_node --ros-args -r __node:=my_turtle
 
 ### Debug ROS2 Topics with Command Line Tools
 
-* 
+*
 ```
 ros2 topic ...
 ```
@@ -567,7 +567,7 @@ for response.
 
 * When a msg definition is made inside a package -> Colcon build system builds it. -> And
 a souce code is generated for this message in any ROS2 supported language.
-![Building a Msg](images/building_msg_definition.png) 
+![Building a Msg](images/building_msg_definition.png)
 
 * Type of data-types that can be used to create a msg or service definition can be found
 at this [link](https://index.ros.org/doc/ros2/Concepts/About-ROS-Interfaces/).
@@ -890,9 +890,9 @@ from launch import LaunchDescription
 # with this name to launch the application
 def generate_launch_description():
     ld = LaunchDescription()
-    
 
-    return ld   
+
+    return ld
 ```
 This is a minimal template for a launch file.
 
@@ -914,12 +914,12 @@ ld = LaunchDescription()
             package="my_py_pkg",
             executable="number_publisher"
     )
-  
+
     counter_node = Node(
             package="my_cpp_pkg",
             executable="number_counter"
     )
-  
+
     ld.add_action(number_publisher_node)
     ld.add_action(number_counter_node)
     return ld

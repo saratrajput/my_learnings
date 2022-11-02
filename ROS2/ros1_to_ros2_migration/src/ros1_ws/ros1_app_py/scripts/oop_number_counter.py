@@ -6,13 +6,14 @@ from my_robot_msgs.srv import ResetCounter
 
 
 class NumberCounter:
-
     def __init__(self):
         self.counter_ = 0
         self.number_subscriber_ = rospy.Subscriber(
-            "number", Int64, self.callback_number)
+            "number", Int64, self.callback_number
+        )
         self.reset_service_ = rospy.Service(
-            "reset_counter", ResetCounter, self.callback_reset_counter)
+            "reset_counter", ResetCounter, self.callback_reset_counter
+        )
         rospy.loginfo("Number counter has been started.")
 
     def callback_number(self, msg):
@@ -27,7 +28,7 @@ class NumberCounter:
         return False
 
 
-if __name__ == '__main__':
-    rospy.init_node('number_counter')
+if __name__ == "__main__":
+    rospy.init_node("number_counter")
     NumberCounter()
     rospy.spin()

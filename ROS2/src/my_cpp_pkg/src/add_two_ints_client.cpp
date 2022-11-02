@@ -1,13 +1,13 @@
 #include "rclcpp/rclcpp.hpp"
 #include "example_interfaces/srv/add_two_ints.hpp"
- 
+
 class AddTwoIntsClientNode : public rclcpp::Node
 {
 public:
     AddTwoIntsClientNode() : Node("add_two_ints_client")
     {
         //callAddTwoIntsService(1, 4);
-        
+
         // If you call the function directly: the program starts -> we start the node
         // -> we create the client -> we wait for service -> if we start the server on
         // another terminal it passes -> we send the request -> we'll wait for the
@@ -57,13 +57,13 @@ public:
             RCLCPP_ERROR(this->get_logger(), "Service call failed");
         }
     }
- 
+
 private:
     std::thread thread1_;
     // Example solution for multiple requests
     //std::vector<std::thread> threads_;
 };
- 
+
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);

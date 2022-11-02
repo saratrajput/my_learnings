@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
             case 'I':
                 printf("%d: 'I'\n", i);
                 break;
-            
+
             case 'o':
             case 'O':
                 printf("%d: 'O'\n", i);

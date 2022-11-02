@@ -39,4 +39,3 @@ def display(candidate, start_time):
             str(time_diff),
         )
     )
-

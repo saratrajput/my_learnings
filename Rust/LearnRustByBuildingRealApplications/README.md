@@ -14,7 +14,7 @@ These are my notes from the Udemy course [Learn Rust by Building Real World Appl
 
 ### Installation
 
-* Open https://doc.rust-lang.org/stable/book/ 
+* Open https://doc.rust-lang.org/stable/book/
 
 * For Linux
 
@@ -59,7 +59,7 @@ rustup default nightly
 
 cargo expand
 ```
- 
+
 ---
 **NOTES:**
 
@@ -164,7 +164,7 @@ query_string: Option<String>
 
 ### Organising Our Code into Modules
 * To encapsulate our code into modules, add the code inside a ```mod {}``` (module).
-* Add the ```pub``` keyword to the struct definition or function definitions to make them public. By default everything is private. 
+* Add the ```pub``` keyword to the struct definition or function definitions to make them public. By default everything is private.
 * Use the ```super``` keyword to refer to the parent module.
 * To define namespaces,
 ```
@@ -184,7 +184,7 @@ A TCP socket server, listening for connections.
 Result Enum is in the core of error handling in Rust.
 
 Rust groups error in two categories:
-* Recoverable: 
+* Recoverable:
     * Eg: FileNotFound Error
     * In most cases, you would not like your program to crash if the file does not exist.
 * Unrecoverable:
@@ -217,11 +217,11 @@ netcat -k -l 8080
 * Rust has a simpler syntax for ```while```.
 
 ```
-while true 
+while true
 {
     <body of the loop>
 }
-``` 
+```
 
 Rust:
 ```

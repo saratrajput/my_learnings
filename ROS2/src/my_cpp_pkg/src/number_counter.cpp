@@ -1,7 +1,7 @@
 #include "rclcpp/rclcpp.hpp"
 #include "example_interfaces/msg/int64.hpp"
 #include "example_interfaces/srv/set_bool.hpp"
- 
+
 using std::placeholders::_1;
 using std::placeholders::_2;
 
@@ -19,7 +19,7 @@ public:
                 std::bind(&NumberCounterNode::callbackResetCounter, this, _1, _2));
         RCLCPP_INFO(this->get_logger(), "Number Counter node has started.");
     }
- 
+
 private:
     void callbackNumberCounter(const example_interfaces::msg::Int64::SharedPtr msg)
     {
@@ -55,7 +55,7 @@ private:
     // Declare Service
     rclcpp::Service<example_interfaces::srv::SetBool>::SharedPtr server_;
 };
- 
+
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);

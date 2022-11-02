@@ -11,7 +11,7 @@ For this we're gonna use the following formula:
 ![Q learning](images/q_learning_formula.png)
 
 The way it works is, we're gonna first create a Q-table, which is a large table
-having any combination of states of position and velocity, we're gonna lookup the 
+having any combination of states of position and velocity, we're gonna lookup the
 3 q values, and we'll pick the one with the highest q value.
 
 Initially we'll make a table with random q values. And then our agent will update
@@ -19,7 +19,7 @@ those q values.
 
 So we'll make a table like below:
 ![q table](images/q_table.png)
-And we'll look for the q value for the combination of position and velocity that 
+And we'll look for the q value for the combination of position and velocity that
 we get as observation. And then we'll pick the q value with the highest value.
 
 And then using the above formula, we'll kinda backpropagate that reward to make for

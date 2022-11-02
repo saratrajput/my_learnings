@@ -1,10 +1,10 @@
-'''
+"""
 Agent doesn't need to know anything about the environment. This is only for
 your information. MountainCar env has 3 actions.
 
 Full tutorial:
 https://pythonprogramming.net/q-learning-analysis-reinforcement-learning-python-tutorial/
-'''
+"""
 import gym
 import numpy as np
 import matplotlib.pyplot as plt
@@ -24,24 +24,27 @@ SHOW_EVERY = 500
 # discrete observation space size
 DISCRETE_OS_SIZE = [20] * len(env.observation_space.high)
 # Now we're gonna break our continuous values in 20 chunks
-discrete_os_win_size = (env.observation_space.high - env.observation_space.low) \
-                       / DISCRETE_OS_SIZE
+discrete_os_win_size = (
+    env.observation_space.high - env.observation_space.low
+) / DISCRETE_OS_SIZE
 
 print(discrete_os_win_size)
 
 # To add some random actions. For exploratory moves
 epsilon = 0.5
 START_EPSILON_DECAYING = 1
-END_EPSILON_DECAYING = EPISODES // 2 # Always divide out to an integer
+END_EPSILON_DECAYING = EPISODES // 2  # Always divide out to an integer
 epsilon_decay_value = epsilon / (END_EPSILON_DECAYING - START_EPSILON_DECAYING)
 
 # Initialize Q-table
-q_table = np.random.uniform(low=-2, high=0, size=(DISCRETE_OS_SIZE + [env.action_space.n]))
+q_table = np.random.uniform(
+    low=-2, high=0, size=(DISCRETE_OS_SIZE + [env.action_space.n])
+)
 
 # Episode rewards
 ep_rewards = []
 # A dictionary tracking episode number, average, min and max
-aggr_ep_rewards = {'ep': [], 'avg': [], 'min': [], 'max': []}
+aggr_ep_rewards = {"ep": [], "avg": [], "min": [], "max": []}
 # ep: is like the x-axis of the graph
 # avg: is the windowed average, our window is like 500. It should go up as our model
 # improves
@@ -50,10 +53,11 @@ aggr_ep_rewards = {'ep': [], 'avg': [], 'min': [], 'max': []}
 # model to be somewhat decent compared to the average
 # We'll use these metrics to optimize depending on our task
 
+
 def get_discrete_state(state):
-    '''
+    """
     Convert continuous states of position and velocity to discrete states
-    '''
+    """
     discrete_state = (state - env.observation_space.low) / discrete_os_win_size
     return tuple(discrete_state.astype(np.int64))
 
@@ -97,17 +101,17 @@ for episode in range(EPISODES):
             # max and not argmax because here we want the q-value rather than the arg-max
             max_future_q = np.max(q_table[new_discrete_state])
             # we get the q-value for that particular action
-            current_q = q_table[discrete_state + (action, )]
+            current_q = q_table[discrete_state + (action,)]
 
             # This is the Q-learning formula
-            new_q = (1 - LEARNING_RATE) * current_q + LEARNING_RATE * (reward + \
-                    DISCOUNT * max_future_q)
+            new_q = (1 - LEARNING_RATE) * current_q + LEARNING_RATE * (
+                reward + DISCOUNT * max_future_q
+            )
             # the way it back-propagates is dependent on the DISCOUNT and max_future_q
             # values.
 
-
             # Update our q-table with the new q-value
-            q_table[discrete_state + (action, )] = new_q
+            q_table[discrete_state + (action,)] = new_q
             # Pay attention that we're updating the discrete state after we took the step
             # of that discrete state
 
@@ -127,19 +131,21 @@ for episode in range(EPISODES):
         # Save the q-table
         np.save(f"qtables/{episode}-qtable.npy", q_table)
         # Make the aggr_ep_rewards dictionary
-        average_reward = sum(ep_rewards[-SHOW_EVERY:])/ len(ep_rewards[-SHOW_EVERY:])
-        aggr_ep_rewards['ep'].append(episode)
-        aggr_ep_rewards['avg'].append(average_reward)
-        aggr_ep_rewards['min'].append(min(ep_rewards[-SHOW_EVERY:]))
-        aggr_ep_rewards['max'].append(max(ep_rewards[-SHOW_EVERY:]))
+        average_reward = sum(ep_rewards[-SHOW_EVERY:]) / len(ep_rewards[-SHOW_EVERY:])
+        aggr_ep_rewards["ep"].append(episode)
+        aggr_ep_rewards["avg"].append(average_reward)
+        aggr_ep_rewards["min"].append(min(ep_rewards[-SHOW_EVERY:]))
+        aggr_ep_rewards["max"].append(max(ep_rewards[-SHOW_EVERY:]))
 
-        print(f"Episode: {episode} avg:{average_reward} min:{min(ep_rewards[-SHOW_EVERY:])} "
-              f"max:{max(ep_rewards[-SHOW_EVERY:])}")
+        print(
+            f"Episode: {episode} avg:{average_reward} min:{min(ep_rewards[-SHOW_EVERY:])} "
+            f"max:{max(ep_rewards[-SHOW_EVERY:])}"
+        )
 
 env.close()
 
-plt.plot(aggr_ep_rewards['ep'], aggr_ep_rewards['avg'], label="avg")
-plt.plot(aggr_ep_rewards['ep'], aggr_ep_rewards['min'], label="min")
-plt.plot(aggr_ep_rewards['ep'], aggr_ep_rewards['max'], label="max")
+plt.plot(aggr_ep_rewards["ep"], aggr_ep_rewards["avg"], label="avg")
+plt.plot(aggr_ep_rewards["ep"], aggr_ep_rewards["min"], label="min")
+plt.plot(aggr_ep_rewards["ep"], aggr_ep_rewards["max"], label="max")
 plt.legend(loc=4)
 plt.show()

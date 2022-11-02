@@ -54,7 +54,9 @@ class Ui_MainWindow(object):
         ui.setupUi(Dialog)
         Dialog.show()
         # Dialog.exec_()
-        rsp = Dialog.exec_()  # Have to call exec_() otherwise dialog window closes immediately.
+        rsp = (
+            Dialog.exec_()
+        )  # Have to call exec_() otherwise dialog window closes immediately.
 
         if rsp == QtWidgets.QDialog.Accepted:
             self.label.setText("Ok button was clicked.")
@@ -70,6 +72,7 @@ class Ui_MainWindow(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()

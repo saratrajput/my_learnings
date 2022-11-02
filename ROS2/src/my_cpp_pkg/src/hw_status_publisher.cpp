@@ -1,6 +1,6 @@
 #include "rclcpp/rclcpp.hpp"
 #include "my_robot_interfaces/msg/hardware_status.hpp"
- 
+
 class HardwareStatusPublisherNode : public rclcpp::Node
 {
 public:
@@ -12,7 +12,7 @@ public:
         RCLCPP_INFO(this->get_logger(), "Hardware status publisher has been started...");
 
     }
- 
+
 private:
     void publishHwStatus()
     {
@@ -25,7 +25,7 @@ private:
     rclcpp::Publisher<my_robot_interfaces::msg::HardwareStatus>::SharedPtr hw_status_publisher_;
     rclcpp::TimerBase::SharedPtr timer_;
 };
- 
+
 int main(int argc, char **argv)
 {
     rclcpp::init(argc, argv);

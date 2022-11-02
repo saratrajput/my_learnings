@@ -5,10 +5,10 @@
 
 	<node name="number_publisher" pkg="ros1_app_py" type="number_publisher.py" output="screen" />
 	<node name="number_counter" pkg="ros1_app_py" type="number_counter.py" output="screen" />
-    
-<!-- 
+
+<!--
     <node name="number_publisher" pkg="ros1_app_cpp" type="number_publisher" output="screen" />
-    <node name="number_counter" pkg="ros1_app_cpp" type="number_counter" output="screen" /> 
+    <node name="number_counter" pkg="ros1_app_cpp" type="number_counter" output="screen" />
 -->
 
 </launch>

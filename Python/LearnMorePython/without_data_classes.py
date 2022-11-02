@@ -2,7 +2,7 @@ class Person:
     name: str
     job: str
     age: int
-    
+
     def __init__(self, name, job, age):
         self.name = name
         self.job = job
@@ -18,4 +18,3 @@ print(id("ID of Person3: {}".format(person3)))
 print("Person1: {}".format(person1))
 
 print("Is person3 == person2: {}".format(person3 == person2))
-

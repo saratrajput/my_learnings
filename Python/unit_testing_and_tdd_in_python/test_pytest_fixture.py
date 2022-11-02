@@ -5,10 +5,12 @@ import pytest
 def setup():
     print("\nSetup")
 
+
 # def test1(setup): # Method-1
 def test1():
     print("Executing test1!")
     assert True
+
 
 # @pytest.mark.usefixtures("setup") # Method-1
 def test2():

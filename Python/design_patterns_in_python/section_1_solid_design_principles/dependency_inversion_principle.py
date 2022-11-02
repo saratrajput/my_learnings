@@ -15,7 +15,8 @@ class Person:
 
 class RelationshipBrowser:
     @abstractmethod
-    def find_all_children_of(self, name): pass
+    def find_all_children_of(self, name):
+        pass
 
 
 class Relationships(RelationshipBrowser):  # low-level
@@ -24,7 +25,7 @@ class Relationships(RelationshipBrowser):  # low-level
     def add_parent_and_child(self, parent, child):
         self.relations.append((parent, Relationship.PARENT, child))
         self.relations.append((child, Relationship.PARENT, parent))
-            
+
     def find_all_children_of(self, name):
         for r in self.relations:
             if r[0].name == name and r[1] == Relationship.PARENT:
@@ -44,12 +45,12 @@ class Research:
 
     def __init__(self, browser):
         for p in browser.find_all_children_of("John"):
-            print(f'John has a child called {p}')
+            print(f"John has a child called {p}")
 
 
-parent = Person('John')
-child1 = Person('Chris')
-child2 = Person('Matt')
+parent = Person("John")
+child1 = Person("Chris")
+child2 = Person("Matt")
 
 # low-level module
 relationships = Relationships()

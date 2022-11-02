@@ -19,11 +19,13 @@ from grab_screen import grab_screen
 
 # Initialize logging
 log = logging.getLogger(__name__)
-logging.basicConfig(level=logging.INFO) # Add filename='example.log' for logging to file
+logging.basicConfig(
+    level=logging.INFO
+)  # Add filename='example.log' for logging to file
 
 
 @dataclass
-class ClashOfClans():
+class ClashOfClans:
     top_left_x: int = 265
     top_left_y: int = 106
     bottom_right_x: int = 1718
@@ -53,7 +55,10 @@ class ClashOfClans():
         if self.dual_screen:
             self.screen1_res = (1920, 1080)
 
-        width = slice(self.top_left_x + self.screen1_res[0], self.bottom_right_x + self.screen1_res[0])
+        width = slice(
+            self.top_left_x + self.screen1_res[0],
+            self.bottom_right_x + self.screen1_res[0],
+        )
         height = slice(self.top_left_x, self.bottom_right_y)
 
         image = image[height, width]
@@ -75,7 +80,10 @@ class ClashOfClans():
 
         loc_pos = [pt for pt in zip(*loc[::-1])]
 
-        resource_loc = (loc_pos[0][0] + self.top_left_x + w/2, loc_pos[0][1] + self.top_left_y + h/2)
+        resource_loc = (
+            loc_pos[0][0] + self.top_left_x + w / 2,
+            loc_pos[0][1] + self.top_left_y + h / 2,
+        )
         return resource_loc
 
         # # pyautogui.moveTo(resource_loc)
@@ -91,7 +99,7 @@ class ClashOfClans():
         # pyautogui.click(self.clash_of_clans_loc)
 
         # Use the bluestacks hotkey to quit
-        pyautogui.hotkey('ctrl','shift','2')
+        pyautogui.hotkey("ctrl", "shift", "2")
 
         # Click on Okay
         time.sleep(0.5)
@@ -104,21 +112,36 @@ def argument_parser():
     """
     parser = argparse.ArgumentParser()
 
-    parser.add_argument("--game_template", type=str,
-                        default="images/coc_template.png",
-                        help="Path to coc template.")
-    parser.add_argument("--okay_template", type=str,
-                        default="images/okay_template.png",
-                        help="Path to coc template.")
-    parser.add_argument("--elixir_template", type=str,
-                        default="images/elixir_collector_real.png",
-                        help="Path to elixir collector template.")
-    parser.add_argument("--gold_template", type=str,
-                        default="images/gold_collector_real.png",
-                        help="Path to elixir collector template.")
-    parser.add_argument("--dark_elixir_collector", type=str,
-                        default="images/dark_elixir_collector_real.png",
-                        help="Path to dark elixir collector template.")
+    parser.add_argument(
+        "--game_template",
+        type=str,
+        default="images/coc_template.png",
+        help="Path to coc template.",
+    )
+    parser.add_argument(
+        "--okay_template",
+        type=str,
+        default="images/okay_template.png",
+        help="Path to coc template.",
+    )
+    parser.add_argument(
+        "--elixir_template",
+        type=str,
+        default="images/elixir_collector_real.png",
+        help="Path to elixir collector template.",
+    )
+    parser.add_argument(
+        "--gold_template",
+        type=str,
+        default="images/gold_collector_real.png",
+        help="Path to elixir collector template.",
+    )
+    parser.add_argument(
+        "--dark_elixir_collector",
+        type=str,
+        default="images/dark_elixir_collector_real.png",
+        help="Path to dark elixir collector template.",
+    )
 
     return parser.parse_args()
 
@@ -134,12 +157,16 @@ def main(args):
     # Open coc
     coc_loc = coc.find_template_loc(args.game_template)
     pyautogui.click(coc_loc)
-    
+
     coc.open_coc()
     time.sleep(4)
 
     # Collect resources
-    for template in [args.elixir_template, args.gold_template, args.dark_elixir_template]:
+    for template in [
+        args.elixir_template,
+        args.gold_template,
+        args.dark_elixir_template,
+    ]:
         pyautogui.click(coc.find_template_loc(template))
         time.sleep(1)
 
@@ -149,6 +176,6 @@ def main(args):
     pyautogui.click(okay_loc)
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     args = argument_parser()
     main(args)

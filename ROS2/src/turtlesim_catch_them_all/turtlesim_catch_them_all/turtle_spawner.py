@@ -9,24 +9,28 @@ from turtlesim.srv import Kill
 from my_robot_interfaces.msg import Turtle
 from my_robot_interfaces.msg import TurtleArray
 from my_robot_interfaces.srv import CatchTurtle
- 
+
+
 class TurtleSpawner(Node):
     def __init__(self):
         super().__init__("turtle_spawner")
         self.declare_parameter("spawn_frequency", 1.0)
         self.declare_parameter("turtle_name_prefix", "turtle")
 
-        #self.turtle_name_prefix_ = "turtle"
+        # self.turtle_name_prefix_ = "turtle"
         self.spawn_frequency = self.get_parameter("spawn_frequency").value
         self.turtle_name_prefix_ = self.get_parameter("turtle_name_prefix").value
         self.turtle_counter_ = 0
         self.alive_turtles_ = []
-        self.alive_turtles_publisher_ = self.create_publisher(TurtleArray,
-                                                              "alive_turtles", 10)
-        self.spawn_turtle_timer_ = self.create_timer(1.0/self.spawn_frequency, self.spawn_new_turtle)
-        self.catch_turtle_service_ = self.create_service(CatchTurtle,
-                                                         "catch_turtle",
-                                                         self.callback_catch_turtle)
+        self.alive_turtles_publisher_ = self.create_publisher(
+            TurtleArray, "alive_turtles", 10
+        )
+        self.spawn_turtle_timer_ = self.create_timer(
+            1.0 / self.spawn_frequency, self.spawn_new_turtle
+        )
+        self.catch_turtle_service_ = self.create_service(
+            CatchTurtle, "catch_turtle", self.callback_catch_turtle
+        )
         self.get_logger().info("Turtle Spawner node has started...")
 
     def callback_catch_turtle(self, request, response):
@@ -59,8 +63,11 @@ class TurtleSpawner(Node):
         request.name = turtle_name
 
         future = client.call_async(request)
-        future.add_done_callback(partial(self.callback_call_spawn,
-            turtle_name=turtle_name, x=x, y=y, theta=theta))
+        future.add_done_callback(
+            partial(
+                self.callback_call_spawn, turtle_name=turtle_name, x=x, y=y, theta=theta
+            )
+        )
 
     def callback_call_spawn(self, future, turtle_name, x, y, theta):
         try:
@@ -76,7 +83,7 @@ class TurtleSpawner(Node):
                 self.publish_alive_turtles()
         except Exception as e:
             self.get_logger().error("Service call failed %r" % (e,))
- 
+
     def call_kill_server(self, turtle_name):
         client = self.create_client(Kill, "kill")
         while not client.wait_for_service(1.0):
@@ -86,8 +93,9 @@ class TurtleSpawner(Node):
         request.name = turtle_name
 
         future = client.call_async(request)
-        future.add_done_callback(partial(self.callback_call_kill,
-            turtle_name=turtle_name))
+        future.add_done_callback(
+            partial(self.callback_call_kill, turtle_name=turtle_name)
+        )
 
     def callback_call_kill(self, future, turtle_name):
         try:
@@ -100,14 +108,14 @@ class TurtleSpawner(Node):
                     break
         except Exception as e:
             self.get_logger().error("Service call failed %r" % (e,))
- 
+
+
 def main(args=None):
     rclpy.init(args=args)
     node = TurtleSpawner()
     rclpy.spin(node)
     rclpy.shutdown()
- 
- 
+
+
 if __name__ == "__main__":
     main()
-

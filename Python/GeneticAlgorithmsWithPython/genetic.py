@@ -81,4 +81,3 @@ class Benchmark:
                     1 + i, mean, statistics.stdev(timings, mean) if i > 1 else 0
                 )
             )
-
