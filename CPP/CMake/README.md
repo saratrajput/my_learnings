@@ -1,6 +1,11 @@
+# [Master CMake for Cross-Platform C++ Project Building](https://www.udemy.com/course/master_cmake/learn/lecture/17991435?start=0#overview)
+
 ## Requirements
-g++
+
+* g++
+```
 sudo apt install g++
+```
 
 ## Module 1
 
@@ -1293,7 +1298,7 @@ If we set or modify a variable inside the my_module.cmake file, that modificatio
 
 The modules are often used if we want to have reusable code in our project. Also if your CMakeLists.txt file is too long, some part of it can be written inside another .cmake file; to improve the readability of the code.
 
-## Cache Variables
+## Module 6: Cache Variables
 
 ### Setting a Cache Variable
 
@@ -1396,7 +1401,7 @@ When installing a custom library, it is often required to change the cache varia
       cmake -GNinja ..
       ```
 
-## Installing and Exporting Package
+## Module 7: Installing and Exporting Package
 
 ### Requirements for Installing/Exporting Package
 
@@ -1451,6 +1456,67 @@ When a project uses the above command, it searches for ```ABC-config.cmake``` fi
    * Add targets to export group.
    * Install the export group.
    * Modify the target_include_directories() commands.
+
+The following error indicates there is some error with ```target_include_directories()``` command.
+```
+CMake Error in my_math/CMakeLists.txt:
+  Target "my_math" INTERFACE_INCLUDE_DIRECTORIES property contains path:
+
+    "/home/sp/dev_root/my_learnings/CPP/CMake/module7/my_math/include"
+
+  which is prefixed in the source directory.
+```
+
+* When we use ```target_include_directories(my_math PUBLIC include)``` command, a property called ```INTERFACE_INCLUDE_DIRECTORIES``` is automatically set.
+* If we use the ```install(EXPORT )```, this property is also going to be exported.
+* Any user who will be consuming this library, **must** use the same include directory structure.
+* To avoid such problems ```CMake``` has a concept of **Generator Expressions**.
+
+#### Generator Expressions
+
+* Evaluated during **Build system generation**.
+* Form: ```$<..>```
+* Enables **conditional linking, conditional include directories**, etc..
+* Conditions based on:
+   * build configuration.
+   * target properties.
+   * platform.
+
+To use the generator expressions, modify the ```target_include_directories()``` command.
+```
+target_include_directories(my_math PUBLIC
+$<INSTALL_INTERFACE:include>
+$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>)
+```
+
+After this, we can run the following commands to install the ```my_math``` library.
+```
+cd module7/build/
+cmake ..
+make
+sudo make install
+```
+
+All the header ```files```, ```config.cmake``` files are installed in ```/usr/local/include/<library_name>```, ```/usr/local/lib/<library_name>``` respectively.
+
+### Using a 3rd party Package in our Project
+
+* Run the example with:
+```
+cd test_module7/build/
+cmake ..
+make
+./calc
+```
+
+#### ```find_package()``` command | Modes of Operation
+
+* Module Mode.
+   * In the module mode, the ```find_package(my_math)``` command will look for ```Findmy_math.cmake``` file.
+* Config Mode.
+   * In the config mode, the ```find_package(my_math)``` command will look for ```my_math-config.cmake``` file.
+
+
 
 ## APPENDIX
 * [How to set up a CMakeLists.txt with add_subdirectories](https://github.com/sun1211/cmake_with_add_subdirectory).
