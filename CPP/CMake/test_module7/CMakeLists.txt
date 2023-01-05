@@ -11,3 +11,5 @@ if(my_math_FOUND)
 else()
     message(FATAL_ERROR "my_math library not found.")
 endif()
+
+message("I forgot to run CMake command.")

@@ -1513,8 +1513,136 @@ make
 
 * Module Mode.
    * In the module mode, the ```find_package(my_math)``` command will look for ```Findmy_math.cmake``` file.
+   * To use the module mode, you need to specify the **MODULE** option: ```find_package(my_math MODULE)```.
+   * The CMake file is firstly searched within the directories specified inside ```CMAKE_MODULE_DIR``` variable.
+      * Since the cache variable ```CMAKE_MODULE_DIR``` is set by us, it is recommended to use the module mode to find the packages that is inside our project.
 * Config Mode.
    * In the config mode, the ```find_package(my_math)``` command will look for ```my_math-config.cmake``` file.
+   * To use the config mode, you need to specify the **CONFIG** option: ```find_package(my_math CONFIG)```.
+   * The config mode is used, when using an installed package.
+* If no option is provided, the file is first searched in module mode and then in config mode.
+
+In our example, we used the **config mode**, to find ```my_math-config.cmake``` file.
+
+>> **Important feature of make tool:** If we have edited the ```CMakeLists``` file and then forgot to run the ```CMake``` command before running the make command, the make tool automatically runs ```CMake``` for us.
+
+## Module 8: Tips/FAQs
+
+### Commenting in CMake
+
+* How can we comment the codes in CMake?
+   * You can have a **single line comment** by prepending a line with ```#```, for example:
+   ```
+   # This is a comment.
+   ```
+
+   * You can also have **multi-line comment** by wrapping the lines between ```#[[``` and ```#]]``` with ```#```, for example:
+   ```
+   ##[[ This is comment line 1
+        This is comment line 2
+        This is comment line 3
+        This is comment line 4
+        This is comment line 5
+   ##]]
+   ```
+
+   * You can also have nested comments, with the help of =, like this:
+   ```
+   #[==[ This is comment line 1
+         This is comment line 2
+         #[=[This is comment line 3
+             This is comment line 4
+             #[[This is comment line 5
+             #]]This is comment line 6
+             This is comment line 7
+         #[=]This is comment line 8
+         This is comment line 9
+   #]==]
+   ```
+
+### Using CMake variables in CPP files
+
+* Can we use CMake's normal variables or cache variables inside ```main.cpp``` files?
+   * Yes!
+
+Say you want the value of the variable ```CMAKE_SOURCE_DIR``` inside your ```main.cpp```. You just need to add 1 command in ```CMakeLists.txt```.
+```
+add_definitions(-Dsomevariablename="${CMAKE_SOURCE_DIR}")
+```
+now, you can go inside ```main.cpp``` and add directly use the ```somevariablename``` variable like this:
+
+```
+std::cout << somevariablename << "\n";
+```
+
+or like this
+
+```
+#ifdef somevariablename
+   do_something()
+#endif
+```
+
+Note that I've NOT used ```-D``` inside ```main.cpp``` because it's a part of CMake's syntax.
+
+### Running CMakeLists.txt in Script mode
+
+#### Linux Specific Instructions
+
+* Method 1, using the ```-P``` option.
+```
+cmake -P CMakeLists.txt
+```
+
+* Method 2:
+   1. Run the command ```which cmake``` in your terminal. It will give you the location of the cmake executable. For example:
+   ```
+   /usr/bin/cmake
+   ```
+   2. Open the CMakeLists.txt file and paste the following code in its first line.
+   ```
+   #!/usr/bin/cmake -P
+   ```
+   3. Give the execution permission to the CMakeLists.txt file by running the command:
+   ```
+   chmod +x CMakeLists.txt
+   ```
+   4. Now, you can either use the command ```./CMakeLists.txt``` or ```cmake -P CMakeLists.txt``` to run the ```CMakeLists.txt``` file in the script mode.
+
+### Debug/Release Mode
+
+* How can we handle different build configurations like debug, release, etc. using CMakeLists.txt file?
+   * There are two case scenarios.
+
+   1. **You are making a project, which does not depend on any external library.** In this case, you can directly set a normal variable ```CMAKE_BUILD_TYPE``` to ```Debug``` or ```Release```, while generating build system files. To do that, simply execute
+   ```
+   cmake -DCMAKE_BUILD_TYPE=Debug ..
+   ```
+   or
+   ```
+   cmake -DCMAKE_BUILD_TYPE=Release ..
+   ```
+   commands.
+   You will see that the release build is faster and also has less file size compared to the debug build. When you set the CMAKE_BUILD_TYPE variable, the compile flags are automatically modified to offer you the desired optimization levels.
+
+   2. **You want to use an external library in the Debug/Release mode.**
+      * Firstly, you will download the external library's source codes and compile it in both debug and release modes. You **MUST** have **separate folders** containing the debug binaries and release binaries. Say the external debug library is in ```/some/path/foo/debug/libfoo.so``` and the release library is in ```/some/path/foo/release/libfoo.so```.
+
+      * Say, the executable in your project is called ```my_app``` then you can use the following command in ```my_app``` project's ```CMakeLists.txt```, to link the external ```foo``` library.
+      ```
+      target_link_libraries( my_app
+         debug /some/path/foo/debug/libfoo.so
+         optimized /some/path/foo/release/libfoo.so)
+      ```
+      Now, when you will run
+      ```
+      cmake -DCMAKE_BUILD_TYPE=Debug ..
+      ```
+      while generating the build files for ```my_app``` project, ```/some/path/foo/debug/libfoo.so``` will be linked against ```my_app```.
+
+   > Note that, running the ```cmake ..``` command i.e. without any build type will throw an error.
+
+## Module 9: Linking External Libraries
 
 
 
