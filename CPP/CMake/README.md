@@ -1644,7 +1644,30 @@ cmake -P CMakeLists.txt
 
 ## Module 9: Linking External Libraries
 
+### Problems with Linking External Libraries
 
+* Process of linking an external library ```xyz```.
+   * Library name: XYZ
+   * Library file name: libXYZ.a or libXYZ.so
+      * Download the source code(github/official website).
+      * ```cmake, make, sudo make install```
+      * XYZ-config.cmake in the installed location.
+      * Use ```find_package(XYZ)```.
+
+* What if the installed library does not contain the ```XYZ-config.cmake``` file.
+   * Ask the library developers to provide it.
+   * Write your own ```Find*cmake``` file.
+   * Write ```*config``` module.
+
+> XYZ-config.cmake file is usually kept inside one of the standard installation locations, but ```FindXYZ.cmake``` file is kept inside your project folder.
+
+* Using External Library.
+   * Uses CMake based build generation process.
+      * *config.cmake present.
+      * NO *config.cmake present.
+   * Uses NON-CMake based build generation process.
+      * CMake or Library provides Find* or *config modules.
+      * Uses pkg-config file.
 
 ## APPENDIX
 * [How to set up a CMakeLists.txt with add_subdirectories](https://github.com/sun1211/cmake_with_add_subdirectory).
