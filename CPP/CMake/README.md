@@ -1669,5 +1669,259 @@ cmake -P CMakeLists.txt
       * CMake or Library provides Find* or *config modules.
       * Uses pkg-config file.
 
+### Installation of OpenCV (External Package)
+
+* Go to the [official instructions](https://docs.opencv.org/4.x/d7/d9f/tutorial_linux_install.html).
+
+* Install dependencies.
+```
+# Compiler
+sudo apt-get install build-essential
+
+# Required
+sudo apt-get install cmake git libgtk2.0-dev pkg-config libavcodec-dev libavformat-dev libswscale-dev
+
+# Optional
+sudo apt-get install python-dev python-numpy libtbb2 libtbb-dev libjpeg-dev libpng-dev libtiff-dev libdc1394-22-dev python3-dev python3-numpy
+```
+
+* Download the stable source code of OpenCV from this [link](https://opencv.org/releases/).
+
+* Extract the zip file.
+
+* Create a build directory and execute ```cmake``` command.
+```
+mkdir build
+cmake ..
+make -j8
+sudo make install
+```
+
+### Using OpenCV in a Project
+
+* Create a new directory module9, with the following files.
+```
+mkdir module9
+cd module9
+mkdir App_OpenCV
+cd App_OpenCV
+touch main.cpp CMakeLists.txt
+mkdir build
+```
+
+* In the CMakeLists.txt, make sure to use ```OpenCV``` (case-sensitive) in the find_package command, as it will look for the wrong file otherwise.
+   * find_package(OpenCV REQUIRED) --> OpenCVConfig.cmake
+   * find_package(opencv REQUIRED) --> opencvConfig.cmake
+
+#### Variable Naming
+
+* Package Name: XYZ
+  * Libraries: XYZ_LIBRARIES, XYZ_LIBS, ...
+  * Include Directories: XYZ_INCLUDES, XYZ_INCLUDE_DIRS, ...
+
+* To check what variable name OpenCV uses.
+  ```
+  find /usr -name OpenCV*cmake
+
+  vim /usr/local/lib/cmake/opencv4/OpenCVConfig.cmake
+  ```
+
+OpenCV uses: ```OpenCV_LIBS``` and ```OpenCV_INCLUDE_DIRS``` variable names.
+
+### Using Pkg-Config to link GTK3 Library
+
+When we install a package say libxyz from the repository, the following files are also installed.
+* Compiled Library.
+* Header Files.
+* Symbolic Links.
+* Pkg-Config (.pc) files.
+
+If you can't find these files after installing the package, then you can install,
+* libxyz-dev, or
+* libxyz-devel
+package from the repository if available.
+
+#### Using the GTK3 Library
+
+* Install the GTK3 library.
+```
+sudo apt install libgtk-3-dev
+```
+
+* Look for the ```.pc``` file of the GTK3 library.
+```
+find /usr -name *gtk*pc
+vim /usr/lib/x86_64-linux-gnu/pkgconfig/gtk+-3.0.pc
+```
+In this file, it shows the location of the library, the include directory location, the public and private dependencies, etc..
+
+#### pkg_check_modules()
+
+```pkg_check_modules()``` is available after we use ```PkgConfig``` package.
+```
+find_package(PkgConfig REQUIRED)
+```
+
+* It will look for .pc files and if they are found it will set the following variables: ```GTK3_LIBRARIES``` and ```GTK3_INCLUDE_DIRS```.
+
+In the above case, the pkg-config was easily able to find the .pc file as it was stored in one of the standard locations.
+But, if the .pc file was inside the Downloads or Deskop folder, we need to tell pkg-config where to look for.
+This can be done by storing its path in a normal variable ```CMAKE_PREFIX_PATH``` or an environment variable.
+
+Whenever you are modifying a ```_PATH``` variable, always append new paths to it, rather than overwriting the previous one.
+
+#### Instructions on Setting the ```_PATH``` Variables
+
+* OK
+  * set(CMAKE_PREFIX_PATH ${CMAKE_PREFIX_PATH} "/home/mky/Desktop")
+  * list(APPEND CMAKE_PREFIX_PATH "/home/mky/Desktop")
+  * set(ENV{CMAKE_PREFIX_PATH} "$ENV{PKG_CONFIG_PATH}:/home/mky/Desktop")
+* NOT GOOD
+  * set(CMAKE_PREFIX_PATH "/home/mky/Desktop")
+
+### pkg_check_modules() vs pkg_search_modules()
+   * When the REQUIRED argument is given, pkg_check_modules() will fail with an error if the module could not be found.
+
+### find_library() and find_path() commands
+
+#### Example
+
+* Project: MyProject
+  * Executable: MyApp
+    * Dependency: External Library abc
+
+* The abc.h and libabc.so files are in these locations
+  * abc.h: /home/mky/Downloads/abc/include/abc.h
+  * libabc.so: /home/mky/Downloads/abc/lib/libabc.so
+
+Simplest solution would be to provide the full path during linking.
+```
+add_executable(MyApp main.cpp)
+target_include_directories(MyApp PRIVATE /home/mky/Downloads/abc/include)
+target_include_libraries(MyApp PRIVATE /home/mky/Downloads/abc/lib/libabc.so)
+```
+
+Suppose, you have three such libraries, and they are all in the same directory. You can use the target_link_directories().
+```
+add_executable(MyApp main.cpp)
+target_include_directories(MyApp PRIVATE /home/mky/Downloads/abc/include)
+target_link_directories(MyApp PRIVATE /home/mky/Downloads/abc/lib)
+target_include_libraries(MyApp PRIVATE libabc.so libabc1.so libabc2.so)
+```
+
+In case the libraries are in a hard to find location, we can use the find_library() and find_path() commands.
+
+#### find_library()
+
+* Input
+  * Library name.
+  * Probable paths.
+* Output
+  * Library path.
+
+```
+find_library(<VAR> <lib-name> <path1> <path2> ...)
+```
+where,
+   * <VAR> is the variable name to store the output path of the library.
+
+Example:
+* Library file: libabc.so
+* Location: /home/mky/Downloads/abc
+            /home/mky/Downloads/abc/include
+            /home/mky/Downloads/abc/include/abc-1.14
+
+* find_library(abc_LIBRARY abc HINTS /home/mky/Downloads/abc)
+* abc_LIBRARY: /home/mky/Downloads/abc/libabc.so
+
+* The find_library() by **DEFAULT** will not look for the library in any of the sub-directories.
+* If we want it to look for in all the probable paths, we can add it as:
+```
+find_library(abc_LIBRARY abc
+   HINTS /home/mky/Downloads/abc
+         /home/mky/Downloads/abc/lib
+         /home/mky/Downloads/abc/lib/abc-1.14)
+```
+* Better way to do it would be to use ```PATH_SUFFIXES``` option.
+```
+find_library(abc_LIBRARY abc
+   HINTS /home/mky/Downloads/abc
+   PATH_SUFFIXES lib lib/abc-1.14)
+```
+
+* If you are unsure about the name or version, you can use the ```NAMES``` option.
+```
+find_library(abc_LIBRARY abc
+   NAMES abc abc-1.14 abc-1.15
+   HINTS /home/mky/Downloads/abc /opt/abc
+   PATH_SUFFIXES lib lib/abc-1.14)
+```
+
+#### find_path()
+
+```
+find_path(<VAR> <file-name> <path1> <path2> ... <suffix1> ...)
+```
+
+* Header file: abc.h
+* Location: /home/mky/Downloads/abc
+            /home/mky/Downloads/abc/include
+            /home/mky/Downloads/abc/include/abc-1.14
+
+```
+find_path(abc_INCLUDE abc.h
+   HINTS /home/mky/Downloads/abc
+   PATH_SUFFIXES include include/abc-1.14)
+```
+
+* The find_library() and find_path() commands will look for the libraries in the paths provided.
+* But, they will also first look in the default locations.
+* Default locations.
+  * find_library(...)
+    * /usr/lib
+    * /usr/lib/x86_64-linux-gnu
+  * find_path(...)
+    * /usr/include
+    * /usr/include/x86_64-linux-gnu
+
+* find_library() output contains the location of the file.
+* find_path() output contains the location of the directory where the file is stored.
+
+### Writing a Find* Module
+
+* Find the location of the .so files with:
+```
+find /usr -name '*gtk*so'
+```
+
+* Find the location of the .h file with:
+```
+find /usr -name 'gtk.h'
+```
+
+If you find an error like the following, it means the linker cannot find a particular library.
+```
+/usr/bin/ld: CMakeFiles/GTK_FindModule_app.dir/main.cpp.o: undefined reference to symbol 'g_application_run'
+/usr/bin/ld: /lib/x86_64-linux-gnu/libgio-2.0.so.0: error adding symbols: DSO missing from command line
+```
+
+We can fix the error, by using the find_library() command.
+
+* In the terminal.
+```
+find /usr -name '*gio*so'
+
+/usr/lib/x86_64-linux-gnu/libgio-2.0.so
+```
+
+* In FindGTK3.cmake.
+```
+find_library(GIO_LIBRARY
+                NAMES gio-2.0)
+```
+
+We want to set the GTK3_FOUND variable to true, if all the libraries and paths are found. This job is automatically handled by a function find_package_handle_standard_args().
+
+
 ## APPENDIX
 * [How to set up a CMakeLists.txt with add_subdirectories](https://github.com/sun1211/cmake_with_add_subdirectory).
