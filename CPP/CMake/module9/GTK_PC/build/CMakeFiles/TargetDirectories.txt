@@ -1,3 +1,0 @@
-/home/sp/dev_root/my_learnings/CPP/CMake/module9/GTK_PC/build/CMakeFiles/rebuild_cache.dir
-/home/sp/dev_root/my_learnings/CPP/CMake/module9/GTK_PC/build/CMakeFiles/edit_cache.dir
-/home/sp/dev_root/my_learnings/CPP/CMake/module9/GTK_PC/build/CMakeFiles/GTK_PC_app.dir
