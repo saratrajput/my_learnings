@@ -6,7 +6,7 @@
 * g++: ```sudo apt install g++```
 * CMake: ```sudo apt install cmake```
 
-## Module 1
+## Module 1 : Introduction
 
 * Write a simple C++ program and execute it using the G++ compiler.
 * The program takes two numbers from the user and displays the results of their addition and division.
@@ -76,7 +76,7 @@ g++ main.cpp addition.cpp division.cpp print_result.cpp -o calculator
 * The problem is that, the building of C++ projects is not a standard across the platforms.
 * CMake solves this problem by creating the platform based system files.
 
-## Module 2
+## Module 2 : CMake Installation and Building the First Target
 
 ### CMake Installation
 
@@ -150,50 +150,51 @@ cmake --version
 
 ### Target's Properties and Dependencies
 
-When we are running add_library or add_executable command, we are defining our target with the specified name. Here, in this CMakeLists.txt file, we have 3 targets named my_math, my_print and calculator.
-
-Every target in CMake has some properties and dependencies associated with it.
-
-Here are some of the properties that you might come across very often.
-Target Properties:
-* INTERFACE_LINK_DIRECTORIES
-* INCLUDE_DIRECTORIES
-* VERSION
-* SOURCES
-
-You can visit the CMake website to know all the properties of a target. These properties are automatically set when we run the commands like target_link_libraries() or target_include_directories(). The properties can also be modified or retrieved using these commands. The targets can also have dependencies on one another. This means, if target B is a dependency of target A, then target A can only be built after target B is built successfully. Here, it is also possible that the target B is having its own dependency. Coming back to our CMakeLists.txt file, here in this command, we have a specified a target, followed by its dependencies for linking. In our project, the my_math and my_print are the dependencies of the calculator target. A target is also capable of propagating its properties in the dependency chain. For example, you might see the command target_link_libraries written with PUBLIC or INTERFACE keywords like this.
-
+* Every target in CMake has some properties and dependencies associated with it.
+* Here are some of the properties that you might come across very often.
+   * ```INTERFACE_LINK_DIRECTORIES```
+   * ```INCLUDE_DIRECTORIES```
+   * ```VERSION```
+   * ```SOURCES```
+* The CMake website has all the properties of a target that can be modified or retrieved using commands.
+* Targets can have dependencies on one another, meaning that target A can only be built after target B is built successfully.
+* In this CMakeLists.txt file, my_math and my_print are the dependencies of the calculator target.
+* A target can propagate its properties in the dependency chain.
+* The command target_link_libraries can be written with PUBLIC or INTERFACE keywords.
 ```
 target_link_libraries(calculator INTERFACE my_math my_print)
 ```
-
-These keywords mean that a property called INTERFACE_LINK_LIBRARIES is set and this property is available to all the targets that depends upon myapp.
-
-There is a third keyword PRIVATE.
-
+* These keywords mean that a property called INTERFACE_LINK_LIBRARIES is set and this property is available to all the targets that depends upon myapp.
+* There is a third keyword ```PRIVATE```.
 ```
 target_link_libraries(calculator PRIVATE my_math my_print)
 ```
-
-This is used when we do not want to set and propagate a property to other targets.
-
-We will see the practical use of these keywords in the next module.
+* This is used when we do not want to set and propagate a property to other targets.
 
 ### FAQ on Targets
-In this lecture, we are going to answer some questions related to target. The first question is, can we add more than one executable in one CMakeLists.txt file? And, the answer is yes. Here we can copy this line and paste it. Let us change the name of the executable to duplicate_calculator, and link the required libraries. To avoid any confusion, we will clean any build files from the last session and then we will execute cmake and make commands. As you can see that the cmake and make commands executed successfully; and as a result, we have two different executables. We can execute both executable and verify the correct output. The next question is, can we have two targets of the same name? And, the answer is No. If we do so, the CMake will give an error and this error is to prevent any confusion in the subsequent stage. This is the reason why I used a different name while making another executable. The third question is, do we have this target file saved in our computer? And, the answer is Yes. The executables, and libraries are saved inside my_build_dir. Note here that, the name my_math, my_print and calculator are only the logical names. The actual file names could be different. For example, in the Windows operating system the executives have .exe in the end. Similarly, a library name can have a suffix .lib, .dll, .a, or .so and a prefix lib, depending on the operating system that you are using. This concludes the second module of this course. Before we move forward, let us clean the build directory. Thank you.
 
-## Module 3
+Q: Can we add more than one executable in one CMakeLists.txt file?
+A: Yes, we can change the name of the executable to avoid confusion.
+
+Q: Can we have two targets of the same name?
+A: No, CMake will give an error to prevent confusion in the subsequent stages.
+
+Q: Do we have this target file saved in our computer?
+A: Yes, the executables and libraries are saved inside the build directory. The names are only logical and the actual file names could be different depending on the operating system.
+
+## Module 3 : Managing Project Files and Folders using Subdirectories
 
 ### Sub-directories
-In a large project with more than tens of libraries, it does not make sense to keep all the files inside the same folder.
 
-It is intuitive and a common practice to name this directory �Build�, since this directory contains the system files. Sometimes, people also use 2 separate folders called �debug� and �release� instead of �build� to have 2 separate set of build system files with varying compiler optimization levels.
-
-For now, we will delete our previous folder and create a new build folder.
-
-First thing you need to know that, the CMakeLists.txt file is the entry point of the CMake command. We can also say that the CMakeLists.txt file is the root of the build tree. The CMakeLists.txt file can only see the files which are inside its directory; which means, if I move addition.cpp inside the �temp� folder, the cmake command education will fail. One way of resolving this error is to provide the relative path of this addition.cpp file. In this case, CMake will find the addition.cpp file inside the temp folder; and then it will successfully generate the build system files.
-
-But we are not here for such workarounds. We are here to learn the CMake way of using subdirectories. Let us restore our addition.cpp in the original folder and delete the previous build system files Now, we know that we want 2 libraries called my_math and my_print in our project. We will create 2 folders for these 2 libraries in the top-level directory of this project. Currently, the top layer directory of this project is Module 3. For now, I am naming these subdirectories my_math_dir and my_print_dir. And then we will move the respective files inside these subdirectories. Note that, I'm not moving the addition.h, division.h and print_result.h inside the subdirectories as of now. The next thing that we want to do is to add these newly created subdirectories to the build tree. We can do that by adding add_subdirectory command. By using this command, we are telling CMake to go inside these subdirectories and then find another CMakeLists.txt file in the subdirectories and thereafter run those one by one. If we run the cmake command at this time, it is going to fail because there are no CMakeLists.txt file inside these subdirectories. Let us go inside the my_math_dir and create a CMakeLists.txt file. This file from now on is responsible for managing the my_math library. We can move the add_library command from root level CMakeLists.txt to the subdirectory level CMakeLists.txt file. We will do the similar changes for my_print library. At the end of this step, the project directory structure looks like this. And the 3 CMakeLists.txt files look like this. Now, we can run the cmake and make commands. As we can see that, all the 3 targets of our project are built successfully. Coming back to the root level CMakeLists.txt file, in this line, the CMakeLists.txt file from my_math_dir will be executed and it will add My_math library. In this line, the CMakeLists.txt file from my_print_dir will be executed and the my_print library will be added. In this line, our executable will be added and finally the libraries will be linked against the executable.
+* It is common to use a folder called ```build``` to store system files.
+* The ```CMakeLists.txt``` file is the entry point of the CMake command and the root of the build tree.
+* The ```CMakeLists.txt``` file can only see files inside its directory.
+* To use subdirectories in CMake, create new subdirectories and move the respective files inside them.
+* Add the subdirectories to the build tree by using the ```add_subdirectory``` command.
+* Create a ```CMakeLists.txt``` file in each subdirectory and move the ```add_library``` command from the root level ```CMakeLists.txt``` file to the subdirectory level ```CMakeLists.txt``` file.
+* Run the ```cmake``` and ```make``` commands.
+* After running the commands, the project directory structure and the 3 ```CMakeLists.txt``` files should look like this.
+* The ```CMakeLists.txt``` file from ```my_math``` dir will be executed and it will add ```my_math``` library, the ```CMakeLists.txt``` file from ```my_print``` dir will be executed and the ```my_print``` library will be added, and the executable will be added and finally the libraries will be linked against the executable.
 
 ### Managing Header Files
 In the last lecture we modified the project's directory structure by making separate sub-directories
