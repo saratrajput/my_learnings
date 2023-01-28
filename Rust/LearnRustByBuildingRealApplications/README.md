@@ -250,12 +250,223 @@ loop
 * Useful for grouping together different types together which are immutable.
 
 ### The Match Expression
-* Rust has a special control flow operator called match.
+* Rust has a special control flow operator called ```match```.
 * It allows you to compare a value against a series of patterns and then execute code based on which pattern matches.
 * When matching on ```enums```, the code will not compile unless we have covered all the possible variants.
 
 * You can use an ```_``` (underscore), for unwrapping unneeded variables.
     * It can also be used as a pattern, where we don't want to match all patterns.
     * Similar to **default** case in other languages.
+    * It is important to note that the code will not compile unless we have covered all the possible variants of the enum that we are matching.
+    * The match operator allows for more powerful and convenient handling of errors in Rust compared to if-else statements.
 
 ### Arrays
+
+* To use the ```read()``` method, we need to include ```Read``` with ```use std::io::Read;```.
+* Trait: Something like an interface.
+  * It defines the signature of the read method, but it has no body.
+* ```read``` takes a mutable reference to self.
+
+* Array
+  * Like a tuple it's a compound type.
+  * But unlike a tuple, it is a collection of values with the same type.
+* To define an array:
+```
+let a = [1, 2, 3, 4];
+```
+* The concrete type of an array is the type of the values in it, and the number of values it contains.
+* The compiler needs to know exactly how big an array is so it can allocate enough memory on the stack for it.
+
+* To define a function using an array, it needs to know the size of an array and the type.
+```
+fn arr(a: [u8; 5]) {}
+```
+* To overcome the problem of knowing the size of an array, we can use references:
+```
+let a = [1, 2, 3, 4];
+
+fn arr(a: &[u8]) {}
+
+arr(&a);
+```
+* We can use slices:
+```
+let a = [1, 2, 2, 3, 4, 3, 4];
+
+arr(&a[1..3]);
+```
+
+* To create an array of a given size with default element:
+    * Where 0 is the value and 1024 is the size.
+```
+let mut buffer = [0; 1024];
+```
+
+* In C, when we create an array of a given size, and don't give the default value for every element, it occupies some random address in the memory. This can cause a problem as we don't know the value that address contains. Rust overcomes this by insisting on providing a default value.
+
+### Logging the Incoming Requests to the Console
+
+* ```String::from_utf8()```
+  * Expects a parameter, which is a buffer containing bytes.
+  * The bytes need to be ```utf8```.
+  * If the bytes contain an invalid ```utf8``` byte, then the whole operation can fail.
+
+* ```String::from_utf8_lossy()```
+  * This function never fails.
+  * Converts a slice of bytes to a string, including invalid characters.
+  * Replaces any invalid byte, with a "?" character.
+
+* To test the operation:
+  * Launch the server with: ```cargo build; cargo run```
+  * From another terminal, connect to the port with ```netcat``` command.
+  > To install netcat on Mac: ```brew install netcat```.
+  ```
+  echo "TEST" | netcat 127.0.0.1 8080
+  ```
+  * If it's successful, the server receives the message, and logs it to the screen.
+  * To test the invalid character logging: ```echo "\xFF TEST" | netcat 127.0.0.1 8080```
+  * You can also open the address ```127.0.0.1:8080``` on a browser to send a request to the server.
+
+### Traits and Type Conversions
+
+* In Rust, a trait is a way to define a set of behaviors (or methods) that a type can implement.
+* It's similar to an interface in other programming languages.
+* A trait acts as a blueprint for a set of methods that types can choose to implement.
+* This allows for a way of generic programming in Rust.
+* In Python, you would use inheritance, where a class can inherit the properties and methods of another class, while in Rust, you can use traits to define a set of behaviors that a type can implement.
+
+```
+trait Summable {
+    fn sum(&self) -> i32;
+}
+```
+
+This trait defines a single method called sum(), which takes no arguments and returns a value of type i32. Any struct that wants to implement this trait must also have a method called sum() with the same signature (takes no arguments and returns an i32).
+
+Here's an example of a struct implementing the trait:
+```
+struct MyStruct {
+    value: i32,
+}
+
+impl Summable for MyStruct {
+    fn sum(&self) -> i32 {
+        self.value
+    }
+}
+```
+
+In this example, the struct MyStruct has an implementation of the sum() method that is defined by the Summable trait. This means that MyStruct is now considered "Summable", and we can use it in a generic context where a Summable type is required.
+
+Now we can create a function that takes a generic parameter T that is bound by the Summable trait and call the sum method on that parameter, knowing that it will always be available because the trait bound guarantees it.
+
+```
+fn print_sum<T: Summable>(item: &T) {
+    println!("Sum: {}", item.sum());
+}
+
+let s = MyStruct { value: 10 };
+print_sum(&s);
+```
+
+This will print "Sum: 10"
+
+It's important to note that in Rust, the trait implementation is done on the struct level and not on the instance level, so any instance of the struct will have the same trait implementation.
+
+Traits are useful when you want to:
+
+* Write generic code that works with multiple types.
+* Write code that can work with multiple types that share a common behavior.
+* Reuse code across multiple types.
+* Organize and structure your code.
+* Write unit tests that cover all the possible behaviors of a type.
+
+#### Type Conversions
+
+* Traits can be used to define conversions between types in Rust. The most common way to do this is through the use of the From and Into traits.
+
+* The From trait is used to define a conversion from one type to another. The trait is defined like this:
+
+```
+trait From<T> {
+    fn from(T) -> Self;
+}
+```
+This trait defines a single method called from(), which takes a value of type T and returns a value of the implementing type (Self).
+
+The Into trait is similar to the From trait, but it's defined in the opposite direction. It is defined like this:
+
+```
+trait Into<T> {
+    fn into(self) -> T;
+}
+```
+It defines a single method called into(), which takes a value of the implementing type (Self) and returns a value of type T.
+
+Here's an example of how you could use these traits to define conversions between two types:
+
+```
+struct MyStruct {
+    value: i32,
+}
+
+impl From<i32> for MyStruct {
+    fn from(value: i32) -> MyStruct {
+        MyStruct { value }
+    }
+}
+
+impl Into<i32> for MyStruct {
+    fn into(self) -> i32 {
+        self.value
+    }
+}
+```
+With these implementations, you can now use the From and Into traits to convert between MyStruct and i32 types using the from() and into() methods, respectively.
+
+```
+let s = MyStruct::from(10);
+let v: i32 = s.into();
+```
+You can also use the From and Into trait as a bound in a function that takes a generic T, where T is bound by the trait, this allows the function to convert any T into a specific type.
+
+```
+fn convert_into_mystruct<T: Into<MyStruct>>(t: T) -> MyStruct {
+    t.into()
+}
+
+let v = 10;
+let s = convert_into_mystruct(v);
+```
+In this example, the convert_into_mystruct function takes a generic parameter T that is bound by the Into<MyStruct> trait, this guarantees that the function can convert any T into a MyStruct.
+
+It's important to note that the From and Into traits are automatically implemented for some types, such as primitive types. This means that you don't always need to define them explicitly.
+
+> Use ```unimplemented!()``` macro for anything that is not yet implemented. Similar to ```pass``` in Python.
+
+#### Using Traits to extend the functionality of built-in Types
+
+```
+trait Encrypt{
+    fn ecrypt(&self) -> Self;
+}
+
+impl Encrypt for String{
+    fn encrypt(&self) -> Self{
+        unimplemented!()
+    }
+}
+
+impl Encrypt for &[u8]{
+    fn encrypt(&self) -> Self{
+        unimplemented!()
+    }
+}
+
+# Use it on a string.
+let string = String::from("asd");
+string.encrypt();
+# Use encrpyt() on an array.
+let buf = &[u8];
+buf.encrypt();
+```
