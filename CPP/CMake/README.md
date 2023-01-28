@@ -2,491 +2,154 @@
 
 ## Requirements
 
-* g++
-```
-sudo apt install g++
-```
+* Ubuntu 18+
+* g++: ```sudo apt install g++```
+* CMake: ```sudo apt install cmake```
 
 ## Module 1
 
-* You'll get the following error as the function definitions are not present in C++.
-```
-g++ main.cpp -o calculator                                                           (base)
-main.cpp: In function ‘int main()’:
-main.cpp:13:18: error: ‘addition’ was not declared in this scope
-   13 |     result_add = addition(first_no, second_no);
-      |                  ^~~~~~~~
-main.cpp:14:18: error: ‘division’ was not declared in this scope
-   14 |     result_div = division(first_no, second_no);
-      |                  ^~~~~~~~
-main.cpp:16:5: error: ‘print_result’ was not declared in this scope
-   16 |     print_result("Addition", result_add);
-```
-So add the following definitions to main.cpp.
-```
-float addition(float, float);
-float division(float, float);
-void print_result(std::string, float);
-```
-
-You'll get another error as the g++ command can't find the specified functions.
-```
-g++ main.cpp -o calculator                                                       (base)
-/usr/bin/ld: /tmp/ccjWHdjz.o: in function `main':
-main.cpp:(.text+0x78): undefined reference to `addition(float, float)'
-/usr/bin/ld: main.cpp:(.text+0x93): undefined reference to `division(float, float)'
-/usr/bin/ld: main.cpp:(.text+0xd0): undefined reference to `print_result(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, float)'
-/usr/bin/ld: main.cpp:(.text+0x11e): undefined reference to `print_result(std::__cxx11::basic_string<char, std::char_traits<char>, std::allocator<char> >, float)'
-collect2: error: ld returned 1 exit status
-```
-
-* Compile it with following command
+* Write a simple C++ program and execute it using the G++ compiler.
+* The program takes two numbers from the user and displays the results of their addition and division.
+* Create a folder called "CMake tutorials" on the desktop, and within it a folder called "module1".
+* Create an empty C++ file called "main.cpp" in the "module1" folder and write code to take input, do addition and division and print the result.
+* Compile the program using G++ to generate an executable called "calculator".
 ```
 g++ main.cpp addition.cpp division.cpp print_result.cpp -o calculator
 ```
-
-* Better practice is to make header files which contain function definitions and include them in main.cpp.
-
+* Edit the main.cpp file to make it more modular by writing two additional functions, one for addition and one for division and a third for printing result.
+* Move the function definition from main.cpp to three separate files called addition.cpp, division.cpp, and print_result.cpp
+* Declare these functions in main.cpp and specify the location of the function definition using G++ command
+* The recommended way is to write the function declaration in separate header files and include those in main.cpp using the #include directive.
 
 ### Need of Build Systems
-When we are compiling a project containing multiple C++ files, initially all the files are
-compile independent of each other.
-In our example the 4 C++
-In our example the 4 C++ files were compiled to produce four different compiled binaries. When compiling
-
-'main.cpp',
-
-all you need to tell the compiler that 3 functions used in 'main.cpp' do exist somewhere.
-
-We have done that by including header files, which contains the function declaration. At this point,
-
-the compiler does not care about these functions.
-
-definition. During the compilation process, the compiler places a placeholder, where the functions are called.
-
-these placeholders tell that the function call will be resolved during the linking process. During linking
-
-the linker finds the compile binaries of 'addition.cpp' 'division.cpp' and 'print_result.cpp' and
-
-links those alltogether to produce one single executable. One thing to note here is that, as long as
-
-you have the header files containing the function declaration and the compiler binaries of C++ files
-
-you will be able to build the project.
-
-You do not need the C++ files containing the function definition.
-
-The example explained in this lecture had just 4 files but, in the real world project, sometimes the
-
-number of files in a project might go above 1000, In such cases,
-
-it's a very challenging job to keep the track of all the files and its dependencies.
-
-Also the compilation process in such projects takes a lot of time; sometimes more than tens of hours. Therefore
-
-if the dependencies are not very well managed, every-time we modify even a single file, we need to compile
-
-and link all the files from the beginning which is a very time consuming process. In such case,
-
-if we have access to a tree based representation of all the dependencies and the list of files that
-
-we have changed since our last successful compilation, then we can choose only to compile the files that
-
-we have changed recently and thereafter we can link all those together.
-
-This would save us a significant amount of time, since very few places are used in one go.
-
-This is where the build system comes in.
-
-You might have heard of 'Make', 'Ninja' 'Ant' 'Gradle' or any other build system. These build systems are software
-
-for automating the source code compilation and linking process. Opting for one particular build system
-
-over the other
-
-is sometimes a matter of personal choice where sometimes it is restricted by the development environment
-
-in the coming lecture.
-
-We are going to build our project using a popular build system 'Make' and have a glimpse of something called
-
-build system generator.
+* When compiling a project containing multiple C++ files, initially all
+  the files are compiled independently of each other.
+* In the example given, four C++ files were compiled to produce four
+  different compiled binaries.
+* When compiling `main.cpp`, the compiler needs to be told that three
+  functions used in `main.cpp` exist somewhere else. This is done by
+  including header files that contain the function declaration.
+* The compiler does not care about the actual implementation of the
+  functions at this point and instead places placeholders where the
+  functions are called.
+* During the linking process, the linker finds the compiled binaries of
+  `addition.cpp`, `division.cpp`, and `print_result.cpp` and links them
+  all together to produce one single executable.
+* As long as you have the header files containing the function
+  declaration and the compiled binaries of the C++ files, you will be
+  able to build the project.
+* The C++ files containing the function definition are not needed.
+* In real-world projects, the number of files can go above 1000, making it
+  challenging to keep track of all the files and their dependencies.
+* The compilation process in such projects can take a lot of time, sometimes
+  more than tens of hours.
+* In order to save time, if the dependencies are well managed and if we have
+  access to a tree-based representation of all the dependencies and the list
+  of files that have been changed since the last successful compilation,
+  then we can choose only to compile the files that have been changed
+  recently and thereafter we can link all those together.
+* Build systems such as 'Make', 'Ninja', 'Ant', 'Gradle' are software for
+  automating the source code compilation and linking process. Choosing one
+  particular build system over the other can depend on personal choice or
+  development environment.
 
 ### Need for a Meta Build System
-Usually for building a project, the developer writes a special code in something called build files which
 
-is different from the project's source code and then the build system uses that build file to compile
-
-and link the source codes. In case of 'Make', the developer writes a 'Makefile' and runs that code using Make
-
-build system.
-
-Now, let us attempt to make the 'make' command. As we can see that the make tool is not installed in my system.
-
-So, we need to install 'make' from the repository.
-```
-sudo apt install make
-```
-
-The make command is going to look for a makefile and then build the project
-
-based on the rules written inside makefile. The output of this step is an executable. Notice here that,
-
-it is compiling all the files and then linking them all together.
-
-Now let us choose one of the files and run the make command again
-
-Notice here that the make command has only compiled one file, the one that we have changed just now
-
-and everything else is linked thereafter thereby saving our time.
-
-The idea here is not to teach you about the makefiles or build system in general but about the meta build
-
-system.
-
-CMake. The CMake tool is capable of writing the makefiles for us.
-
-Make: Uses build system files to generate executable.
-CMake: Used to generate build system files.
-
-
-Now, the question arises, Why do we even need to learn this new tool CMake for this simple application?
-
-The problem is that, the building of C++ projects is not a standard across the platforms
-
-This means, even if you have the source code and makefile of a C++ project from your Linux machine, you
-
-cannot directly build that code inside Windows operating system.
-
-Similarly, if you have a visual studio solution from your Windows machine you cannot directly build a
-
-project in a Linux environment.
-
-CMake solves this problem by creating the platform based system files. Before moving forward,
-
-let us delete the compiled binaries that the make command has created. In the coming module,
-
-we are going to have a look at CMake tool basics, and then we are going to generate a makefile for our
-
-project using CMake.
-
-Thank you.
-
-Usually for building a project, the developer writes a special code in something called build files which
-
-is different from the project's source code and then the build system uses that build file to compile
-
-and link the source codes. In case of 'Make', the developer writes a 'Makefile' and runs that code using Make
-
-build system. For our example,
-
-we will create a 'makefile' in 'module1' directory. Note that, the name of the makefile is case-sensitive.
-
-Now we will write the rules in makefile. You should not be concerned about the contents of the makefile
-
-as of now. If you want to, you can download and understand the make file from the download section.
-
-Now, let us attempt to make the 'make' command. As we can see that the make tool is not installed in my system.
-
-So, we need to install 'make' from the repository.
-
-Once installed,
-
-we will run the make command. The make command is going to look for a makefile and then build the project
-
-based on the rules written inside makefile. The output of this step is an executable. Notice here that,
-
-it is compiling all the files and then linking them all together.
-
-Now let us choose one of the files and run the make command again
-
-Notice here that the make command has only compiled one file, the one that we have changed just now
-
-and everything else is linked thereafter thereby saving our time.
-
-The idea here is not to teach you about the makefiles or build system in general but about the meta build
-
-system.
-
-CMake. The CMake tool is capable of writing the makefiles for us.
-
-Now, the question arises, Why do we even need to learn this new tool CMake for this simple application?
-
-The problem is that, the building of C++ projects is not a standard across the platforms
-
-This means, even if you have the source code and makefile of a C++ project from your Linux machine, you
-
-cannot directly build that code inside Windows operating system.
-
-Similarly, if you have a visual studio solution from your Windows machine you cannot directly build a
-
-project in a Linux environment.
-
-CMake solves this problem by creating the platform based system files.
-
+* Usually for building a project, the developer writes a special code in something called build files which is different from the project's source code and then the build system uses that build file to compile and link the source codes.
+* In case of 'Make', the developer writes a 'Makefile' and runs that code using Make build system.
+* To run the 'make' command, it needs to be installed on the system, which can be done by running sudo apt install make in the command line.
+* The make command looks for a makefile and then builds the project based on the rules written inside makefile, resulting in an executable.
+* Running the make command will compile all the files and link them together.
+* If one of the files is changed, running the make command again will only compile the changed file and link everything else, saving time.
+* The idea is not to teach about makefiles or build systems in general, but about the meta build system CMake.
+* CMake is a tool that is capable of writing makefiles for us.
+* Make: Uses build system files to generate executable.
+* CMake: Used to generate build system files.
+* The problem with building C++ projects is that it is not standard across platforms.
+* This means that source code and makefiles from a Linux machine cannot be directly built on a Windows operating system, and vice versa.
+* CMake solves this problem by creating platform-based system files.
+* The developer writes a special code called build files, which is different from the project's source code, and the build system uses that build file to compile and link the source codes.
+* In the case of "Make", the developer writes a "Makefile" and runs that code using Make build system.
+* CMake is a meta build system that is capable of writing makefiles for us.
+* The idea is not to teach about makefiles or build systems in general, but about the meta build system, CMake.
+* The question arises, why do we even need to learn this new tool CMake for this simple application?
+* The problem is that, the building of C++ projects is not a standard across the platforms.
+* CMake solves this problem by creating the platform based system files.
 
 ## Module 2
 
 ### CMake Installation
 
-There are three ways to install CMake
-1. From repository
+There are three ways to install CMake.
+
+#### From Repository.
+
 ```
 sudo apt install cmake
 ```
-Check if CMake is installed properly with
+
+* Check if CMake is installed properly with
 ```
 cmake --version
 ```
 
-2. Downlad the compile binaries from CMAke official website. (Uninstall cmake before
-   proceeding).
-We will download the �.sh� file, which is a shell script.
-Now, we will go to the download folder, open the terminal from the download folder and give execution
-permission to the script using �chmod +x� command then run this script.
-Here, we can see that a folder is created. If you choose to download the tar file and run the tar xvf command,
-it will also result in the same folder.
-Now once we have the folder, we can go inside the bin directly. Here we have the CMake executable. To use
-this executable, we need to add the path of this executable to the system path.
-we can paste this command into �.bashrc� file inside the home directory.
-Here I have added the path and we can see that cmake --version is giving us the expected output.
-Before proceeding to the third technique of installing CMake, we will remove the previously downloaded
-files and the bashrc entry.
+#### Using Compile Binaries
+* Download the compile binaries from CMAke official website. (Uninstall cmake before proceeding).
+* We will download the ".sh" file, which is a shell script.
+* Now, we will go to the download folder, open the terminal from the download folder and give execution permission to the script using "chmod +x" command then run this script.
+* Here, we can see that a folder is created. If you choose to download the tar file and run the tar xvf command, it will also result in the same folder.
+* Now once we have the folder, we can go inside the bin directly. Here we have the CMake executable. To use this executable, we need to add the path of this executable to the system path.
+* We can paste this command into ".bashrc" file inside the home directory.
+* Here I have added the path and we can see that cmake --version is giving us the expected output.
+* Before proceeding to the third technique of installing CMake, we will remove the previously downloaded files and the bashrc entry.
 
-3. Download the source codes from the CMake website.
-Now extract it using tar command.
-Once extracted, We can navigate inside there directly and run these three commands.
-After learning the bootstrap file, if you are getting an error,
-you should run this command also.
-This process takes some time.
-Now we will run the make command.
-And lastly, we will run �sudo make install�.
-After a successful installation,
-we can check the CMake version. As you can see that the CMake has been installed properly.
-Once we have the installation, we can move to the next lecture.
-
-Note that, in this course, I have used
-CMake version 3.16 which I installed from the source. For you to follow along, any version
-greater than 3 is fine.
-
+#### Using Source Code
+* Download the source codes from the CMake website.
+* Extract it using tar command.
+* Navigate inside the extracted folder and run these three commands: ```./bootstrap, make, and sudo make install```.
+* If you are getting an error after running the bootstrap file, run this command: ```make edit_cache```.
+* This process takes some time.
+* Check the CMake version to confirm successful installation.
+* Note that in this course, CMake version 3.16 was used which was installed from the source. Any version greater than 3 is fine.
 
 ### Build file generation
-We are going to see the basic setup required for using the CMake tool.
-When we are running the CMakecommand for the first time, it needs 2 information.
-* The location of CMakeLists.txt file and
-* the directory location to store the build system files.
 
-The CMake tool finds the CMakeLists.txt file, processes the information written
-inside it to generate the build system files
-in the specified location. A common practice is to have the CMakeLists.txt file in the top level
-
-project directory. The build files are kept inside a separate sub directory of the project. Note that the
-
-folder name for storing the build system files could be anything, but the name of the CMakeLists.txt file
-
-is fixed. If you rename the CMakeLists to anything else, the CMake will give an error. Firstly, we will copy
-
-the folder from the last module and rename it to module2.
-
-Now we will remove any executable or compiled binary or makefile from the previous session.
-
-Now let us create a folder for storing the build system files called �my_build_dir�.
-
-Also, let us create an empty CMakeLists.txt in the top-level directory of the project.
-
-Top level project directory is module2 here. Now we are ready to run our first CMake command. We will
-
-navigate get into my_build_dir and then run the CMake command using .. argument.
-
-Here .. argument tells CMake that CMakeLists.txt is inside the parent folder. Also, by
-
-Default, CMake generates the build system files inside the directory from where the CMake command was
-
-Executed. In this case, the base system files are going to be placed inside my_build_dir. Now let us
-
-Run the CMake command. As we can see that, the command is executed successfully and the build files are generated
-
-inside my_build_dir. If you do not have G++ or GCC compiler installed in your system, this
-
-command is going to fail. In such a case, install this compilers to get rid of the error. Now, let us have
-
-a look at the build system files that CMake has generated. Out all these files, makefile and CMakeCache.txt
-
-are very important ones. This make file is used by the make tool to build the project
-
-and the CMake Cache.txt is used by the CMake in the subsequent rounds of the CMake command. Running cmake
-
-command will not generate any executable
-
-as of now, because we don't have a source code to make that executable. Note that, we always run the make command
-
-from the folder which contains the makefile. In the next lecture, we are going to populate our CMakeLists.txt
-
-file to generate an executable.
+* Basic setup for using CMake tool requires 2 pieces of information: the location of CMakeLists.txt file and the directory location to store the build system files.
+* When running CMake command for the first time, CMake tool finds the CMakeLists.txt file and processes the information inside it to generate the build system files in the specified location.
+* A common practice is to have the CMakeLists.txt file in the top-level project directory, and the build files are kept inside a separate sub-directory of the project.
+* The folder name for storing the build system files can be anything, but the name of the CMakeLists.txt file is fixed. Renaming the CMakeLists.txt file will result in an error from CMake.
+* To set up for the example, the folder from the last module is copied and renamed to module2, and any executable or compiled binary or makefile from the previous session is removed.
+* A new folder called "my_build_dir" is created for storing the build system files, and an empty CMakeLists.txt file is created in the top-level directory of the project (module2).
+* To run the first CMake command, navigate to the "my_build_dir" and then run the CMake command using the ".." argument. This tells CMake that the CMakeLists.txt file is inside the parent folder. By default, CMake generates the build system files inside the directory from where the CMake command was executed, in this case, inside "my_build_dir".
+* If G++ or GCC compiler is not installed in the system, the CMake command will fail. In this case, the compilers need to be installed to get rid of the error.
+* CMake generates several files after running the command, but the makefile and CMakeCache.txt are the most important ones. The makefile is used by the make tool to build the project, and the CMakeCache.txt is used by CMake in subsequent rounds of the CMake command.
+* Running CMake command alone will not generate an executable as there is no source code yet.
+* Note that the ```make``` command is always run from the folder that contains the makefile.
 
 ### Generating the First Executable using CMake
-In this lecture we will generate an executable using cmake and make commands.
 
-Firstly let us delete the files from the last session to start afresh.
-
-
-Now we will edit the CMakeLists.txt
-
-file
-
-CMakeLists.txt file consist of the commands required to build the project.
-
-These commands are executed one after the another.
-
-like a script. The first command
-
-we will learn is add_executable. This command is used when we want an executable file at the end of the build
-
-process. For successful execution of this command,
-
-we need to provide the names of the final executable and the source files required to build that executable.
-
-We will name our executable calculator and the source files required for this executable are addition.cpp
-
-division.cpp
-
-print_result.cpp and main.cpp
-
-Note that the naming sequence of all these source files do not matter but the name of the executable
-
-should be the first argument.
-
-Here we have our CMakeLists.txt file ready.
-
-And now we can execute the CMake command from the my_build_directory.
-
-We can see that the command executed successfully with just one warning
-```
-CMake is pretending there is a "project(Project)" command on the first
-  line.
-This warning is for project developers.  Use -Wno-dev to suppress it.
-```
-
-In my_build_dir,
-
-CMake has generated a makefile for us.
-
-Now we can run the make command to generate the calculator executable.
-
-Here you can see that our executable is generated. Let us execute this executable and verify the output.
-
-Now let us resolve the warning that we got. Every CMake project requires a name for the project.
-
-To resolve this warning, we need to specify the project name and an optional version number of this project.
-
-We will do that using the project command.
-
-Apart from this it is a common practice to specify the minimum CMake version in the CMakeLists.txt file.
-
-If the CMakeLists.txt file is using any feature from a newer version of CMake then you might get some mysterious
-
-errors,
-
-if you have an older version of CMake installed in your system. By specifying that minimum version,
-
-We are telling CMake that all the features used in the script is supported by that particular version
-
-you can use the command cmake_minimum_required to specify this. At this point,
-
-if you copy these files to another system with an older CMake version, cmake command will fail.
-
-As a developer,
-
-it is my duty to test the script with an order CMake version and mention
-
-those numbers here, so that the maximum number of people can use this project developed by me.
-
-Now, we can run the cmake command and verify that the warnings are gone.
-
-Coming back to our CMakeLists.txt file, we have specified that these files are used for making our executable.
-
-Now at this point,
-
-if we change just one file say divide.cpp,
-
-and again execute the make command,
-
-we can see that only divide.cpp is compiled and then everything as is linked all together. Although
-
-we have been successful in generating the first executable.
-
-There is no sense of hierarchy here. Which means anyone reading these lines of code would not understand
-
-where the main.cpp is depending upon addition.cpp or addition.cpp is depending upon
-
-main.cpp
-
-This might create a problem when managing the large projects. In the coming lecture we will make the
-
-project modular with some sense of hierarchy.
+* The lecture covers the process of generating an executable using cmake and make commands.
+* The add_executable command is used to create an executable file at the end of the build process.
+* The final executable is named "calculator" and the source files required are "addition.cpp", "division.cpp", "print_result.cpp" and "main.cpp"
+* It is also a common practice to specify the minimum CMake version in the CMakeLists.txt file.
+* The ```CMakeLists.txt``` file specifies which files are used for making the executable.
+* Changing a file and running the make command again, only that file is compiled and everything is linked together.
+* The lecture also points out that in large projects, the lack of sense of hierarchy might create problems in managing the project.
 
 ### Generating the First Library
-From our project tree structure, we can simply point out that main.cpp file depends on other 3
 
-C++ files. In this example,
-
-we will make our project a little bit modular by making two libraries; one for mathematical operation
-
-and one for printing purpose.
-
-Once we have the libraries, we can link those 2 to main executable.
-
-This step also brings a sense of hierarchy in our project. Another advantage of making a library is that,
-
-we can use these libraries in any other project just like we added an executable using add_executable()
-
-command.
-
-We are going to add a library using add_library() command.
-
-We are going to name our libraries based on their functionalities.
-
-Let us make a my_math library, which would be responsible for addition and division.
-
-Here, we will specify that addition.cpp and division.cpp are the source files for this particular
-
-library.
-
-Also let us make another library for printing purpose.
-
-We are going to name this library my_print and the source files for this library is
-
-print_result.cpp.
-
-Now, let us remove these extra source files from add_executable() commans because those are already used
-
-for making libraries.
-
-Lastly, we need to link these 2 libraries that we made against the executable.
-
-target_link_libraries() is the command for linking a library to an executable. Here, in place of arguments,
-
-we first specify the name of executable, followed by the name of libraries.
-
-In this project,
-
-the name of the executable is calculator and the libraries are my_math and my_print.
-
-Now, we are ready to run the cmake and make commands.
-
-As we can see that the libraries and executables are built successfully.
-
-Now we can run the executable and verify the output.
-
-In this lecture,
-
-we worked with 2 libraries and 1 executable. The libraries and the executables are jointly called
-
-targets in CMake. In the next lecture,
-
-we are going to have a look at different properties associated with their targets.
+* The main.cpp file depends on 3 other C++ files.
+   * The project is made a little bit more modular by making two libraries: one for mathematical operations and one for printing purposes.
+   * The libraries are linked to the main executable, which brings a sense of hierarchy to the project.
+* The libraries can be reused in other projects by using the ```add_library()``` command.
+   * The libraries are named based on their functionalities, such as ```my_math``` for mathematical operations and ```my_print``` for printing purposes.
+   * The source files for each library are specified, such as ```addition.cpp``` and ```division.cpp``` for ```my_math```, and ```print_result.cpp``` for ```my_print```.
+* The libraries are linked to the executable using the ```target_link_libraries()``` command.
+* The executable is named calculator and the libraries are named my_math and my_print.
+* In this lecture, 2 libraries and 1 executable were worked on, which are jointly called targets in CMake.
 
 ### Target's Properties and Dependencies
+
 When we are running add_library or add_executable command, we are defining our target with the specified name. Here, in this CMakeLists.txt file, we have 3 targets named my_math, my_print and calculator.
 
 Every target in CMake has some properties and dependencies associated with it.
