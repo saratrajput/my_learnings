@@ -2,7 +2,7 @@
 
 ## Requirements
 
-* Ubuntu 18+
+* Ubuntu 18+.
 * g++: ```sudo apt install g++```
 * CMake: ```sudo apt install cmake```
 
@@ -197,274 +197,66 @@ A: Yes, the executables and libraries are saved inside the build directory. The 
 * The ```CMakeLists.txt``` file from ```my_math``` dir will be executed and it will add ```my_math``` library, the ```CMakeLists.txt``` file from ```my_print``` dir will be executed and the ```my_print``` library will be added, and the executable will be added and finally the libraries will be linked against the executable.
 
 ### Managing Header Files
-In the last lecture we modified the project's directory structure by making separate sub-directories
 
-for each target, but the header files are still in the root level directory. A good practice is to keep
-
-all the files belonging to one particular library in one place.
-
-This makes the maintaining and sharing of libraries easier, so we will move these header files inside
-
-their respective sub-directories. Let us do that by moving addition.h and division.h inside my_math_dir
-
-And print_result.h in my_print_dir.
-
-Now, these header files and the source files are also kept in separate directories. Usually the header
-
-files are kept inside the �include� folder and C++ files are kept inside �src� folder. Let us create
-
-these two folders inside my_math_dir and then move these files accordingly.We will follow the similar
-
-directory structure for my_print library.
-
-Another good practice is to include the header files inside the respective C++ files using #included<>
-
-directive.
-
-Let us understand why. When we are calling a function inside our main function we need to make sure that
-
-the functions� arguments type and return type are the same during function call and function definition.
-
-If those are not the same, then the compatibility issues might arise.
+* A good practice is to keep all the files belonging to one particular library in one place to make maintaining and sharing of libraries easier.
+* The header files were moved to their respective sub-directories (addition.h and division.h inside my_math_dir and print_result.h in my_print_dir).
+* Usually header files are kept inside the "include" folder and C++ files are kept inside "src" folder, so these folders were created inside my_math_dir and my_print_dir and the files were moved accordingly.
+* A good practice is to include the header files inside the respective C++ files using #include<> directive.
+* This is done to avoid compatibility issues between function call and function definition by having consistent argument and return types.
 
 ![Compatiblity Issue](images/compatibility_issues.png)
 
-A header file stores this interfacing information in a very
+### CMake Way of Including the Header Files
 
-compact way. By including these header files in their respective C++ files, we can avoid the inconsistent
-
-declaration of a function and hence there aren't be any compatibility issues in the future.
-
-To avoid any issue in the future,
-
-let us follow the common practice of including the header files inside the function definition file.
-
-Now you might wonder that the addition.cpp and addition.h are in different folders.
-
-How are we going to include addition.h in addition.cpp? In the next lecture,
-
-We are going to see how to include the header files from the other folders.
-
-### Cmake way of Including the Header Files
-Whenever we are including a header file inside any other file using #include<> directive, then the
-
-Pre-processor finds that particular file and then replaces the #include<> line with the content of that
-
-particular file.
-
-If the source file and the header file are inside the same folder, the pre-processor will easily find
-
-that particular file. But if the header file is in some another folder, then we need to tell the processor
-
-explicitly where to find that header file.
-
-This can be easily done by providing the relative path when you're using the #include directive.
-
-For example, in addition.cpp,
-
-we can include addition.h by going one level up and then one level down inside the include folder.
-
-The other way of solving this problem is by telling CMake to take care of it. We can use the command
-
-target_include_directories() for this purpose; and this command takes three arguments.
-
-Firstly, the name of the target is provided,
-
-the second argument is the scope of propagation of the properties,
-
-and the third argument is the name of the directories that contains the header files. We will come
-
-back to the scope of the argument in a moment.
-
-Let us use this command in our project. We will edit the CMakeLists.txt file inside my_math_dir.
-
-Note that, I can only use target_include_directories() after we have added the target. The name of the targe
-
-here is my_math, for now, let us keep the scope as PUBLIC.
-
-And finally, the name of the directory is include.
-
-Using this command we can include multiple directories at the same time, but in our case we have just
-
-one single directory that contains the header files at this point.
-
-We can directly include addition.h and division.h in addition.cpp and division.cpp respectively,
-
-without specifying any relative path. Lastly, we will make sure that the CMake is able to find C++ files
-
-inside �src� folder.
-
-In a similar fashion,
-
-now we will also modify the CMakeLists.txt file from my_print_dir directory.
-
-Here, the target is my_print,
-
-the scope is PUBLIC and the directory is include
-
-Again.
-
-Note that, we have not used the command target_include_directories() inside the root level CMakeLists.txt
-
-File, still main.cpp can include the files without providing any relative part.
-
-This is possible because of the PUBLIC keyword that we used earlier.
-
-Now,
-
-let us run the cmake and make commands. And finally, run the executable to get the
-
-desired results.
-
-In the next lecture,
-
-we are going to look at the PUBLIC, PRIVATE and INTERFACE propagation scopes.
-
+* Whenever we include a header file using ```#include<>``` directive, the pre-processor finds that file and replaces the line with the content of that file.
+* If the source file and header file are in the same folder, the pre-processor will find it easily. But if the header file is in another folder, we need to tell the pre-processor explicitly where to find it.
+* This can be done by providing the relative path when using the ```#include``` directive.
+* Another way to solve this problem is by using the command ```target_include_directories()``` in CMakeLists.txt files.
+   * This command takes 3 arguments: the name of the target, the scope of propagation of the properties and the name of the directories that contain the header files.
+   * We can use this command in our project by editing the CMakeLists.txt file inside the library directories.
+   * We can include multiple directories at the same time using this command.
+* We need to make sure that the CMake can find the C++ files inside the 'src' folder.
 
 ### Target Properties and Propagation Scopes
 
-As you know that the targets have properties associated with it. When we specify a PUBLIC or INTERFACE
-
-keyword in a command, a property for their target is automatically set. For example, by using any of the
-
-two lines, a property called INTERFACE_INCLUDE_DIRECTORIES is set for the my_math target. Here,
-
-INTERFACE_INCLUDE_DIRECTORIES is set or the my_print target.
-
-Now, if you remember, we specified the dependencies of calculator by using target_link_libraries command
-
-in the root level CMakeLists.txt file. At this point, CMake will read the properties of both the dependencies.
-
-Once read,
-
-the include directories of both the libraries are visible to the calculator target, so we don't need
-
-to specify the relative part of the header files in the main.cpp file.
-
-Now you might wonder, what is the difference between PUBLIC, INTERFACE and PRIVATE keywords. The PRIVATE
-
-keyword does not set the INTERFACE_INCLUDE_DIRECTORIES or any other property. In such case,
-
-main.cpp will not be able to find the include directory.
-
-Now, we are going to answer 2 questions to find out when to use PUBLIC, PRIVATE or INTERFACE keywords
-
-Referring to our calculator project, the first question is, �Is my_math going
-to need this directory?�. And the answer is YES, because addition.cpp is including
-addition.h. The next question is, �Are the targets dependent upon the my_math
-target, going to need this include Directory?�. In our case, the calculator
-depends upon my_math target and calculator also needs addition.h. So, the answer
-of the second question is also YES. If both the answers are YES, then we use the
-PUBLIC keyword. If the first answer is No, and the second answer is Yes, then we
-use the INTERFACE keyword. And lastly, if the first answer is Yes and the second
-is No, then we use the PRIVATE keyword.
+* Targets have properties associated with them.
+* When a ```PUBLIC``` or ```INTERFACE``` keyword is used in a command, a property is automatically set for the target.
+* For example, using either keyword sets the ```INTERFACE_INCLUDE_DIRECTORIES``` property for the my_math target.
+* When dependencies are specified using the ```target_link_libraries``` command in the root level ```CMakeLists.txt``` file, CMake reads the properties of both dependencies.
+* The include directories of both libraries are then visible to the calculator target, so the relative part of the header files in the ```main.cpp``` file do not need to be specified.
+* The difference between ```PUBLIC```, ```INTERFACE```, and ```PRIVATE``` keywords is:
+   * PRIVATE does not set any properties like INTERFACE_INCLUDE_DIRECTORIES.
+   * If the first question is "Is my_math going to need this directory?", and the answer is YES, and the second question is "Are the targets dependent upon the my_math target, going to need this include Directory?", if both answers are yes, then we use the PUBLIC keyword.
+   * If the first answer is No, and the second answer is Yes, then we use the INTERFACE keyword.
+   * If the first answer is Yes and the second is No, then we use the PRIVATE keyword.
 
 ![Public Interface Private](images/public_private_interface.png)
 
-As you can see, we have rightly used the PUBLIC keyword in our code. In the next lecture,
-
-we will experiment with the PUBLIC, INTERFACE and PRIVATE keywords.
-
-Thank you.
-
 ### Propagation of Target Properties
-In the last lecture, we concluded that we should use the PUBLIC keyword in our calculator project while
 
-using the target_include_directories() command.
-
-Now let us change the PUBLIC keyword and see the errors that we will get.
-
-If we change PUBLIC keyword to interface,
-
-Then we can see that addition.cpp cannot find addition.h and,
-
-if we change this keyword to PRIATE, then main.cpp cannot include addition.h.
-
-target_include_directories() is not the only command which requires PUBLIC, PRIVATE or INTERFACE scope.
-
-Here are some of the commands that you might come across very frequently, which requires the scopes.
-
+* Changing the ```PUBLIC``` keyword to ```INTERFACE``` or ```PRIVATE``` causes errors in the project.
+* The ```target_include_directories()``` command is not the only one that requires the use of ```PUBLIC```, ```PRIVATE```, or ```INTERFACE``` scope.
+* Other commands that frequently require the use of these scopes:
 ![Commands which need scopes](images/commands_which_need_scopes.png)
-This list
-
-also shows the properties that these commands set, when they are executed. These commands in general,
-
-need a target name, the scope specifier and the target requirements.
-
+* These commands generally need a target name, a scope specifier, and target requirements.
+* Using the scope specifier allows for the propagation of requirements to higher-level targets.
 ![Syntax of Commands](images/syntax_of_target_commands.png)
-
- And, using the scope specifier allows
-
-us to propagate the requirements to another higher-level targets.
-
-If our target has both PUBLIC requirements and PRIVATE requirements, then these two can be clubbed together
-
-in one command, or repeated calls can be made with different scopes.
-
-Coming back to our calculator project,
-
-if we open our main.cpp, we can see that addition.h is included, which belongs to my_math target,
-
-but if someone else wants to understand this code, it would be very hard for that person to trace the
-
-source of addition.h, especially when we have too many libraries in the project.
-
-If somehow, we can also manage to write the name on the library in #include<> directive, it would be very
-
-easy for someone to trace that. Let us see how we can do that.
-
-We can go inside my_math_dir directory and then inside include territory here.
-
-We will make a folder name my_math. Note that, this name is same as the name of the library. And now,
-
-we will move the header files inside this folder. As we have modified the directory structure, our code
-
-will not work because addition.cpp and main.cpp will not be able to find the addition.h.
-
-To fix this,
-
-we have two options.
-
-We can either modify the target_include_directories() command
-
-but it beats the purpose why we are doing this.
-
-Instead we will modify the addition.cpp, division.cpp and main.cpp to use the relative
-
-paths.
-
-This way,
-
-anyone reading these codes can find out that addition.h belongs to my_math library.
-
-In a similar fashion,
-
-we will also modify my_print library
-
-Now,
-
-We can run the cmake and make commands and then verify the executable output.
-
-Sometimes,
-
-you will also see that a library's top level folder name is same as the folder inside include directory.
-
-For example, my_math_dir would be my_math and my_print_dir would be my_print. So far,
-
-I have been using two different names for these two folders, because I did not want to confuse you between
-
-these 2 directories of the same name. We will rename these directories accordingly.
-
-Also, we will change the top level CMakeLists.txt file of the project according to the new names. Note that,
-
-add_subdirectory() command reference to the upper level my_math directory while main.cpp or addition.cpp
-
-refers to the lower level my_math directory.
+* In the calculator project, if the ```main.cpp``` file is opened, it can be seen that the ```addition.h``` file is included, which belongs to the ```my_math``` target.
+* However, it can be difficult for others to trace the source of the ```addition.h``` file, especially when there are many libraries in the project.
+* To make it easier for others to trace the source of the ```addition.h``` file, the name of the library can be included in the ```#include<>``` directive.
+* To do this, the header files are moved inside a folder named "my_math" within the include directory, but this modification causes the code to not work because ```addition.cpp``` and ```main.cpp``` cannot find the ```addition.h``` file.
+* To fix this, the ```addition.cpp```, ```division.cpp```, and ```main.cpp``` files are modified to use relative paths.
+* In a similar fashion, the ```my_print``` library is also modified.
+* After the ```cmake``` and ```make``` commands are run, the executable output is verified.
+* Sometimes, the top-level folder name of a library is the same as the folder inside the include directory.
+   * In this case, the top-level CMakeLists.txt file of the project is also updated according to the new names.
+* Note that the ```add_subdirectory()``` command refers to the upper-level ```my_math``` directory while ```main.cpp``` or ```addition.cpp``` refers to the lower-level ```my_math``` directory.
 ![Directory Structure](images/directory_structure.png)
 
 ## Module 4: Variables, Lists and Strings
 
 ### Normal Variables
+
 * Process script mode.
    * No build files are generated.
 ```
