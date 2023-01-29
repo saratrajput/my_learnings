@@ -470,3 +470,10 @@ string.encrypt();
 let buf = &[u8];
 buf.encrypt();
 ```
+
+### Custom Errors
+
+* For logging using Debug trait:
+```
+println!("Received a request: {:?}", String::from_utf8_lossy(&buffer));
+```
