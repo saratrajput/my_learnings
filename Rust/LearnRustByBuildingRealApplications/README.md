@@ -489,3 +489,8 @@ println!("Received a request: {:?}", String::from_utf8_lossy(&buffer));
 * ```?``` operator, looks at the result, and if it's ```Ok``` it returns the value that ```Ok``` wraps, otherwise it returns the error.
     * If the error is not given, e.g.: ```let request = str::from_utf8(buf)?;```, then it tries to convert the ```Utf8Error``` into a ```ParseError```, by looking for a ```From``` trait.
     * If the From trait is not implemented, you'll need to implement it.
+
+### Iterating Over Strings
+
+* ```Option```
+  * We

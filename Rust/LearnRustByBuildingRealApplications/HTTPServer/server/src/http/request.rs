@@ -40,6 +40,10 @@ impl TryFrom<&[u8]> for Request{
     }
 }
 
+fn get_next_word(request: &str) -> Option<(&str, &str)> {
+    unimplemented!()
+}
+
 pub enum ParseError
 {
     InvalidRequest,
