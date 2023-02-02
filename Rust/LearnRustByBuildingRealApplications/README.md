@@ -502,3 +502,10 @@ println!("Received a request: {:?}", String::from_utf8_lossy(&buffer));
 * ```request.chars.enumerate()``` gives us the index along with the value of the element.
 
 * We add i+1 to skip the space which is only one byte.
+
+### 42. Converting an Option into a Result
+
+* ```.ok_or()```
+    * Transforms an ```Option``` into a ```Result```.
+    * It'll look at the ```Option```. If the ```Option``` is ```Some```, it'll convert into an ```Ok``` variant of ```Result```, and ```Ok``` will wrap the value that the ```Some``` was wrapping.
+    * Otherwise, if it's ```None```, it'll return an ```Error``` which can be passed into it (```.ok_or()```) as a parameter.
