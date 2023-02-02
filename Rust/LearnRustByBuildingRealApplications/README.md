@@ -493,4 +493,12 @@ println!("Received a request: {:?}", String::from_utf8_lossy(&buffer));
 ### Iterating Over Strings
 
 * ```Option```
-  * We
+  * Allows us to return ```None```.
+  * There is no ```null``` value in Rust.
+
+* ```request.chars()``` returns an ```iterator```.
+* ```iter.next()``` will return an ```Option```.
+
+* ```request.chars.enumerate()``` gives us the index along with the value of the element.
+
+* We add i+1 to skip the space which is only one byte.
