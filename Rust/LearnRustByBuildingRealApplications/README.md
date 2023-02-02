@@ -516,3 +516,13 @@ println!("Received a request: {:?}", String::from_utf8_lossy(&buffer));
     * Special trait for converting a string slice into another type.
 
 * ```match``` can also be used on strings.
+
+### 44. The "If Let" Expression
+
+* Allows us to write the normal ```if``` statement but using pattern matching directly in the condition.
+
+```if let Some(i) = path.find('?') {}```
+
+* The ```if``` statement will look at the result from the find function;
+* it will try to match it to the pattern we have provided; and
+* it will also unwrap the contents in the variable ```i```.
