@@ -509,3 +509,10 @@ println!("Received a request: {:?}", String::from_utf8_lossy(&buffer));
     * Transforms an ```Option``` into a ```Result```.
     * It'll look at the ```Option```. If the ```Option``` is ```Some```, it'll convert into an ```Ok``` variant of ```Result```, and ```Ok``` will wrap the value that the ```Some``` was wrapping.
     * Otherwise, if it's ```None```, it'll return an ```Error``` which can be passed into it (```.ok_or()```) as a parameter.
+
+### 43. Parsing Values From Strings
+
+* ```FromStr```
+    * Special trait for converting a string slice into another type.
+
+* ```match``` can also be used on strings.
