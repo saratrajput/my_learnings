@@ -569,3 +569,28 @@ So if our code compiles successfully, it means there are no dangling references.
 * It would be better to use a hash map instead of a string for the ```query string```.
 
 * In Rust, a heap allocated dynamic array is called a **vector**.
+
+### 49. Representing the Query String Using a Hash Map - Part 2
+
+* ```FromStr``` trait does not have a lifetime parameter, and so you can only parse types that do not contain a lifetime parameter themselves.
+
+So we'll need to use the ```From``` trait.
+
+* We use the ```From``` trait and not the ```TryFrom``` trait, as this conversion cannot fail.
+
+* ```split``` method allows to split the string on some pattern.
+    * ```split``` returns an iterator over all the substrings in the string slice, separated by characters matched by a pattern.
+
+* ```find``` returns the byte index of the first character of this string slice that matches the pattern. Returns None if the pattern doesn't match.
+
+* ```entry``` method on the ```HashMap``` provides a powerful interface for modifying its values in place.
+
+* ```FnOnce```: how an anonymous function looks in Rust.
+
+* ```.or_insert()``` method adds Value if it doesn't exist.
+
+* ```vec![]``` macro allows us to create new vectors with values.
+
+* The syntax for de-referencing in Rust is to put a ```*``` in front of the reference.
+
+* All the variants of an ```Enum``` take up the same space.
