@@ -563,3 +563,9 @@ So if our code compiles successfully, it means there are no dangling references.
 * This is because the warning filter [dead_code] is ON by default.
 
 * To disable this warning, we add ```#![allow(dead_code)]``` at the top of the ```main.rs``` file.
+
+### 48. Representing the Query String Using a Hash Map - Part 1
+
+* It would be better to use a hash map instead of a string for the ```query string```.
+
+* In Rust, a heap allocated dynamic array is called a **vector**.
