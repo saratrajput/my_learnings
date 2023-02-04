@@ -541,3 +541,17 @@ println!("Received a request: {:?}", String::from_utf8_lossy(&buffer));
 So if our code compiles successfully, it means there are no dangling references.
 
 * In order to statically check all of the references in our code, the rust compiler needs help from us, by specifying the **lifetime specifier**.
+
+### 46. Lifetimes - Part 2
+
+* Lifetimes is one of the unique feature of Rust.
+
+> Generics are specified using ```<>```.
+
+* Lifetimes are usually given a single letter name with a single quote. Eg: ```'a```.
+    * But you can use more informative name as well. Eg: ```'buf```.
+
+* To use a lifetime in an implementation block or any generics, we have to declare it on the input keyword first.
+
+* Lifetimes are a powerful tool that allows the Rust compiler to guarantee memory safety.
+* The lifetime parameters that we explicitly specify does not allow us to choose how long a value lives. It only allows us to communicate to the compiler that some references are related to the same memory and are expected to share the same lifetime.

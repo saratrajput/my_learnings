@@ -8,21 +8,25 @@ use std::fmt::{Debug, Display, Formatter, Result as FmtResult};
 use std::str;
 use std::str::Utf8Error;
 
-pub struct Request {
+pub struct Request<'buf> {
     // path: String,
     // query_string: Option<String>,
-    path: &str,
-    query_string: Option<&str>,
+    path: &'buf str,
+    query_string: Option<&'buf str>,
     // method: super::method::Method,
     method: Method,
 }
 
-impl TryFrom<&[u8]> for Request {
+// To use a lifetime in an implementation block or any generics, we have to
+// declare it on the input keyword first.
+impl<'buf> TryFrom<&'buf [u8]> for Request<'buf> {
     // type Error = String;
     type Error = ParseError;
 
     // GET /search?name=abc&sort=1 HTTP/1.1
-    fn try_from(buf: &[u8]) -> Result<Self, Self::Error> {
+    // The try_from receives one parameter, which is the buf variable. And it is
+    // a pointer to the buffer defined in server.rs.
+    fn try_from(buf: &'buf [u8]) -> Result<Request<'buf>, Self::Error> {
         // Method 1 of Error Handling.
         // match str::from_utf8(buf){
         //     Ok(request) => {},
