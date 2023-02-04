@@ -1,3 +1,4 @@
+#![allow(dead_code)]
 // Import modules
 mod server;
 mod http;

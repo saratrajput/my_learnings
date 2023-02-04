@@ -555,3 +555,11 @@ So if our code compiles successfully, it means there are no dangling references.
 
 * Lifetimes are a powerful tool that allows the Rust compiler to guarantee memory safety.
 * The lifetime parameters that we explicitly specify does not allow us to choose how long a value lives. It only allows us to communicate to the compiler that some references are related to the same memory and are expected to share the same lifetime.
+
+### 47. Silencing Compiler Warnings
+
+* Every time we compile our code, we get a bunch of warnings from the compiler as most of the fields in our struct are not being used yet.
+
+* This is because the warning filter [dead_code] is ON by default.
+
+* To disable this warning, we add ```#![allow(dead_code)]``` at the top of the ```main.rs``` file.
