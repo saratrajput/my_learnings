@@ -528,3 +528,16 @@ println!("Received a request: {:?}", String::from_utf8_lossy(&buffer));
 * it will also unwrap the contents in the variable ```i```.
 
 ### 45. Lifetimes - Part 1
+
+* Dangling references or Use after free problem.
+    * Dangling references and use after free refer to situations where a piece of code continues to use a memory location after the data stored in that location has been freed or deleted. This can cause unexpected behavior or even crashes in a program.
+    * Suppose we have a request that contains a reference to a buffer stored in memory. If we deallocate the buffer, then the buffer doesn't exist at the same location in the memory but the reference to that address still exists.
+    * Another way to say it is, the lifetime of the request is greater than the lifetime of the buffer. The request outlives the buffer.
+
+* In Rust, it gives a guarantee that there will be no dangling references without using a garbage collector.
+* The Rust compiler can statically check all the references in our code and ensure that there are no use after free cases.
+* This means that there are no performance penalties unlike languages that use garbage collection.
+
+So if our code compiles successfully, it means there are no dangling references.
+
+* In order to statically check all of the references in our code, the rust compiler needs help from us, by specifying the **lifetime specifier**.
