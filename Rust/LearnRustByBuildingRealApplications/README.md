@@ -594,3 +594,9 @@ So we'll need to use the ```From``` trait.
 * The syntax for de-referencing in Rust is to put a ```*``` in front of the reference.
 
 * All the variants of an ```Enum``` take up the same space.
+
+### 50. The Derive Attribute
+
+In order to avoid implementing the ```'buf``` lifetime for all our methods, we can use derive attribute instead. It is only available for some traits, and the debug trait is one of them.
+
+* Syntax: ```#[derive(Debug)]```

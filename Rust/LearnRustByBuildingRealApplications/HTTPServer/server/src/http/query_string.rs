@@ -2,12 +2,14 @@ use std::collections::HashMap;
 
 // Example query: a=1&b=2&c&d=&e===&d=7&d=abc
 
+#[derive(Debug)]
 pub struct QueryString<'buf> {
     data: HashMap<&'buf str, Value<'buf>>,
 }
 
 // We need two types: one for simple strings like a=1
 // and an array for multiple values with same key like d=[&, 7, abc]
+#[derive(Debug)]
 pub enum Value<'buf> {
     Single(&'buf str),
     Multiple(Vec<&'buf str>),
