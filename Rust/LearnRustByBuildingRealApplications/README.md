@@ -600,3 +600,20 @@ So we'll need to use the ```From``` trait.
 In order to avoid implementing the ```'buf``` lifetime for all our methods, we can use derive attribute instead. It is only available for some traits, and the debug trait is one of them.
 
 * Syntax: ```#[derive(Debug)]```
+
+### 51. Modelling the HTTP Response
+
+Example HTTP/1.1 Response
+```
+HTTP/1.1 200 OK
+Date: Mon, 27 Jul 2009 12:28:53 GMT
+Server: Apache
+Last-Modified: Wed, 22 Jul 2009 19:15:56 GMT
+ETag: "34aa387-d-1568eb00"
+Accept-Ranges: bytes
+Content-Length: 51
+Vary: Accept-Encoding
+Content-Type: text/plain
+
+Hello World! My payload includes a trailing CRLF.
+```
