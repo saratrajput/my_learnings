@@ -640,3 +640,10 @@ Hello World! My payload includes a trailing CRLF.
 * If we want to use the ```derive``` feature to implement ```Copy```, we also need to implement clone. The reason is that if a type implements copy, it can have a trivial implementation for a clone that would perform the same task as copy.
 
 > It is a good practice to derive Debug on all your types, so that you can log them easily later.
+
+### 53. Writing Data to a TCP Stream
+
+* In order to not copy the whole response to a new string, we can implement the write response inside Response instead.
+
+* Before we were writing to the formatter which would then go ahead and allocate unused strings with everything that we wrote it.
+* Now we are writing to the DSP stream directly.
