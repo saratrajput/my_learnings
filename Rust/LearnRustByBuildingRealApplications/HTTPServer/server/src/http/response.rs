@@ -17,7 +17,9 @@ impl Response {
 
     // In order to not copy the whole response to a new string, we can implement
     // the write response here instead.
-    pub fn send(&self, stream: &mut TcpStream) -> IoResult<()> {
+    // pub fn send(&self, stream: &mut TcpStream) -> IoResult<()> {
+    // pub fn send(&self, stream: &mut dyn Write) -> IoResult<()> {
+    pub fn send(&self, stream: &mut impl Write) -> IoResult<()> {
         let body = match &self.body {
             Some(b) => b,
             None => "",

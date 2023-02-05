@@ -647,3 +647,22 @@ Hello World! My payload includes a trailing CRLF.
 
 * Before we were writing to the formatter which would then go ahead and allocate unused strings with everything that we wrote it.
 * Now we are writing to the DSP stream directly.
+
+### 54. Dynamic vs Static Dispatch
+
+* ```dyn``` stands for Dynamic = Dynamic Dispatch.
+
+* In the trait there is only the signature. All of the implementors have different implementations. The compiler has to figure out exactly which implementation to call.
+
+* It is called **dynamic dispatch** because the concrete function implementation to be called will be resolved at runtime.
+* This is achieved by creating a mapping between the concrete implementations of the trait and the trait itself.
+* This mapping is called a **V Table**, which is a table with function pointers.
+* There is a runtime overhead with dynamic dispatch.
+
+* Static Dispatch
+  * Resolved at compile time.
+  * By replacing ```dyn``` with ```impl```.
+  * Now we are saying that this function accepts any parameter that implements the Write trait, and the compiler will make sure to resolve all the concrete implementations that we will use.
+  * To do that at compile time, it will generate a new function, and if we call the same function elsewhere with a file, it will generate a new function which works with files instead of Tcp stream. This way we have a lot of functions.
+  * It is the preferred approach.
+  * The compile time is slow with this approach.
