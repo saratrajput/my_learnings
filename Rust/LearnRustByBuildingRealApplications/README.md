@@ -617,3 +617,26 @@ Content-Type: text/plain
 
 Hello World! My payload includes a trailing CRLF.
 ```
+
+### 52. Copy and Clone Types
+
+* Underneath, a simple Enum is represented by a single number. And this value can be assigned as well.
+
+* Copy
+  * Generally, there are two types of values in our programs:
+      * Those that live entirely on the stack, and
+      * those that live on the stack and on the heap.
+  * Types that live on stack can be trivially copied just by copying their bytes. Eg: Integer -> which is just a sequence of bytes that are stored on the stack.
+  * On the other hand, we have the **String** which is NOT a Copy type.
+    * It only stores some method data like the length of the string on the stack.
+    * And it stores a pointer that points to the heap where the actual text lives.
+    * So by copying the bytes on the stack, we DON'T copy the whole string. We only copied the pointer and the method data.
+    * That means the **String** cannot implement the copy trait.
+
+* Clone
+    * Provides a functionality for creating a deep copy of a value.
+    * A deep copy means that the clone function will do extra work to also copy the necessary heap data.
+
+* If we want to use the ```derive``` feature to implement ```Copy```, we also need to implement clone. The reason is that if a type implements copy, it can have a trivial implementation for a clone that would perform the same task as copy.
+
+> It is a good practice to derive Debug on all your types, so that you can log them easily later.
