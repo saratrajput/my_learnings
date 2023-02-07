@@ -725,3 +725,9 @@ Also, cargo expand needs the nightly toolchain, so to change to nightly toolchai
 rustup install nightly
 rustup default nightly
 ```
+
+### 59. Serving HTML Files
+
+* ```fs::read_to_string(path)```: Reads the entire contents of a file into a string.
+
+* ```fs::read_to_string(path).ok()```: will look at the value, and convert it into an ```Option```, which is a ```Some``` with that value, otherwise it will convert it into a ```None```.
