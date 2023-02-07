@@ -731,3 +731,30 @@ rustup default nightly
 * ```fs::read_to_string(path)```: Reads the entire contents of a file into a string.
 
 * ```fs::read_to_string(path).ok()```: will look at the value, and convert it into an ```Option```, which is a ```Some``` with that value, otherwise it will convert it into a ```None```.
+
+### 60. Serving Arbitrary Files Securely
+
+* One way to handle static files at runtime would be add to extra logic to the default case in the ```WebsiteHandler```.
+    * This method might work but we have introduced a security vulnerability to our server, called **directory traversal vulnerability**.
+    * **Directory traversal vulnerability** is a web security vulnerability that allows an attacker to read arbitrary files from the system where the server is running.
+    * We assume that the client would be accessing only the files in the ```public``` folder.
+    * Since we don't have any validation on the path, any attacker is able to access files from a level above. Example using ```netcat```:
+    ```
+    echo "GET /../Cargo.toml HTTP/1.1\r\n" | nc 127.0.0.1 8080
+    # OR
+    echo -en "GET /../Cargo.toml HTTP/1.1\r\n\r\n" | nc 127.0.0.1 8080
+    ```
+
+    * One way to patch this vulnerability would be to look at the request and if it contains any double dots ```..```, then throw it away.
+
+    * Another way, would be to convert the path to its **absolute canonical version**, which means we want to resolve all the double dots from the path.
+        * For example, Unix has a command called ```realpath```. Eg:
+        ```
+        realpath /../../../../../proc/meminfo
+        /proc/meminfo
+        ```
+        * So, similarly, we can check to make sure that the real path always begins with the path to the public directory.
+
+        * Rust has a function in the ```fs``` module for this: ```fs::canonicalize(path)```.
+
+        * There is a convenient function called ```.starts_with()```, to check if the path begins with the public path.
