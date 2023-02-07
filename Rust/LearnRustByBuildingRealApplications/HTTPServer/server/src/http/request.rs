@@ -4,10 +4,10 @@ use std::error::Error;
 // use std::fmt::Display;
 // use std::fmt::Formatter;
 // use std::fmt::Result as FmtResult;
+use super::QueryString;
 use std::fmt::{Debug, Display, Formatter, Result as FmtResult};
 use std::str;
 use std::str::Utf8Error;
-use super::QueryString;
 
 #[derive(Debug)]
 pub struct Request<'buf> {
@@ -18,6 +18,20 @@ pub struct Request<'buf> {
     query_string: Option<QueryString<'buf>>,
     // method: super::method::Method,
     method: Method,
+}
+
+impl<'buf> Request<'buf> {
+    pub fn path(&self) -> &str {
+        &self.path
+    }
+
+    pub fn method(&self) -> &Method {
+        &self.method
+    }
+
+    pub fn query_string(&self) -> Option<&QueryString> {
+        self.query_string.as_ref()
+    }
 }
 
 // To use a lifetime in an implementation block or any generics, we have to

@@ -670,3 +670,13 @@ Hello World! My payload includes a trailing CRLF.
 ### 55. Custom Traits
 
 * Instead of building the response in the server itself, we can let the caller of the server provide a custom handler for requests.
+
+### 56. Implementing Getters
+
+* At the moment, we can't do a lot with the request that we get in our handler because all the fields in the request are private, i.e. they cannot be accessed from outside of this module.
+
+* To work around that, we have to implement **getters**.
+
+* The convention in Rust is to name the getter after the field without prefixing it with the ```get``` word.
+
+* ```.as_ref()``` converts from ```&Option<T>``` to ```Option<&T>```.
