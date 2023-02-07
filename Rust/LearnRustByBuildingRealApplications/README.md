@@ -697,3 +697,31 @@ impl Handler for WebsiteHandler {
     }
 }
 ```
+
+### 58. Working with Environment Variables
+
+* ```use std::env```
+* ```env::var("")``` function from the ```env``` module reads environment variables.
+
+* One way to declare environment variable.
+```
+PUBLIC_PATH=$(pwd)/public cargo run
+```
+> In fish, ```PUBLIC_PATH=$(pwd)/public cargo run```.
+
+But in development, this will be a lot of hassle. We also can't hardcode the public path as it'll be different on every one's machine.
+
+* ```env!()```: Special macro to read environment variables at compile time.
+
+> To see what the code does, we can use ```cargo expand | code -```. We pipe it to VS code directly.
+* To use ```cargo expand```, we'll need to first install it using:
+```
+cargo install cargo-expand
+```
+If rustc version <1.67, update it with: ```rustup update```.
+
+Also, cargo expand needs the nightly toolchain, so to change to nightly toolchain:
+```
+rustup install nightly
+rustup default nightly
+```
