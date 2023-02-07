@@ -758,3 +758,16 @@ rustup default nightly
         * Rust has a function in the ```fs``` module for this: ```fs::canonicalize(path)```.
 
         * There is a convenient function called ```.starts_with()```, to check if the path begins with the public path.
+
+
+### 61. Next Steps
+
+* Learnt about:
+    * Structs,
+    * Networking,
+    * Data structures,
+    * Lifetimes.
+
+* Steps for further improvement:
+    * Improve implementation of Request and Response.
+    * Increase performance of server with thread and sync modules.
