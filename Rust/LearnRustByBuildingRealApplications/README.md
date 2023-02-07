@@ -666,3 +666,7 @@ Hello World! My payload includes a trailing CRLF.
   * To do that at compile time, it will generate a new function, and if we call the same function elsewhere with a file, it will generate a new function which works with files instead of Tcp stream. This way we have a lot of functions.
   * It is the preferred approach.
   * The compile time is slow with this approach.
+
+### 55. Custom Traits
+
+* Instead of building the response in the server itself, we can let the caller of the server provide a custom handler for requests.
