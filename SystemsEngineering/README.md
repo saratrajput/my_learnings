@@ -80,3 +80,9 @@
 ![](compartmentalizing.png)
 
 ![](requirement_mission_function_entity.png)
+
+![](requirements.png)
+
+![](requirements_example_nasa.png)
+
+![](system_operations.png)
