@@ -3,7 +3,7 @@
 ## Section 1. Introductory / Groundwork Topics
 
 ### 1. Course Introduction
-![](intro.png)
+![](images/intro.png)
 
 * Everything, including complex products and systems, has a life cycle.
 * Systems engineering is an approach to bringing complex products into existence from the top down, starting with defining characteristics at high levels and then breaking them down into smaller and smaller segments until implementation.
@@ -30,13 +30,13 @@
 
 ### 2. System Defined
 
-![](system_defined.png)
+![](images/system_defined.png)
 
-![](integrated.png)
+![](images/integrated.png)
 
-![](elements.png)
+![](images/elements.png)
 
-![](definitions.png)
+![](images/definitions.png)
 
 * The course focuses on the concept of the system, which is defined as a combination of interacting elements organized to achieve one or more stated purposes.
 * Interacting elements refer to a group of parts within the system that work together, such as hardware, software, processes, people, information, techniques, and facilities.
@@ -49,27 +49,27 @@
 
 ### 3. System Hierarchies
 
-![](systems_subsystems.png)
+![](images/systems_subsystems.png)
 
-![](subsystems_components.png)
+![](images/subsystems_components.png)
 
-![](components_subcomponents.png)
+![](images/components_subcomponents.png)
 
-![](hierarchy.png)
+![](images/hierarchy.png)
 
-![](uml_diagram.png)
+![](images/uml_diagram.png)
 
-![](automobile_hierarchy.png)
+![](images/automobile_hierarchy.png)
 
-![](context_dependent.png)
+![](images/context_dependent.png)
 
-![](power_subsystem_hierarchy.png)
+![](images/power_subsystem_hierarchy.png)
 
-![](domain_specific.png)
+![](images/domain_specific.png)
 
-![](how_far_to_decompose.png)
+![](images/how_far_to_decompose.png)
 
-![](hierarchies_are_result.png)
+![](images/hierarchies_are_result.png)
 
 #### Introduction to System Hierarchy
 
@@ -105,106 +105,106 @@ The hierarchy is composed of the system at the top, followed by subsystems, comp
 
 ### 4. The System Context
 
-![](external_view.png)
+![](images/external_view.png)
 
-![](system_environment.png)
+![](images/system_environment.png)
 
-![](external_entities.png)
+![](images/external_entities.png)
 
-![](jet_fighter_example.png)
+![](images/jet_fighter_example.png)
 
-![](system_boundaries.png)
+![](images/system_boundaries.png)
 
-![](system_boundaries_jetfighter.png)
+![](images/system_boundaries_jetfighter.png)
 
-![](in_or_out.png)
+![](images/in_or_out.png)
 
-![](user_fit.png)
+![](images/user_fit.png)
 
-![](context_diagram.png)
+![](images/context_diagram.png)
 
-![](context_diagram_jetfighter.png)
+![](images/context_diagram_jetfighter.png)
 
-![](context_diagram_format_2.png)
+![](images/context_diagram_format_2.png)
 
-![](internal_block_diagram.png)
+![](images/internal_block_diagram.png)
 
-![](ports.png)
+![](images/ports.png)
 
-![](vehicle_engine_context.png)
+![](images/vehicle_engine_context.png)
 
-![](how_to_build_context_diagram.png)
+![](images/how_to_build_context_diagram.png)
 
-![](final_points.png)
+![](images/final_points.png)
 
 ### 5. System Domains
 
-![](systems_eng_knowledge_breadth.png)
+![](images/systems_eng_knowledge_breadth.png)
 
-![](compartmentalizing.png)
+![](images/compartmentalizing.png)
 
-![](requirement_mission_function_entity.png)
+![](images/requirement_mission_function_entity.png)
 
-![](requirements.png)
+![](images/requirements.png)
 
-![](requirements_example_nasa.png)
+![](images/requirements_example_nasa.png)
 
-![](system_operations.png)
+![](images/system_operations.png)
 
-![](use_case_example.png)
+![](images/use_case_example.png)
 
-![](functions.png)
+![](images/functions.png)
 
-![](functional_flow_diagram_example.png)
+![](images/functional_flow_diagram_example.png)
 
-![](functional_flow_diagram_zoom_in.png)
+![](images/functional_flow_diagram_zoom_in.png)
 
-![](physical_elements.png)
+![](images/physical_elements.png)
 
-![](product_hierarchy.png)
+![](images/product_hierarchy.png)
 
 ### 6. Users & Stakeholders
 
-![](success_of_a_product.png)
+![](images/success_of_a_product.png)
 
-![](user.png)
+![](images/user.png)
 
-![](user_types.png)
+![](images/user_types.png)
 
-![](user_atm_example.png)
+![](images/user_atm_example.png)
 
-![](6_stakeholder.png)
+![](images/6_stakeholder.png)
 
-![](6_user_vs_stake_holder.png)
+![](images/6_user_vs_stake_holder.png)
 
-![](6_role_of_users_and_stakeholders.png)
+![](images/6_role_of_users_and_stakeholders.png)
 
 ### 7. Boundaries & Interfaces
 
-![](7_boundaries_atm_example.png)
+![](images/7_boundaries_atm_example.png)
 
-![](7_interfaces.png)
+![](images/7_interfaces.png)
 
-![](7_interface_types.png)
+![](images/7_interface_types.png)
 
-![](7_connector_interface.png)
+![](images/7_connector_interface.png)
 
-![](7_isolator_interface.png)
+![](images/7_isolator_interface.png)
 
-![](7_converter_interface.png)
+![](images/7_converter_interface.png)
 
-![](7_context_diagram.png)
+![](images/7_context_diagram.png)
 
-![](7_engine_example.png)
+![](images/7_engine_example.png)
 
-![](7_engine_controller_engine.png)
+![](images/7_engine_controller_engine.png)
 
-![](7_interface_engine_example.png)
+![](images/7_interface_engine_example.png)
 
-![](7_standardized_interfaces_1.png)
+![](images/7_standardized_interfaces_1.png)
 
-![](7_standardized_interfaces_2.png)
+![](images/7_standardized_interfaces_2.png)
 
-![](7_interface_management.png)
+![](images/7_interface_management.png)
 
-![](7_evolution_of_usb_interface.png)
+![](images/7_evolution_of_usb_interface.png)
