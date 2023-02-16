@@ -208,3 +208,27 @@ The hierarchy is composed of the system at the top, followed by subsystems, comp
 ![](images/7_interface_management.png)
 
 ![](images/7_evolution_of_usb_interface.png)
+
+### 8. Systems Engineering Overview
+
+![](8_systems_engineering.png)
+
+![](8_systems_engineering_2.png)
+
+![](8_systems_engineering_process.png)
+
+![](8_systems_engineering_process.png)
+
+![](8_system_hierarchy.png)
+
+![](8_activity_decomposition.png)
+
+![](8_system_hierarchy_2.png)
+
+![](8_analysis_and_control.png)
+
+![](8_system_engineering_iteration.png)
+
+![](8_system_engineering_iteration_2.png)
+
+![](8_system_engineering_recursion.png)
