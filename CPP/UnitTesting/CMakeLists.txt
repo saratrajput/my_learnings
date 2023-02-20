@@ -4,7 +4,7 @@ project(googletest_sample)
 
 # Get googletest
 include(FetchContent)
-# Either google
+# Either googletest or gtest is OK for the first parameter.
 FetchContent_Declare(googletest
         GIT_REPOSITORY https://github.com/google/googletest
         GIT_TAG release-1.11.0)
