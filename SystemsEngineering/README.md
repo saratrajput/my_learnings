@@ -3,7 +3,7 @@
 ## Section 1. Introductory / Groundwork Topics
 
 ### 1. Course Introduction
-![](images/intro.png)
+<img src="images/intro.png"  width="600" height="300">
 
 * Everything, including complex products and systems, has a life cycle.
 * Systems engineering is an approach to bringing complex products into existence from the top down, starting with defining characteristics at high levels and then breaking them down into smaller and smaller segments until implementation.
@@ -30,13 +30,11 @@
 
 ### 2. System Defined
 
-![](images/system_defined.png)
+<img src="images/system_defined.png" width="600" height="300">
+<img src="images/integrated.png" width="600" height="300">
 
-![](images/integrated.png)
-
-![](images/elements.png)
-
-![](images/definitions.png)
+<img src="images/elements.png" width="600" height="300">
+<img src="images/definitions.png" width="600" height="300">
 
 * The course focuses on the concept of the system, which is defined as a combination of interacting elements organized to achieve one or more stated purposes.
 * Interacting elements refer to a group of parts within the system that work together, such as hardware, software, processes, people, information, techniques, and facilities.
@@ -49,27 +47,27 @@
 
 ### 3. System Hierarchies
 
-![](images/systems_subsystems.png)
+<img src="images/systems_subsystems.png" width="600" height="300">
 
-![](images/subsystems_components.png)
+<img src="images/subsystems_components.png" width="600" height="300">
 
-![](images/components_subcomponents.png)
+<img src="images/components_subcomponents.png" width="600" height="300">
 
-![](images/hierarchy.png)
+<img src="images/hierarchy.png" width="600" height="300">
 
-![](images/uml_diagram.png)
+<img src="images/uml_diagram.png" width="600" height="300">
 
-![](images/automobile_hierarchy.png)
+<img src="images/automobile_hierarchy.png" width="600" height="300">
 
-![](images/context_dependent.png)
+<img src="images/context_dependent.png" width="600" height="300">
 
-![](images/power_subsystem_hierarchy.png)
+<img src="images/power_subsystem_hierarchy.png" width="600" height="300">
 
-![](images/domain_specific.png)
+<img src="images/domain_specific.png" width="600" height="300">
 
-![](images/how_far_to_decompose.png)
+<img src="images/how_far_to_decompose.png" width="600" height="300">
 
-![](images/hierarchies_are_result.png)
+<img src="images/hierarchies_are_result.png" width="600" height="300">
 
 #### Introduction to System Hierarchy
 
@@ -105,130 +103,130 @@ The hierarchy is composed of the system at the top, followed by subsystems, comp
 
 ### 4. The System Context
 
-![](images/external_view.png)
+<img src="images/external_view.png" width="600" height="300">
 
-![](images/system_environment.png)
+<img src="images/system_environment.png" width="600" height="300">
 
-![](images/external_entities.png)
+<img src="images/external_entities.png" width="600" height="300">
 
-![](images/jet_fighter_example.png)
+<img src="images/jet_fighter_example.png" width="600" height="300">
 
-![](images/system_boundaries.png)
+<img src="images/system_boundaries.png" width="600" height="300">
 
-![](images/system_boundaries_jetfighter.png)
+<img src="images/system_boundaries_jetfighter.png" width="600" height="300">
 
-![](images/in_or_out.png)
+<img src="images/in_or_out.png" width="600" height="300">
 
-![](images/user_fit.png)
+<img src="images/user_fit.png" width="600" height="300">
 
-![](images/context_diagram.png)
+<img src="images/context_diagram.png" width="600" height="300">
 
-![](images/context_diagram_jetfighter.png)
+<img src="images/context_diagram_jetfighter.png" width="600" height="300">
 
-![](images/context_diagram_format_2.png)
+<img src="images/context_diagram_format_2.png" width="600" height="300">
 
-![](images/internal_block_diagram.png)
+<img src="images/internal_block_diagram.png" width="600" height="300">
 
-![](images/ports.png)
+<img src="images/ports.png" width="600" height="300">
 
-![](images/vehicle_engine_context.png)
+<img src="images/vehicle_engine_context.png" width="600" height="300">
 
-![](images/how_to_build_context_diagram.png)
+<img src="images/how_to_build_context_diagram.png" width="600" height="300">
 
-![](images/final_points.png)
+<img src="images/final_points.png" width="600" height="300">
 
 ### 5. System Domains
 
-![](images/systems_eng_knowledge_breadth.png)
+<img src="images/systems_eng_knowledge_breadth.png" width="600" height="300">
 
-![](images/compartmentalizing.png)
+<img src="images/compartmentalizing.png" width="600" height="300">
 
-![](images/requirement_mission_function_entity.png)
+<img src="images/requirement_mission_function_entity.png" width="600" height="300">
 
-![](images/requirements.png)
+<img src="images/requirements.png" width="600" height="300">
 
-![](images/requirements_example_nasa.png)
+<img src="images/requirements_example_nasa.png" width="600" height="300">
 
-![](images/system_operations.png)
+<img src="images/system_operations.png" width="600" height="300">
 
-![](images/use_case_example.png)
+<img src="images/use_case_example.png" width="600" height="300">
 
-![](images/functions.png)
+<img src="images/functions.png" width="600" height="300">
 
-![](images/functional_flow_diagram_example.png)
+<img src="images/functional_flow_diagram_example.png" width="600" height="300">
 
-![](images/functional_flow_diagram_zoom_in.png)
+<img src="images/functional_flow_diagram_zoom_in.png" width="600" height="300">
 
-![](images/physical_elements.png)
+<img src="images/physical_elements.png" width="600" height="300">
 
-![](images/product_hierarchy.png)
+<img src="images/product_hierarchy.png" width="600" height="300">
 
 ### 6. Users & Stakeholders
 
-![](images/success_of_a_product.png)
+<img src="images/success_of_a_product.png" width="600" height="300">
 
-![](images/user.png)
+<img src="images/user.png" width="600" height="300">
 
-![](images/user_types.png)
+<img src="images/user_types.png" width="600" height="300">
 
-![](images/user_atm_example.png)
+<img src="images/user_atm_example.png" width="600" height="300">
 
-![](images/6_stakeholder.png)
+<img src="images/6_stakeholder.png" width="600" height="300">
 
-![](images/6_user_vs_stake_holder.png)
+<img src="images/6_user_vs_stake_holder.png" width="600" height="300">
 
-![](images/6_role_of_users_and_stakeholders.png)
+<img src="images/6_role_of_users_and_stakeholders.png" width="600" height="300">
 
 ### 7. Boundaries & Interfaces
 
-![](images/7_boundaries_atm_example.png)
+<img src="images/7_boundaries_atm_example.png" width="600" height="300">
 
-![](images/7_interfaces.png)
+<img src="images/7_interfaces.png" width="600" height="300">
 
-![](images/7_interface_types.png)
+<img src="images/7_interface_types.png" width="600" height="300">
 
-![](images/7_connector_interface.png)
+<img src="images/7_connector_interface.png" width="600" height="300">
 
-![](images/7_isolator_interface.png)
+<img src="images/7_isolator_interface.png" width="600" height="300">
 
-![](images/7_converter_interface.png)
+<img src="images/7_converter_interface.png" width="600" height="300">
 
-![](images/7_context_diagram.png)
+<img src="images/7_context_diagram.png" width="600" height="300">
 
-![](images/7_engine_example.png)
+<img src="images/7_engine_example.png" width="600" height="300">
 
-![](images/7_engine_controller_engine.png)
+<img src="images/7_engine_controller_engine.png" width="600" height="300">
 
-![](images/7_interface_engine_example.png)
+<img src="images/7_interface_engine_example.png" width="600" height="300">
 
-![](images/7_standardized_interfaces_1.png)
+<img src="images/7_standardized_interfaces_1.png" width="600" height="300">
 
-![](images/7_standardized_interfaces_2.png)
+<img src="images/7_standardized_interfaces_2.png" width="600" height="300">
 
-![](images/7_interface_management.png)
+<img src="images/7_interface_management.png" width="600" height="300">
 
-![](images/7_evolution_of_usb_interface.png)
+<img src="images/7_evolution_of_usb_interface.png" width="600" height="300">
 
 ### 8. Systems Engineering Overview
 
-![](8_systems_engineering.png)
+<img src="8_systems_engineering.png" width="600" height="300">
 
-![](8_systems_engineering_2.png)
+<img src="8_systems_engineering_2.png" width="600" height="300">
 
-![](8_systems_engineering_process.png)
+<img src="8_systems_engineering_process.png" width="600" height="300">
 
-![](8_systems_engineering_process.png)
+<img src="8_systems_engineering_process.png" width="600" height="300">
 
-![](8_system_hierarchy.png)
+<img src="8_system_hierarchy.png" width="600" height="300">
 
-![](8_activity_decomposition.png)
+<img src="8_activity_decomposition.png" width="600" height="300">
 
-![](8_system_hierarchy_2.png)
+<img src="8_system_hierarchy_2.png" width="600" height="300">
 
-![](8_analysis_and_control.png)
+<img src="8_analysis_and_control.png" width="600" height="300">
 
-![](8_system_engineering_iteration.png)
+<img src="8_system_engineering_iteration.png" width="600" height="300">
 
-![](8_system_engineering_iteration_2.png)
+<img src="8_system_engineering_iteration_2.png" width="600" height="300">
 
-![](8_system_engineering_recursion.png)
+<img src="8_system_engineering_recursion.png" width="600" height="300">
