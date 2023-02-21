@@ -209,24 +209,24 @@ The hierarchy is composed of the system at the top, followed by subsystems, comp
 
 ### 8. Systems Engineering Overview
 
-<img src="8_systems_engineering.png" width="600" height="300">
+<img src="images/8_systems_engineering.png" width="600" height="300">
 
-<img src="8_systems_engineering_2.png" width="600" height="300">
+<img src="images/8_systems_engineering_2.png" width="600" height="300">
 
-<img src="8_systems_engineering_process.png" width="600" height="300">
+<img src="images/8_systems_engineering_process.png" width="600" height="300">
 
-<img src="8_systems_engineering_process.png" width="600" height="300">
+<img src="images/8_systems_engineering_process.png" width="600" height="300">
 
-<img src="8_system_hierarchy.png" width="600" height="300">
+<img src="images/8_system_hierarchy.png" width="600" height="300">
 
-<img src="8_activity_decomposition.png" width="600" height="300">
+<img src="images/8_activity_decomposition.png" width="600" height="300">
 
-<img src="8_system_hierarchy_2.png" width="600" height="300">
+<img src="images/8_system_hierarchy_2.png" width="600" height="300">
 
-<img src="8_analysis_and_control.png" width="600" height="300">
+<img src="images/8_analysis_and_control.png" width="600" height="300">
 
-<img src="8_system_engineering_iteration.png" width="600" height="300">
+<img src="images/8_system_engineering_iteration.png" width="600" height="300">
 
-<img src="8_system_engineering_iteration_2.png" width="600" height="300">
+<img src="images/8_system_engineering_iteration_2.png" width="600" height="300">
 
-<img src="8_system_engineering_recursion.png" width="600" height="300">
+<img src="images/8_system_engineering_recursion.png" width="600" height="300">
