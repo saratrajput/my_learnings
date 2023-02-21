@@ -1,4 +1,6 @@
-# C++ Unit Testing
+# C++ Unit Testing: Google Test and Google Mock
+
+This directory contains my notes and code from the Udemy course [C++ Unit Testing: Google Test and Google Mock](https://www.udemy.com/share/102T6y3@TP21dlAgOPbMiil2jCoMmsnSQsp4MJxKeX07GffAc_BOJtmsGzh6ESUIq4w-QDlb/).
 
 ## Notes
 * ```add_library``` command:
