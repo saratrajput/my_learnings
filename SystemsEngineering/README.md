@@ -298,6 +298,7 @@ The context diagram is a tool used by systems engineers to capture and communica
 * Many systems convert from analog to digital or mechanical to hydraulic.
 * There are many types of interfaces, including connectors, isolators, and converters.
 * Interfaces can be standardized, and the systems engineer is responsible for identifying, defining, and managing them.
+
 #### Interface management:
 
 * Many issues with system development can be traced back to bad requirements or problems with system components communicating with each other.
@@ -358,3 +359,65 @@ The context diagram is a tool used by systems engineers to capture and communica
 #### Technical management activities:
 
 * The eight technical management activities are project planning, project assessment and control, decision management, risk management, configuration management, information management, measurement, and quality assurance.
+
+### 9. Alternative Systems Engineering Methods
+
+![](9_dod_systems_engineering.png)
+
+![](9_dod_v_shaped_systems_engineering.png)
+
+![](9_nasa_systems_engineering.png)
+
+![](9_nasa_cake_shaped_systems_engineering.png)
+
+![](9_ieee_systems_engineering.png)
+
+![](9_eia_systems_engineering.png)
+
+![](9_iso_systems_engineering.png)
+
+### 10. Systems Thinking
+
+![](10_systems_thinking.png)
+
+![](10_systems_thinking_2.png)
+
+![](10_system_engineer_breadth_of_knowledge.png)
+
+### 11. The Origins & Evolution of Systems Engineering
+
+![](11_origins_of_systems_engineering.png)
+
+![](11_evolution_of_systems_engineering.png)
+
+![](11_evolution_of_systems_engineering_2.png)
+
+![](11_evolution_of_systems_engineering_3.png)
+
+![](11_primary_drivers_of_systems_engineering.png)
+
+### 12. The Systems Engineer
+
+![](12_who_is_a_systems_engineer.png)
+
+![](12_make_up_of_orchestra.png)
+
+![](12_make_up_of_system_engineer_team.png)
+
+![](12_characteristics_of_a_systems_engineer.png)
+
+![](12_manager_and_leader.png)
+
+![](12_products_and_services_from_a_systems_engineer.png)
+
+![](12_systems_engineer_vs_project_manager.png)
+
+![](12_systems_engineer_career_path.png)
+
+![](12_incose_se_competencey_framework.png)
+
+![](12_incose_systems_engineering_certification.png)
+
+![](12_characteristics_of_a_system_engineer_2.png)
+
+![](12_optimal_solution.png)
