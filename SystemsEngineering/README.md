@@ -421,3 +421,41 @@ The context diagram is a tool used by systems engineers to capture and communica
 ![](12_characteristics_of_a_system_engineer_2.png)
 
 ![](12_optimal_solution.png)
+
+## Section 2: Product Life Cycle
+
+### 13. An Overview of the Life Cycle
+
+![](13_system_life_cycle.png)
+
+![](13_major_system_development.png)
+
+![](13_system_product_life_cycle.png)
+
+![](13_decision_gate_reviews.png)
+
+![](13_needs_pull_technology_push.png)
+
+![](13_dot_mlpf.png)
+
+![](13_system_development_life_cycle.png)
+
+![](13_iso_incose_technical_process.png)
+
+![](13_triple_constraint.png)
+
+![](13_dod_life_cycle.png)
+
+![](13_v_systems_engineering.png)
+
+![](13_nasa_systems_engineering.png)
+
+![](13_industry_standards.png)
+
+![](13_software_in_the_lifecycle.png)
+
+![](13_incremental.png)
+
+![](13_evolutionary_spiral.png)
+
+![](13_rapid_development.png)
