@@ -70,3 +70,17 @@ Assertions can have two possible outcomes, **Success** or **Failure**. In case o
     * Start with ```ASSERT_*```.
 * Non-fatal failure means that the test continues, even though it has failed.
     * Start with ```EXPECT_*```.
+
+### 22. Assertions on Strings - Wrong Way to Do It
+
+* Numbers in hex (0x..) are a hint that we are looking at pointers, not strings.
+
+* Don't compare strings like ```ASSERT_EQ("HELLO WORLD", <output_of_capitalize_function>);```.
+* The right way to do it, is using ```strcmp()```.
+
+* Assertions on C-strings (char*). Wchar_t* is also accepted.
+
+* For ```std::string```, use ```ASSERT_EQ```.
+
+* For C-strings, use ```ASSERT_STREQ(x, y);``` or ```EXPECT_STREQ(x, y);```.
+  * They compare the contents, and not the pointers.
