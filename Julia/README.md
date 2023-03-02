@@ -95,13 +95,22 @@
 
 ## Section 3: Variables, Data Types and Operations
 
+> In VSCode, press ```Shift + Enter``` to execute the code in the line in the Julia REPL.
+
+### 10. Variables
+
 #### Variables
 
 * Variables are used to store values for later use.
 * A variable points to the address in memory where a value is stored.
 * Simple examples of variable assignment and operations are demonstrated in VSCode and Julia REPL.
 * Variables can have different types and their type can be checked using the ```typeof``` function.
-* Variables can be declared with a specific data type using variable_name::data_type.
+* Variables can be declared with a specific data type using ```variable_name::data_type```, e.g., ```x::Int64```.
+    * The above type declaration is not yet supported for global variables. It's usually used in function definitions.
+    * Purposes of type declaration:
+        * Multiple dispatch.
+        * Human readability.
+        * Catch errors.
 * Changing data types during runtime may be harmful for performance, although it's possible to do so.
 * It's important to use descriptive names for variables, especially in longer programs.
 * Certain keywords are reserved and cannot be used as variable names.
