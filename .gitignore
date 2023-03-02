@@ -1,3 +1,5 @@
 *.o
 */build/
 secure/
+*.ipynb_checkpoints/
+__pycache__/
