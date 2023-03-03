@@ -82,6 +82,55 @@
 * Code can also be written in a file with a .jl extension and called from REPL using the include function.
 * Julia REPL is not suitable for longer and more complex programs, data analysis, or data visualization, for which code editors or IDEs are needed.
 
+#### Installing Packages in Julia REPL
+
+* To install a package, launch Julia REPL by typing ```julia``` in the command line, and press ```Enter```.
+
+* Press ```]```, to enter the **pkg** mode.
+    * This will add ```pkg>``` prompt to your current prompt.
+
+* To install a package:
+```
+add VirtualEnv
+```
+
+* To exit the ```pkg>``` prompt, simply press the **Backspace** or **Del** key on your keyboard.
+
+#### Using a virtual environment in Julia
+
+* Enter Julia REPL.
+
+* Enter ```pkg>``` prompt, by pressing the ```]``` key.
+
+* Install ```VirtualEnv``` package with:
+    ```
+    add VirtualEnv
+    ```
+
+* Activate a new environment.
+    ```
+    activate .
+    ```
+    This will create a ```Project.toml``` file, in the directory where the Julia REPL was launched.
+    > If the file is not created, you can create a new file yourself with the following content.
+    ```
+    name = "LearningJulia"
+    version = "0.1.0"
+    ```
+
+#### Using Jupyter Notebook in Julia
+
+* Install the ```IJulia``` package with, ```add IJulia```, in the ```pkg>``` prompt.
+
+* Exit the ```pkg>``` prompt by pressing the ```Backspace``` or ```Del``` key.
+
+* Load the ```IJulia``` package: ```using IJulia```.
+
+* Launch the Jupyter notebook with the notebook() function: ```notebook()```.
+    * To launch the Jupyter notebook in the current directory: ```notebook(dir=".")```.
+
+* Inside the Jupyter notebook interface, click on ```New``` and select the ```Julia x.x.x``` kernel.
+
 ### 8. Julia Editor and IDEs
 
 * Visual Studio Code is a favorite editor for coding in Julia.
