@@ -8,3 +8,9 @@
 
 ![](bamboo_robot_arm.png)
 ![](babmboo_arm_kinematic_simplification.png)
+
+### Mobile Robot
+
+* [Scuttle Robot](https://www.scuttlerobot.org/)
+    * [Youtube](https://www.youtube.com/@davidmalawey/videos)
+    * [Github](https://github.com/scuttlerobot)
