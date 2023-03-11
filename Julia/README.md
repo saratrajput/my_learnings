@@ -118,6 +118,12 @@ add VirtualEnv
     version = "0.1.0"
     ```
 
+* Activate an existing environment.
+```
+using Pkg
+Pkg.activate(".")
+```
+
 #### Using Jupyter Notebook in Julia
 
 * Install the ```IJulia``` package with, ```add IJulia```, in the ```pkg>``` prompt.
