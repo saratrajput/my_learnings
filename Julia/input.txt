@@ -1,0 +1,3 @@
+Programming with Julia.
+Higher order functions.
+Map, reduce and filter.
