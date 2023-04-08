@@ -73,6 +73,24 @@
     ```
 * Reopen the terminal and type ```julia``` to verify that it is installed successfully.
 
+### Installing Julia in Mac
+
+* Find the processor type for your Mac.
+  ```
+  uname -m
+  ```
+  * If the output is arm64, then you have a Mac with an M-series processor, which means you are running macOS ARM.
+  * If the output is x86_64, then you have a Mac with an Intel processor, which means you are running macOS x86.
+* Go to the **julialang.org** website.
+* Navigate to the download page.
+* Download the ```.dmg``` file based on the processor type in Step-1.
+* Double-click on the downloaded file.
+* Drag the downloaded file into the ```Applications``` folder.
+* Create symbolic link.
+  ```
+  sudo ln -s /Applications/Julia-1.8.app/Contents/Resources/julia/bin/julia julia
+  ```
+
 ### 7. Julia REPL
 
 * Julia REPL is an interactive command line prompt for writing small Julia expressions or code pieces.
