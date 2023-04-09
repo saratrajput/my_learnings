@@ -201,3 +201,14 @@ Pkg.activate(".")
 * Constants are variables whose values cannot be changed after initialization.
 * Constants are declared using the keyword const with uppercase names.
 * Changing the data type of a constant value results in an error, but changing its value with the same data type results in a warning.
+
+## Section 8: Modules and Packages
+
+### 59. Writing and Using Modules
+
+* Check the modules currently loaded with: ```LOAD_PATH```.
+* Check the current directory path with: ```pwd()```.
+* Add the current path to the ```LOAD_PATH```.
+  ```
+  push!(LOAD_PATH, pwd())
+  ```
