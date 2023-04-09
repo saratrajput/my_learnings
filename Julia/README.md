@@ -212,3 +212,13 @@ Pkg.activate(".")
   ```
   push!(LOAD_PATH, pwd())
   ```
+
+### 60. Revise Package
+
+* In order to reload a module which has been updated, you can either restart the Julia REPL, or use the ```Revise``` package.
+* Install ```Revise``` package with:
+  ```Julia
+  // Press ']' key
+  add Revise
+  ```
+* And load it with: ```using Revise```.
