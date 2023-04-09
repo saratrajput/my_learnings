@@ -1,5 +1,7 @@
 module CustomerModule
 
+export Customer
+
 mutable struct Customer
     name::String
     cash::Float64
