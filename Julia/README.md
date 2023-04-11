@@ -236,8 +236,62 @@ generate MyPackage
 #### Another way of creating packages.
 
 * Enter the Julia REPL: ```julia```
-* Add ```PkgPackages```.
+* Add ```PkgTemplates```.
 ```
 // Press the ']' key to enter pkg mode
-add PkgPackages
+add PkgTemplates
+
+julia> using PkgTemplates
+
+// Interactive
+julia> Template(;interactive=true)("NewPackage")
+Template keywords to customize:
+[press: d=done, a=all, n=none]
+   [X] user
+   [ ] authors
+   [X] dir
+   [ ] host
+   [ ] julia
+ > [ ] plugins
+Enter value for 'user' (required): pattarsuraj
+Enter value for 'dir' (default: ~/.julia/dev): section_8/new_package
+[ Info: Running prehooks
+[ Info: Running hooks
+...
+
+// Commandline
+julia> t = Template(; user="pattarsuraj")
+julia> t("BankSim")
 ```
+
+#### Creating a Julia package repository and Testing
+
+* Create a repository with ```.jl``` extension on GitHub.
+> Repo Link: github.com/saratrajput/BankSim.jl
+
+* Copy the modules defined in ```BankModule.jl```, ```CustomerModule.jl``` and ```Transactions.jl``` to ```BankSim.jl``` and add some tests in the ```test/runtests.jl``` file.
+
+* To run the tests:
+  * Go to the directory where the ```BankSim.jl``` repo is located.
+  * Activate Julia REPL: ```julia```.
+  ```
+  julia> push!(LOAD_PATH, pwd())
+  julia> using BankSim
+  // Go to pkg mode.
+  julia> ]
+  // Activate the BankSim project.
+  (@v1.8) pkg> activate .
+  // Run the tests
+  (BankSim) pkg> test
+  ```
+
+#### Registering a Julia Package
+
+##### Method-1
+* Open ```https://github.com/JuliaRegistries/Registrator.jl```.
+* Install the Registrator Github App.
+
+#### Method-2 (Easy Way)
+* Open ```juliahub.com```.
+* Click on the ```Register Packages``` link.
+* Fill the form.
