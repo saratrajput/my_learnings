@@ -295,3 +295,14 @@ julia> t("BankSim")
 * Open ```juliahub.com```.
 * Click on the ```Register Packages``` link.
 * Fill the form.
+
+### Section 10 - Streams and Networking
+
+#### 68. TCP/IP
+
+* In the terminal, start the host with:
+  ```
+  netcat localhost 8000
+  OR
+  ncat localhost 8000
+  ```
