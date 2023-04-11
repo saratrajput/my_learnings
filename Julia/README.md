@@ -222,3 +222,22 @@ Pkg.activate(".")
   add Revise
   ```
 * And load it with: ```using Revise```.
+
+### 61. Package Development
+
+* Enter the Julia REPL: ```julia```
+* Change directory to Desktop: ```cd("Desktop")``` OR in the present directory.
+* Create ```MyPackage```
+```
+// Press the ']' key to enter pkg mode
+generate MyPackage
+```
+
+#### Another way of creating packages.
+
+* Enter the Julia REPL: ```julia```
+* Add ```PkgPackages```.
+```
+// Press the ']' key to enter pkg mode
+add PkgPackages
+```
