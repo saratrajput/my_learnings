@@ -4,4 +4,6 @@ version = "0.1.0"
 [deps]
 Bits = "1654ce90-6ed3-553a-957f-9452c3a40996"
 IJulia = "7073ff75-c697-5162-941a-fcdaad2a7d2a"
+Pkg = "44cfe95a-1eb2-52ea-b672-e2afdf69b78f"
+PkgTemplates = "14b8a8f1-9102-5b29-a752-f990bacb7fe1"
 VirtualEnv = "f8ef4a19-0666-4e54-aa90-5d6169a53550"
