@@ -6,7 +6,7 @@
 
 ### Project Initiation
 
-![Untitled](images/Untitled.png)
+![Untitled](images/week_1/Untitled.png)
 
 ### Project manager’s responsibilities during the initiation phase
 
@@ -16,15 +16,15 @@
 
 ### Cost Benefit Analysis
 
-![Untitled](images/Untitled%201.png)
+![Untitled](images/week_1/Untitled%201.png)
 
 ### Benefits of the project
 
-![Untitled](images/Untitled%202.png)
+![Untitled](images/week_1/Untitled%202.png)
 
 ### Costs of the project
 
-![Untitled](images/Untitled%203.png)
+![Untitled](images/week_1/Untitled%203.png)
 
 - The benefits should always outweigh the costs.
 
@@ -41,39 +41,39 @@
 
 ### Goals
 
-![Untitled](images/Untitled%204.png)
+![Untitled](images/week_1/Untitled%204.png)
 
 ### Scope
 
-![Untitled](images/Untitled%205.png)
+![Untitled](images/week_1/Untitled%205.png)
 
 ### Project deliverables
 
-![Untitled](images/Untitled%206.png)
+![Untitled](images/week_1/Untitled%206.png)
 
 - Can be tangible or intangible.
 
 ### Success criteria
 
-![Untitled](images/Untitled%207.png)
+![Untitled](images/week_1/Untitled%207.png)
 
 ### Stakeholders
 
-![Untitled](images/Untitled%208.png)
+![Untitled](images/week_1/Untitled%208.png)
 
 ### Resources
 
-![Untitled](images/Untitled%209.png)
+![Untitled](images/week_1/Untitled%209.png)
 
 ### Project charter
 
-![Untitled](images/Untitled%2010.png)
+![Untitled](images/week_1/Untitled%2010.png)
 
 ## Listening to learn
 
-![Untitled](images/Untitled%2011.png)
+![Untitled](images/week_1/Untitled%2011.png)
 
-![Untitled](images/Untitled%2012.png)
+![Untitled](images/week_1/Untitled%2012.png)
 
 ## Performing a cost-benefit analysis
 
