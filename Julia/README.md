@@ -202,6 +202,108 @@ Pkg.activate(".")
 * Constants are declared using the keyword const with uppercase names.
 * Changing the data type of a constant value results in an error, but changing its value with the same data type results in a warning.
 
+### 11. Type Hierarchy in Julia
+
+Introduction to Types in Julia:
+
+Types are tags on values that restrict the range of potential values that can be stored at that location
+Understanding types in Julia is very important
+Type Hierarchy:
+
+Julia has a type hierarchy where all types are in that hierarchy
+The top of this hierarchy is the type Any
+All other types are subtypes of Any and Any is a super type of all other types
+Below Any, there is a long pyramid of type hierarchies
+The bottom of the hierarchy is the type Union
+Every type is a subtype of another type in between Any and Union
+Any has 580 subtypes
+Abstract Types and Concrete Types:
+
+Red types that have subtypes are called abstract types and cannot be instantiated
+Blue types do not have subtypes and are concrete types that can be instantiated
+Abstract types allow us to define functions using the group of types we want
+Concrete types can be used to create variables
+Getting Subtypes and Supertypes in Julia:
+
+To get subtypes and supertypes in Julia, we can use the subtypes and supertype functions
+The <: operator is used to check whether a type is a subtype of another type
+Type hierarchy in Julia can be applied to predefined types and user-defined types
+
+### 12. Numerical Data Types: Integers and Floating-Point Numbers
+
+Integer and Floating Point Numbers:
+
+Integer and floating point numbers are the most widely used basic data types in programming
+Julia provides a wide range of concrete, integer and floating point numbers
+Integer types are bool, signed, and unsigned integers where the latter two are abstract types
+The maximum and minimum values of integer and unsigned integer types can be calculated using formulas
+The sizeof function can be used to check the size of a variable
+Numeric values can be separated by underscores for readability purposes
+Conversion functions can be used to convert between types
+Special Symbols in Julia:
+
+Inf represents infinity and can be used in calculations
+NaN stands for a value that is not equal to any floating point number
+It is recommended to check whether the result of a calculation is NaN or infinity using the isnan or isinf functions
+Epsilon values give the distance between one point and the next floating point
+Epsilon values are not the same for all points and get larger for large values
+NaN and Infinity:
+
+Inf represents a value greater than all finite floating point values
+-Inf represents a value less than all finite floating point values
+NaN stands for a value that is not equal to any floating point number
+Division by zero is normally undefined in math, but it's Inf in Julia
+Bool Type:
+
+Bool stands for data that can only get false or true values
+True is the integer 1 and false is the integer 0
+The equal equal operator can be used to check whether true is equal to 1 and false is equal to 0
+
+### 13. Numerical Data Types: Complex and Rational Numbers
+
+Complex numbers are defined as a+bi where a is the real part and bi is the imaginary part.
+In Julia, the imaginary part or square root of -1 is denoted as im.
+We can use the complex function to create a complex number using two real numbers.
+We can use complex numbers in mathematical operations in Julia.
+The conjugate of a complex number a+bi is a-bi.
+Rational data types are defined using the // operator.
+To check whether an object is of a given type, we can use the isa function.
+
+### 14. Character and String Types
+
+In Julia, there are two data types for text variables: char and string.
+Char type represents a single character and is defined using single quotes. String type is defined using double quotes.
+Unicode characters can also be defined as chars.
+Strings are arrays of characters and are one-indexed in Julia.
+Indexing can be done using square brackets and begin/end keywords.
+Substrings can be obtained using the colon operator and intervals.
+Unicode characters may have multiple code units, which affects indexing and length.
+Strings can be concatenated using the string function or the asterisk operator.
+The asterisk operator is used instead of the plus sign for concatenation because addition is commutative while multiplication is not always commutative.
+The power sign can be used to repeat a string multiple times.
+Interpolation using the dollar sign allows variables and operations to be used within a string.
+
+### 15. Primitive Types and Composite Types
+
+Primitive types in Julia are concrete types whose data consists of plain old bits.
+Built-in primitive types in Julia include integers, floating point numbers, bool, and char data types.
+Composite types are user-defined types composed of single fields, defined using the struct keyword.
+Structs are immutable by default, but can be made mutable by adding the word "mutable" in front of struct.
+Constructors are used to create instances of structs.
+Union types are used when a variable can be in either one of a union of data types.
+
+### 16. Parametric Types
+
+Julia has a powerful parametric type system, where types can take parameters using the syntax T.
+This means that data types can be flexible, as long as they have the same type.
+ParRectangle is a type object in Julia, which contains all instances with different data types.
+It is possible to limit the data types a parametric type may have using the <: operator.
+Parametric abstract types can also be defined, and the types T they can have can be limited.
+An example is provided from Julia documentation, where a struct is a subtype of real, and its fields are subtypes of integer.
+A new shape can be defined with four fields, two of them being a subtype of abstract string and the other two being a number type.
+Name and color fields should be of the same type, and x coordinate and y coordinate should also be of the same type.
+
+
 ## Section 8: Modules and Packages
 
 ### 59. Writing and Using Modules
@@ -306,3 +408,46 @@ julia> t("BankSim")
   OR
   ncat localhost 8000
   ```
+
+#### 71. Multi-Threaded Programming
+
+* To start Julia with ```4 threads```.
+  * In the terminal.
+  ```
+  bash> export JULIA_NUM_THREADS=4
+  ```
+
+  * Start Julia.
+  ```
+  bash> julia
+  julia> Threads.nthreads()
+  ```
+  OR
+
+  * Start Julia with 4 threads directly.
+  ```
+  bash> julia --threads 4
+  ```
+
+* Check thread id.
+```
+julia> Threads.threadid()
+```
+
+* You can also edit Julia thread settings in VSCode.
+  * Open Settings: ```Ctrl+Shift+P```.
+  * Search for ```julia.AdditionalArgs```.
+  * Click on ```Edit in settings.json```.
+  * Edit the ```settings.json``` file.
+  ```
+      ...
+      ],
+      "julia.symbolCacheDownload": true,
+      "julia.enableTelemetry": true,
+      "julia.NumThreads": 1,
+      "julia.additionalArgs": [
+
+      ]
+  }
+  ```
+  * To set the maximum number of threads, set the ```julia.NumThreads``` value to ```"auto"```.
