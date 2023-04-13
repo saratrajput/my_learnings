@@ -217,4 +217,8 @@ Determining metrics can be extremely helpful in capturing statuses, successes, d
 - If you are missing any of that information, focus your questions on those elements
 - The initiation phase of the project sets the foundation for the project, so ensuring that you understand the scope and expectations during this stage is essential.
 
-##
+## Monitoring and maintaining a project's scope
+
+## Managing changes to a project's scope
+
+![](triple_constraint_model.png)
