@@ -787,7 +787,6 @@ Pkg.activate(".")
 
 #### Using auto modules:
 
-* Adding the voting directory to Launchpad can fix the package not found error when using modules.
 * Exported functions can be accessed using a dot connector after the module name.
 * Using import accesses contents only after the dot connector.
 * Objects or types in modules can also be accessed using the colon operator after using or import.
