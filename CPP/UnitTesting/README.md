@@ -71,7 +71,7 @@ Assertions can have two possible outcomes, **Success** or **Failure**. In case o
 * Non-fatal failure means that the test continues, even though it has failed.
     * Start with ```EXPECT_*```.
 
-### 22. Assertions on Strings - Wrong Way to Do It
+### 22. Assertions on Strings
 
 * Numbers in hex (0x..) are a hint that we are looking at pointers, not strings.
 
@@ -84,3 +84,45 @@ Assertions can have two possible outcomes, **Success** or **Failure**. In case o
 
 * For C-strings, use ```ASSERT_STREQ(x, y);``` or ```EXPECT_STREQ(x, y);```.
   * They compare the contents, and not the pointers.
+
+* To test that two strings have different contents:
+  ```
+  ASSERT_STRNE(x, y);
+  EXPECT_STRNE(x, y);
+  ```
+
+* Ignore the **case**:
+  ```
+  // Same content, ignore case
+  ASSERT_STRCASEEQ(x, y);
+  EXPECT_STRCASEEQ(x, y);
+  // Different content, ignore case
+  ASSERT_STRCASENE(x, y);
+  EXPECT_STRCASENE(x, y);
+  ```
+
+### 25. Assertions on Exceptions
+
+|Fatal|Non-Fatal|What it Tests|
+|ASSERT_THROW(statement, exception)| EXPECT_THROW(statement, exception)| Throws exception of an **exact type**|
+|ASSERT_ANY_THROW(statement)| EXPECT_ANY_THROW(statement)| Throws an exception of **any** type|
+|ASSERT_NO_THROW(statement)| EXPECT_NO_THROW(statement)| Throws no exception|
+
+### 27. Summary
+
+* Unit tests are useful for regression testing, meaning that when you make a change, they help prevent the introduction of new bugs.
+* Unit tests are short, independent and fast.
+* Unit testing is part of functional testing, i.e. the correctness of the code is checked. Individual functions/methods are usually tested.
+* A unit test is divided into three parts: Arrange(test setup), Act (call the method), Assert(check the result).
+* An assertion is where the test condition is checked. They are fatal (ASSERT) or non-fatal (EXPECT).
+* There are special assertions for strings.
+* Assertions can be used to check if an exception was thrown, or what type of exception was thrown.
+
+## Section 4 - Fixtures: Remove Redundant Code
+
+### 29. Introduction to Test Fixtures
+
+* Test Fixture: It's a class derived from the test class in the testing namespace.
+  * Setup: Overridable function which is called **before** each test.
+  * Teardown: Overridable function which is called **after** each test.
+  * Syntax for tests using test fixture: ```TEST_F(TestSuiteName, Test)```
