@@ -126,3 +126,32 @@ Assertions can have two possible outcomes, **Success** or **Failure**. In case o
   * Setup: Overridable function which is called **before** each test.
   * Teardown: Overridable function which is called **after** each test.
   * Syntax for tests using test fixture: ```TEST_F(TestSuiteName, Test)```
+
+### 35. Summary
+
+* A fixture is useful for removing code duplication.
+* It's used where the setup phase and cleanup phase are similar.
+* It's a class where the test setup is written in the ```SetUp()``` method and the cleanup is in ```TearDown()```.
+* A new fixture is created for each test.
+* Parameterized tests can be used to generate tests that have the same body, but different input values.
+* When you generate a test, the expected output values can be packed together with the input values using complex data structures.
+* Generators can be used to generate input values for the test.
+
+## Section 6 - Google Mock
+
+### 55. Summary
+
+* Mocks can be used to isolate the test.
+* Mocked methods have empty implementations.
+* They can be used to control the behaviour of certain methods like: returning a certain result, calling another method, throwing exceptions.
+* Mocks can be used for collaboration tests. That means you can test that method A called method B, with what parameters, and so on.
+* Matchers can be used for matching parameters. Special matchers are "_" (anything) or the exact value ("Exactly").
+* Other matchers usually found: Gt(greater than), Ge(greater or equal), Lt(lower than), Le(lower or equal).
+* There are special matchers for strings.
+* Matchers can be used in assertions on vectors.
+
+## Section 8 - Conclusion and Suggested Reading
+
+### 60. Suggested Reading
+
+* Test Driven Development with C++ by Abdul Wahid 
