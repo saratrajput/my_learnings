@@ -71,7 +71,7 @@ Assertions can have two possible outcomes, **Success** or **Failure**. In case o
 * Non-fatal failure means that the test continues, even though it has failed.
     * Start with ```EXPECT_*```.
 
-### 22. Assertions on Strings - Wrong Way to Do It
+### 22. Assertions on Strings
 
 * Numbers in hex (0x..) are a hint that we are looking at pointers, not strings.
 
@@ -84,3 +84,74 @@ Assertions can have two possible outcomes, **Success** or **Failure**. In case o
 
 * For C-strings, use ```ASSERT_STREQ(x, y);``` or ```EXPECT_STREQ(x, y);```.
   * They compare the contents, and not the pointers.
+
+* To test that two strings have different contents:
+  ```
+  ASSERT_STRNE(x, y);
+  EXPECT_STRNE(x, y);
+  ```
+
+* Ignore the **case**:
+  ```
+  // Same content, ignore case
+  ASSERT_STRCASEEQ(x, y);
+  EXPECT_STRCASEEQ(x, y);
+  // Different content, ignore case
+  ASSERT_STRCASENE(x, y);
+  EXPECT_STRCASENE(x, y);
+  ```
+
+### 25. Assertions on Exceptions
+
+|Fatal|Non-Fatal|What it Tests|
+|ASSERT_THROW(statement, exception)| EXPECT_THROW(statement, exception)| Throws exception of an **exact type**|
+|ASSERT_ANY_THROW(statement)| EXPECT_ANY_THROW(statement)| Throws an exception of **any** type|
+|ASSERT_NO_THROW(statement)| EXPECT_NO_THROW(statement)| Throws no exception|
+
+### 27. Summary
+
+* Unit tests are useful for regression testing, meaning that when you make a change, they help prevent the introduction of new bugs.
+* Unit tests are short, independent and fast.
+* Unit testing is part of functional testing, i.e. the correctness of the code is checked. Individual functions/methods are usually tested.
+* A unit test is divided into three parts: Arrange(test setup), Act (call the method), Assert(check the result).
+* An assertion is where the test condition is checked. They are fatal (ASSERT) or non-fatal (EXPECT).
+* There are special assertions for strings.
+* Assertions can be used to check if an exception was thrown, or what type of exception was thrown.
+
+## Section 4 - Fixtures: Remove Redundant Code
+
+### 29. Introduction to Test Fixtures
+
+* Test Fixture: It's a class derived from the test class in the testing namespace.
+  * Setup: Overridable function which is called **before** each test.
+  * Teardown: Overridable function which is called **after** each test.
+  * Syntax for tests using test fixture: ```TEST_F(TestSuiteName, Test)```
+
+### 35. Summary
+
+* A fixture is useful for removing code duplication.
+* It's used where the setup phase and cleanup phase are similar.
+* It's a class where the test setup is written in the ```SetUp()``` method and the cleanup is in ```TearDown()```.
+* A new fixture is created for each test.
+* Parameterized tests can be used to generate tests that have the same body, but different input values.
+* When you generate a test, the expected output values can be packed together with the input values using complex data structures.
+* Generators can be used to generate input values for the test.
+
+## Section 6 - Google Mock
+
+### 55. Summary
+
+* Mocks can be used to isolate the test.
+* Mocked methods have empty implementations.
+* They can be used to control the behaviour of certain methods like: returning a certain result, calling another method, throwing exceptions.
+* Mocks can be used for collaboration tests. That means you can test that method A called method B, with what parameters, and so on.
+* Matchers can be used for matching parameters. Special matchers are "_" (anything) or the exact value ("Exactly").
+* Other matchers usually found: Gt(greater than), Ge(greater or equal), Lt(lower than), Le(lower or equal).
+* There are special matchers for strings.
+* Matchers can be used in assertions on vectors.
+
+## Section 8 - Conclusion and Suggested Reading
+
+### 60. Suggested Reading
+
+* Test Driven Development with C++ by Abdul Wahid 
